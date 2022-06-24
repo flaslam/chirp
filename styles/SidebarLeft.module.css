@@ -1,0 +1,21 @@
+.sidebarLeftContainer {
+  display: flex;
+  /* justify-content: right; */
+  /* flex-grow: 1; */
+  /* width: 330px; */
+  /* flex: 1; */
+}
+
+.sidebarLeftContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebarLeftContainer li {
+  padding: 0.5rem 0rem;
+}
+
+.sidebarLeftContainer svg {
+  font-size: 2rem;
+}

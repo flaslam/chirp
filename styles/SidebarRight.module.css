@@ -1,0 +1,8 @@
+.sidebarRightContainer {
+  /* width: 350px; */
+
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-direction: column;
+}

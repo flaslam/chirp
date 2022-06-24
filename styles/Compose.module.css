@@ -1,0 +1,21 @@
+.composeContainer {
+  display: flex;
+  padding: 0.8rem;
+  gap: 0.5rem;
+}
+
+.photoContainer {
+  display: flex;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+.photoContainer img {
+  border-radius: 50%;
+}
+
+.formContainer form input {
+  border: none;
+}

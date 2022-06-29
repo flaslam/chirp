@@ -7,10 +7,10 @@ function ChirpPage() {
   return <div>Chirp page</div>;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch("");
-  const data = await res.json();
-  return { props: Object };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const res = await fetch("");
+//   const data = await res.json();
+//   return { props: Object };
+// };
 
 export default ChirpPage;

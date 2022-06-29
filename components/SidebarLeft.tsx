@@ -9,7 +9,6 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import styled from "@emotion/styled/types/base";
 import Link from "next/link";
@@ -30,31 +29,67 @@ const SidebarLeft = () => {
           </Link>
         </li>
         <li>
-          <HomeOutlinedIcon />
+          <Link href="">
+            <a>
+              <HomeOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <SearchOutlinedIcon />
+          <Link href="">
+            <a>
+              <SearchOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <NotificationsOutlinedIcon />
+          <Link href="">
+            <a>
+              <NotificationsOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <EmailOutlinedIcon />
+          <Link href="">
+            <a>
+              <EmailOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <BookmarkBorderOutlinedIcon />
+          <Link href="">
+            <a>
+              <BookmarkBorderOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <ListAltOutlinedIcon />
+          <Link href="">
+            <a>
+              <ListAltOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <PersonOutlineOutlinedIcon />
+          <Link href="">
+            <a>
+              <PersonOutlineOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <PendingOutlinedIcon />
+          <Link href="">
+            <a>
+              <PendingOutlinedIcon />
+            </a>
+          </Link>
         </li>
         <li>
-          <AddIcon />
+          <Link href="">
+            <a>
+              <AddIcon />
+            </a>
+          </Link>
         </li>
         {/* <li>Home</li>
         <li>Explore</li>

@@ -4,19 +4,33 @@
   /* flex-grow: 1; */
   max-width: 330px;
   /* flex: 1; */
-  padding-right: 1.5rem;
+  padding-right: 1rem;
 }
 
 .sidebarLeftContainer ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  /* padding: 10 0rem; */
 }
 
 .sidebarLeftContainer li {
-  padding: 0.5rem 0rem;
+  margin: 0.6rem 0;
 }
 
 .sidebarLeftContainer svg {
-  font-size: 2rem;
+  font-size: 1.75rem;
+}
+
+.sidebarLeftContainer li {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebarLeftContainer li:hover {
+  background-color: aliceblue;
 }

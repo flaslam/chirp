@@ -31,9 +31,7 @@ export const getPost = async (post: string, user: string) => {
   // const headers = {
   //   Authorization: "Bearer " + token,
   // };
-  const res = await axios.get(`${DB_HOST}/${user}/${post}`);
-
-  console.log(res.data);
+  return await axios.get(`${DB_HOST}/${user}/status/${post}`);
 };
 
 export const uploadFile = async (formData: FormData) => {

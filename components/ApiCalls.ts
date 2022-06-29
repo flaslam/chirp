@@ -1,16 +1,9 @@
-import axios, { responseEncoding } from "axios";
+import axios from "axios";
 import { Chirp } from "../types";
 
 const DB_HOST = String(process.env.NEXT_PUBLIC_DB_HOST);
 
-export const fetchData = async (url: string, token: string) => {
-  const headers = {
-    Authorization: "Bearer " + token,
-  };
-  return await axios.get(url, { headers });
-};
-
-export const fetchAllPosts = async (token: string = "") => {
+export const getAllPosts = async (token: string = "") => {
   const headers = {
     Authorization: "Bearer " + token,
   };
@@ -34,6 +27,15 @@ export const fetchAllPosts = async (token: string = "") => {
   return retrievedPosts;
 };
 
+export const getPost = async (post: string, user: string) => {
+  // const headers = {
+  //   Authorization: "Bearer " + token,
+  // };
+  const res = await axios.get(`${DB_HOST}/${user}/${post}`);
+
+  console.log(res.data);
+};
+
 export const uploadFile = async (formData: FormData) => {
   // console.log(`uploading file ${file}`);
   axios.post(`${DB_HOST}/upload`, formData, {
@@ -43,8 +45,15 @@ export const uploadFile = async (formData: FormData) => {
   });
 };
 
-export const createPost = async () => {
-  //
+export const createPost = async (token: string, message: string) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const body = {
+    message: message,
+  };
+  const res = await axios.post(`${DB_HOST}`, body, config);
+  return await res;
 };
 
 export const createUser = async (formData: FormData) => {
@@ -58,11 +67,9 @@ export const createUser = async (formData: FormData) => {
 };
 
 export const loginUser = async (formData: FormData) => {
-  const res = await axios.post(`${DB_HOST}/login`, formData, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: formData,
+  const res = await axios.post(`${DB_HOST}/login`, {
+    username: formData.get("username"),
+    password: formData.get("password"),
   });
   return await res;
 };

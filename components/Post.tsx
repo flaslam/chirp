@@ -1,5 +1,6 @@
 import { Chirp } from "../types";
 import styles from "../styles/Post.module.css";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
@@ -16,18 +17,25 @@ const Post: React.FC<PostProps> = ({ post }) => {
       <div className={styles.post}>
         <div className={styles.photoContainer}>
           <Image
-            src={post.photo}
+            src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.photo}`}
             alt={post.username}
             layout="fill"
-            objectFit="contain"
+            // objectFit="contain"
             className={styles.photo}
           />
         </div>
         <div className={styles.postContents}>
-          <div>
-            <>
-              <b>{post.displayName}</b> @{post.username} · {post.date}
-            </>
+          <div className={styles.postNameRow}>
+            <div className={styles.postName}>
+              <div>
+                <>
+                  <b>{post.displayName}</b> @{post.username} · {post.date}
+                </>
+              </div>
+            </div>
+            <div className={styles.postMore}>
+              <MoreHorizIcon />
+            </div>
           </div>
           <div>{post.message}</div>
         </div>

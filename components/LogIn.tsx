@@ -1,9 +1,12 @@
 import { Button, TextField } from "@mui/material";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { loginUser } from "./ApiCalls";
 import styles from "../styles/LogIn.module.css";
+import { UserContext } from "./UserContext";
 
 const LogIn = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const [formInputData, setFormInputData] = useState<{
     username: string;
     password: string;
@@ -37,45 +40,35 @@ const LogIn = () => {
   // Handle sending data and the resolving the outcome
   const submitData = async (data: FormData) => {
     const res = await loginUser(data);
+    // TODO: Error handling on above function not set up
+
+    console.log(res.data);
+
     if (res.data.success) {
-      console.log("Successfully created user!");
-      console.log(res);
-
-      // TODO: redirect to homepage and log user in.
-    } else {
-      console.log("Failed to create user.");
-
-      // TODO: Show prompt on screen telling user that something went wrong
-      prompt("Something went wrong.");
-    }
-  };
-
-  const checkValidFileExtension = (file: File): boolean => {
-    // Check file extension using regex
-    var re = /(?:\.([^.]+))?$/;
-    const fileExtension = re.exec(file.name);
-
-    if (fileExtension === null) {
-      console.log("File has no file extension.");
-      return false;
+      // Redirect to homepage
     }
 
-    if (fileExtension.length < 1) {
-      console.log("Failed to determine the file extension.");
-      return false;
-    }
+    // TODO: calculate the time it expires in on storing it, so we can
+    // determine when to set it to localstorage as expires
 
-    if (fileExtension[1] !== ("jpg" || "png")) {
-      console.log("No file of supported format provided.");
-      return false;
-    }
+    // Never returns to this script
 
-    return true;
+    const token = res.data.token;
+
+    // console.log(res.data.token);
+    setUser(token);
+
+    // TODO: set local storage!!!
+    // TODO: change this to be stored as Token
+    localStorage.setItem("token", token);
   };
 
   return (
     <div className={styles.logInContainer}>
       <div>
+        <div>
+          {user === "" ? <>Currently not logged in</> : <>Logged in!</>}
+        </div>
         <h1>Log In</h1>
         <form onSubmit={handleForm}>
           <TextField

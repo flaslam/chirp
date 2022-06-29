@@ -128,6 +128,7 @@ const SignUp = () => {
             label="Display Name"
             onChange={handleChange}
           />
+          <label>Upload profile photo:</label>
           <input type="file" onChange={onFileChange} />
           <Button type="submit">Sign Up</Button>
         </form>

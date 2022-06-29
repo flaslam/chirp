@@ -2,21 +2,13 @@ import Post from "./Post";
 import styles from "../styles/Timeline.module.css";
 import { Chirp } from "../types";
 import { useEffect, useState } from "react";
-import { fetchAllPosts } from "./ApiCalls";
+import { getAllPosts } from "./ApiCalls";
 
-function Timeline() {
-  // Initialise posts with an empty array.
-  const [posts, setPosts] = useState<Chirp[]>([]);
+interface TimelineProps {
+  posts: Chirp[];
+}
 
-  useEffect(() => {
-    // Retrieve data from server
-    const getPosts = async () => {
-      const data: Chirp[] = await fetchAllPosts();
-      setPosts(data);
-    };
-    getPosts();
-  }, []);
-
+const Timeline: React.FC<TimelineProps> = ({ posts }) => {
   return (
     <div>
       {posts.map((post) => {
@@ -24,6 +16,6 @@ function Timeline() {
       })}
     </div>
   );
-}
+};
 
 export default Timeline;

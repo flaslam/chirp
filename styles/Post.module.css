@@ -65,3 +65,62 @@
   display: flex;
   flex-grow: 1;
 }
+
+.postContainer {
+  cursor: pointer;
+
+  transition: 0.1s;
+}
+
+.postContainer:hover {
+  background-color: #f7f7f7;
+  transition: 0.25s;
+}
+
+.displayName {
+  font-weight: bold;
+  color: black;
+}
+
+.displayName:hover {
+  text-decoration: underline;
+}
+
+/* ICONS */
+
+.repliesIconHolder {
+  color: #1d9bf0;
+}
+
+.repliesIconHolder:hover span,
+.repliesIconHolder:hover svg {
+  color: #1d9bf0;
+}
+
+.repostsIconHolder:hover span,
+.repostsIconHolder:hover svg {
+  color: #38c798;
+}
+
+.likesIconHolder:hover span,
+.likesIconHolder:hover svg {
+  color: #f91880;
+}
+
+.sharesIconHolder:hover span,
+.sharesIconHolder:hover svg {
+  color: #1d9bf0;
+}
+
+/* Spacing between icons and count number */
+.postActions > * > span {
+  padding: 0 0.2rem;
+}
+
+.datePosted:hover {
+  text-decoration: underline;
+}
+
+.postNameRow {
+  color: #5d6d79;
+}

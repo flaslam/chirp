@@ -21,14 +21,14 @@ const Main = () => {
     getPosts();
   }, []);
 
-  const addPost = () => {
-    // ok
+  const addPost = (post: Chirp) => {
+    setPosts([post, ...posts]);
   };
 
   return (
     <div className={styles.mainContainer}>
       <Banner />
-      <Compose posts={posts} setPosts={setPosts} />
+      <Compose addPost={addPost} />
       <Timeline posts={posts} />
     </div>
   );

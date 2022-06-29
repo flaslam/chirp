@@ -10,27 +10,52 @@ import { useEffect, useMemo, useState } from "react";
 interface HomeProps {}
 
 const Home: NextPage<HomeProps> = () => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
   // TODO: the context and login functionality need to be linked
   // so we don't individually set local storage and setUser
   useEffect(() => {
-    const checkTokenValidity = async (token: string) => {
+    const checkTokenValidity = (expires: string, iat: number): boolean => {
       // TODO: we need to remove the token if it's past expiry
       // check EXPIRATION is on client side, SO WE NEED TO
       // check and delete session data here after checking expiry
       // time from our login data
       // TODO: implement getExpiration();
       // otherwise logout and redirect to homepage
+
+      // TODO: Check for other values other than 1d
+      let timeLimit = 2000;
+      if (expires === "1d") {
+        timeLimit = 86400000;
+      }
+
+      if (Date.now() - iat < timeLimit) {
+        return true;
+      }
+
+      return false;
     };
 
-    // Check if logged in
-    const token = localStorage.getItem("token");
+    // Check if we have user data in local storage
+    const userData = localStorage.getItem("user");
 
-    if (!token) return;
+    if (!userData) return;
+
+    // Parse our user string to an object
+    const userObj = JSON.parse(userData);
+
+    if (!checkTokenValidity(userObj.expires, userObj.iat)) {
+      localStorage.removeItem("user");
+      setUser(null);
+      return;
+    }
+
+    setUser(userObj);
+
+    // console.log(user);
 
     // Authorise token
-    checkTokenValidity(token);
+    // checkTokenValidity(token);
   }, []);
 
   // Prevent provider value from changing unless value actually changes

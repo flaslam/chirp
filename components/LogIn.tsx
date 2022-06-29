@@ -15,20 +15,20 @@ const LogIn = () => {
     password: "",
   });
 
+  // Updates our formInputData as we type into our input fields
   const handleChange = (event: ChangeEvent) => {
     const input: HTMLInputElement = event.target as HTMLInputElement;
-
-    // console.log(input.id + input.value);
     setFormInputData({ ...formInputData, [input.id]: input.value });
   };
 
+  // On form submit we prepare data to send
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
 
     // Create form data
     const formData = new FormData();
 
-    // Loop through our form input data and append each to formData
+    // Loop through formInputData and append each to formData
     for (let key in formInputData) {
       formData.append(key, formInputData[key as keyof typeof formInputData]);
     }
@@ -37,37 +37,41 @@ const LogIn = () => {
     submitData(formData);
   };
 
-  // Handle sending data and the resolving the outcome
+  // Handle sending data and the resolving the outcome of login attempt
   const submitData = async (data: FormData) => {
     const res = await loginUser(data);
-    // TODO: Error handling on above function not set up
+    // TODO: Error handling on above function not set up- never returns to this script
 
     console.log(res.data);
 
-    if (res.data.success) {
-      // Redirect to homepage
+    if (!res.data.success) {
+      // ERROR
     }
 
-    // TODO: calculate the time it expires in on storing it, so we can
-    // determine when to set it to localstorage as expires
+    // TODO: calculate expiry time on storing user
+    // const token = res.data.token;
+    const userData = res.data.user;
+    userData.token = res.data.token;
+    userData.expires = res.data.expires;
+    userData.iat = res.data.iat;
 
-    // Never returns to this script
+    console.log(userData);
+    // localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
 
-    const token = res.data.token;
-
-    // console.log(res.data.token);
-    setUser(token);
-
-    // TODO: set local storage!!!
-    // TODO: change this to be stored as Token
-    localStorage.setItem("token", token);
+    // Redirect to homepage
   };
 
   return (
     <div className={styles.logInContainer}>
       <div>
         <div>
-          {user === "" ? <>Currently not logged in</> : <>Logged in!</>}
+          {!user ? (
+            <>Currently not logged in</>
+          ) : (
+            <>Logged in as {user.displayName}!</>
+          )}
         </div>
         <h1>Log In</h1>
         <form onSubmit={handleForm}>
@@ -84,6 +88,13 @@ const LogIn = () => {
             onChange={handleChange}
           />
           <Button type="submit">Log In</Button>
+          <Button
+            onClick={() => {
+              console.log(user);
+            }}
+          >
+            check user
+          </Button>
         </form>
       </div>
     </div>

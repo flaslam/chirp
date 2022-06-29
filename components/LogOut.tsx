@@ -5,7 +5,7 @@ import { UserContext } from "./UserContext";
 const LogOut = () => {
   const { user, setUser } = useContext(UserContext);
   const handleLogout = () => {
-    setUser("");
+    setUser(null);
     localStorage.removeItem("user");
 
     // TODO: redirect to homepage.

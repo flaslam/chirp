@@ -2,8 +2,9 @@
   display: flex;
   /* justify-content: right; */
   /* flex-grow: 1; */
-  /* width: 330px; */
+  max-width: 330px;
   /* flex: 1; */
+  padding-right: 1.5rem;
 }
 
 .sidebarLeftContainer ul {

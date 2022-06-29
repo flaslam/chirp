@@ -6,6 +6,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import Image from "next/image";
+import Link from "next/link";
 
 interface PostProps {
   post: Chirp;
@@ -13,48 +14,70 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   return (
-    <div className={styles.postContainer}>
-      <div className={styles.post}>
-        <div className={styles.photoContainer}>
-          <Image
-            src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.photo}`}
-            alt={post.username}
-            layout="fill"
-            // objectFit="contain"
-            className={styles.photo}
-          />
-        </div>
-        <div className={styles.postContents}>
-          <div className={styles.postNameRow}>
-            <div className={styles.postName}>
-              <div>
-                <>
-                  <b>{post.displayName}</b> @{post.username} · {post.date}
-                </>
+    <Link href={`${post.username}/status/${post.id}`}>
+      <div className={styles.postContainer}>
+        <div className={styles.post}>
+          <div className={styles.photoContainer}>
+            <Image
+              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.photo}`}
+              alt={post.username}
+              layout="fill"
+              // objectFit="contain"
+              className={styles.photo}
+            />
+          </div>
+          <div className={styles.postContents}>
+            <div className={styles.postNameRow}>
+              <div className={styles.postName}>
+                <div>
+                  <>
+                    <Link href={`${post.username}`}>
+                      <a>
+                        <span>
+                          <span className={styles.displayName}>
+                            {post.displayName}
+                          </span>{" "}
+                          @{post.username}{" "}
+                        </span>
+                      </a>
+                    </Link>
+                    ·{" "}
+                    <Link href={`${post.username}/status/${post.id}`}>
+                      <a>
+                        <span className={styles.datePosted}>
+                          {post.date.toString()}
+                        </span>
+                      </a>
+                    </Link>
+                  </>
+                </div>
+              </div>
+              <div className={styles.postMore}>
+                <MoreHorizIcon />
               </div>
             </div>
-            <div className={styles.postMore}>
-              <MoreHorizIcon />
-            </div>
+            <div>{post.message}</div>
           </div>
-          <div>{post.message}</div>
+        </div>
+        <div className={styles.postActions}>
+          <div className={styles.repliesIconHolder}>
+            <ChatBubbleOutlineIcon className={styles.repliesIcon} />
+            <span>1</span>
+          </div>
+          <div className={styles.repostsIconHolder}>
+            <AutorenewIcon className={styles.repostsIcon} />
+            <span>3</span>
+          </div>
+          <div className={styles.likesIconHolder}>
+            <FavoriteBorderOutlinedIcon className={styles.likesIcon} />
+            <span>3</span>
+          </div>
+          <div className={styles.sharesIconHolder}>
+            <IosShareIcon className={styles.sharesIcon} />
+          </div>
         </div>
       </div>
-      <div className={styles.postActions}>
-        <div className={styles.iconHolder}>
-          <ChatBubbleOutlineIcon /> 1
-        </div>
-        <div className={styles.iconHolder}>
-          <AutorenewIcon /> 3
-        </div>
-        <div className={styles.iconHolder}>
-          <FavoriteBorderOutlinedIcon /> 2
-        </div>
-        <div className={styles.iconHolder}>
-          <IosShareIcon />
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 };
 

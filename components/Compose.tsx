@@ -1,4 +1,3 @@
-import { PostAddSharp } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import { styled } from "@mui/system";
 import Image from "next/image";
@@ -11,10 +10,9 @@ import {
   useState,
 } from "react";
 import styles from "../styles/Compose.module.css";
-import { createPost, getPost } from "./ApiCalls";
+import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
-import { text } from "node:stream/consumers";
 
 const styledTextField = styled(
   TextField,
@@ -26,33 +24,31 @@ const styledTextField = styled(
 });
 
 interface ComposeProps {
-  setPosts: (posts: Chirp[]) => void;
-  posts: Chirp[];
+  addPost: (post: Chirp) => void;
 }
 
-const Compose: React.FC<ComposeProps> = ({ posts, setPosts }) => {
+const Compose: React.FC<ComposeProps> = ({ addPost }) => {
   const { user } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
   const textRef: RefObject<HTMLInputElement> = useRef(null);
+
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
-
-    // TODO: loading time between post and display
-    // disable input
-
+    // TODO: loading time between post and display, disable input in jsx by checking state disabled={state}
     await submitData();
+
+    // Clear input text
     setInputText("");
-    // textRef = "";
-    console.log(textRef.current!.value);
     textRef.current!.value = "";
-    // console.log(event.target);
   };
 
   const submitData = async () => {
-    const res = await createPost(user, inputText);
+    if (!user) return;
+    const res = await createPost(user.token, inputText);
     console.log(res);
     const post = res.data.post;
 
+    // TODO: DRY - move this to a util that shows the standard format to pull posts from body?
     const newPost: Chirp = {
       id: post.id,
       displayName: post.user.displayName,
@@ -62,7 +58,7 @@ const Compose: React.FC<ComposeProps> = ({ posts, setPosts }) => {
       message: post.message,
     };
 
-    setPosts([newPost, ...posts]);
+    addPost(newPost);
     return;
   };
 
@@ -72,27 +68,31 @@ const Compose: React.FC<ComposeProps> = ({ posts, setPosts }) => {
   };
 
   return (
-    <div className={styles.composeContainer}>
-      <div className={styles.photoContainer}>
-        <Image
-          src={"/av.jpg"}
-          alt="pp"
-          layout="fill"
-          objectFit="contain"
-          className={styles.photo}
-        />
-      </div>
-      <div className={styles.formContainer}>
-        <form onSubmit={handleForm}>
-          <TextField
-            inputRef={textRef}
-            onChange={handleChange}
-            placeholder="What's happening?"
-          />
-          <Button type="submit">Post Chirp</Button>
-        </form>
-      </div>
-    </div>
+    <>
+      {!user ? null : (
+        <div className={styles.composeContainer}>
+          <div className={styles.photoContainer}>
+            <Image
+              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
+              alt="pp"
+              layout="fill"
+              className={styles.photo}
+            />
+          </div>
+          <div className={styles.formContainer}>
+            <form onSubmit={handleForm}>
+              <TextField
+                inputRef={textRef}
+                onChange={handleChange}
+                placeholder="What's happening?"
+                required
+              />
+              <Button type="submit">Post Chirp</Button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

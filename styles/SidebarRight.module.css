@@ -1,5 +1,6 @@
 .sidebarRightContainer {
-  /* width: 350px; */
+  /* width: 200px; */
+  max-width: 350px;
 
   display: flex;
   justify-content: left;

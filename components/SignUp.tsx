@@ -31,9 +31,6 @@ const SignUp = () => {
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
 
-    // console.log(event);
-    // console.log(event.target[0].value);
-
     if (!selectedFile) {
       console.log("No file selected.");
       return;
@@ -97,8 +94,10 @@ const SignUp = () => {
       return false;
     }
 
-    if (fileExtension[1] !== ("jpg" || "png")) {
-      console.log("No file of supported format provided.");
+    if (fileExtension[1] !== ("jpg" && "png")) {
+      console.log(
+        "No file of supported format provided. Received " + fileExtension[1]
+      );
       return false;
     }
 

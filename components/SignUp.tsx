@@ -31,23 +31,6 @@ const SignUp = () => {
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
 
-    if (!selectedFile) {
-      console.log("No file selected.");
-      return;
-    }
-
-    const fileToUpload = selectedFile;
-    if (!checkValidFileExtension(fileToUpload)) return;
-
-    // Size limitations
-    const filesizeLimit = 1024 * 1024 * 1; // 1MB
-    if (fileToUpload.size > filesizeLimit) {
-      console.log(
-        `File size is too big. Must be under ${filesizeLimit} bytes.`
-      );
-      return;
-    }
-
     // Create form data
     const formData = new FormData();
 
@@ -56,8 +39,21 @@ const SignUp = () => {
       formData.append(key, formInputData[key as keyof typeof formInputData]);
     }
 
-    // Add our photo file to the form data
-    formData.append("photo", fileToUpload);
+    if (selectedFile) {
+      const fileToUpload = selectedFile;
+      if (!checkValidFileExtension(fileToUpload)) return;
+
+      // Size limitations
+      const filesizeLimit = 1024 * 1024 * 1; // 1MB
+      if (fileToUpload.size > filesizeLimit) {
+        console.log(
+          `File size is too big. Must be under ${filesizeLimit} bytes.`
+        );
+        return;
+      }
+      // Add our photo file to the form data
+      formData.append("photo", fileToUpload);
+    }
 
     // Send form data to server
     submitData(formData);

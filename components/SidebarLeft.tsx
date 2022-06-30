@@ -19,78 +19,78 @@ const SidebarLeft = () => {
   return (
     <div className={styles.sidebarLeftContainer}>
       <ul>
-        <li>
-          <Link href="/" passHref>
-            <a>
+        <Link href="/" passHref>
+          <a>
+            <li>
               <div>
-                <TwitterIcon />
+                <TwitterIcon style={{ color: "#1d9bf0" }} />
               </div>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <HomeOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <SearchOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <NotificationsOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <EmailOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <BookmarkBorderOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <ListAltOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <PersonOutlineOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <PendingOutlinedIcon />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a>
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
               <AddIcon />
-            </a>
-          </Link>
-        </li>
+            </li>
+          </a>
+        </Link>
         {/* <li>Home</li>
         <li>Explore</li>
         <li>Notifications</li>

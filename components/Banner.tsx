@@ -6,7 +6,7 @@ const Banner = () => {
     <div>
       <div className={styles.bannerContainer}>
         <div className={styles.bannerHeader}>
-          <h2>Latest Chirps</h2>
+          <h3>Latest Chirps</h3>
         </div>
         <div className={styles.iconContainer}>
           <AutoAwesomeIconOutlined />

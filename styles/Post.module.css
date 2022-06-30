@@ -8,7 +8,11 @@
 .postActions {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 4rem 0rem 4rem;
+  padding: 1rem 3rem 0rem 3rem;
+}
+
+.postActions > div {
+  padding: 0 0.5rem;
 }
 
 .postActions svg {

@@ -14,20 +14,11 @@ import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
 
-const styledTextField = styled(
-  TextField,
-  {}
-)({
-  color: "#f9kodk",
-  backgroundColor: "silver",
-  margin: "auto",
-});
-
-interface ComposeProps {
-  addPost: (post: Chirp) => void;
+interface ReplyProps {
+  originalPost: string;
 }
 
-const Compose: React.FC<ComposeProps> = ({ addPost }) => {
+const Reply: React.FC<ReplyProps> = ({ originalPost }) => {
   const { user } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
   const textRef: RefObject<HTMLInputElement> = useRef(null);
@@ -44,7 +35,8 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
 
   const submitData = async () => {
     if (!user) return;
-    const res = await createPost(user.token, inputText);
+    const parentId = originalPost as string;
+    const res = await createPost(user.token, inputText, parentId);
     console.log(res);
     const post = res.data.post;
 
@@ -56,9 +48,10 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
       photo: post.user.photo,
       date: post.dateFormatted,
       message: post.message,
+      parent: originalPost,
     };
 
-    addPost(newPost);
+    // addPost(newPost);
     return;
   };
 
@@ -92,7 +85,7 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                 />
               </div>
               <div className={styles.buttonHolder}>
-                <Button type="submit">Post</Button>
+                <Button type="submit">Reply</Button>
               </div>
             </form>
           </div>
@@ -102,4 +95,4 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
   );
 };
 
-export default Compose;
+export default Reply;

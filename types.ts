@@ -9,7 +9,7 @@ export interface Chirp {
   replies?: Chirp[];
   reposts?: Chirp[];
   likes?: User[];
-  parent?: string;
+  parent?: Chirp;
 }
 
 export interface User {

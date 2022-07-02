@@ -78,7 +78,7 @@ const Reply: React.FC<ReplyProps> = ({ originalPost }) => {
                 <TextField
                   inputRef={textRef}
                   onChange={handleChange}
-                  placeholder="What's happening?"
+                  placeholder="Post a reply"
                   // style={{ width: "100%" }}
                   className={styles.textField}
                   required

@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { UserContext } from "../components/UserContext";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(null);
@@ -53,12 +54,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     // checkTokenValidity(token);
   }, []);
 
+  // Router key in app component allows paths to work when using router query
+  const router = useRouter();
+
   // Prevent provider value from changing unless value actually changes
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   return (
     <UserContext.Provider value={value}>
       <Layout>
-        <Component {...pageProps} />
+        <Component {...pageProps} key={router.asPath} />
       </Layout>
     </UserContext.Provider>
   );

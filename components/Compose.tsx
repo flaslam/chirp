@@ -1,5 +1,4 @@
-import { Button, TextField } from "@mui/material";
-import { styled } from "@mui/system";
+import { Button, TextareaAutosize, TextField } from "@mui/material";
 import Image from "next/image";
 import {
   ChangeEvent,
@@ -13,15 +12,6 @@ import styles from "../styles/Compose.module.css";
 import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
-
-const styledTextField = styled(
-  TextField,
-  {}
-)({
-  color: "#f9kodk",
-  backgroundColor: "silver",
-  margin: "auto",
-});
 
 interface ComposeProps {
   addPost: (post: Chirp) => void;
@@ -86,9 +76,11 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                   inputRef={textRef}
                   onChange={handleChange}
                   placeholder="What's happening?"
+                  variant="standard"
                   // style={{ width: "100%" }}
                   className={styles.textField}
                   required
+                  multiline
                 />
               </div>
               <div className={styles.buttonHolder}>

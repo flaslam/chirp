@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["localhost", "https://chirp-backend-flaslam.herokuapp.com"],
+    domains: ["localhost", "chirp-backend-flaslam.herokuapp.com"],
   },
 };
 

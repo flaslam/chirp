@@ -8,6 +8,8 @@ import IosShareIcon from "@mui/icons-material/IosShare";
 import Image from "next/image";
 import Link from "next/link";
 import PostActions from "./PostActions";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "./UserContext";
 
 interface PostMainProps {
   post: Chirp;
@@ -15,6 +17,17 @@ interface PostMainProps {
 
 // TODO: post should have its own state because we need to update like counter
 const PostMain: React.FC<PostMainProps> = ({ post }) => {
+  const { user } = useContext(UserContext);
+
+  const [liked, setLiked] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Check if liked posts contains this user
+    if (post.likes?.includes(user._id)) {
+      setLiked(true);
+    }
+  }, []);
+
   return (
     <div className={styles.postContainer}>
       <div className={styles.post}>
@@ -94,7 +107,7 @@ const PostMain: React.FC<PostMainProps> = ({ post }) => {
           </div>
         </div>
       </div>
-      <PostActions post={post} />
+      <PostActions post={post} liked={liked} setLiked={setLiked} />
     </div>
   );
 };

@@ -5,14 +5,16 @@ import SidebarLeft from "../components/SidebarLeft";
 import SidebarRight from "../components/SidebarRight";
 import styles from "../styles/Home.module.css";
 import { UserContext } from "../components/UserContext";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 interface HomeProps {}
 
 const Home: NextPage<HomeProps> = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
-      <Main />
+      <Main user={user} />
     </div>
   );
 };

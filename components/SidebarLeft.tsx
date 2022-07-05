@@ -1,5 +1,4 @@
 import styles from "../styles/SidebarLeft.module.css";
-import { Button } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/Search";
@@ -10,12 +9,13 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import styled from "@emotion/styled/types/base";
 import Link from "next/link";
 
-// const sideBarButton = styled(Button)<Button
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 const SidebarLeft = () => {
+  const { user } = useContext(UserContext);
   return (
     <div className={styles.sidebarLeftContainer}>
       <ul>
@@ -70,13 +70,15 @@ const SidebarLeft = () => {
             </li>
           </a>
         </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <PersonOutlineOutlinedIcon />
-            </li>
-          </a>
-        </Link>
+        {!user ? null : (
+          <Link href={user.username}>
+            <a>
+              <li>
+                <PersonOutlineOutlinedIcon />
+              </li>
+            </a>
+          </Link>
+        )}
         <Link href="/">
           <a>
             <li>

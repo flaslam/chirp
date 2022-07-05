@@ -90,7 +90,9 @@ const SignUp = () => {
       return false;
     }
 
-    if (fileExtension[1] !== ("jpg" && "png")) {
+    const allowedExtensions = ["jpg", "png", "gif"];
+
+    if (allowedExtensions.indexOf(fileExtension[1])) {
       console.log(
         "No file of supported format provided. Received " + fileExtension[1]
       );

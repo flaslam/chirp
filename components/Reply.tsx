@@ -13,12 +13,14 @@ import styles from "../styles/Compose.module.css";
 import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
+import { postToChirp } from "../utils";
 
 interface ReplyProps {
   originalPost: string;
+  addReply: (newReply: Chirp) => void;
 }
 
-const Reply: React.FC<ReplyProps> = ({ originalPost }) => {
+const Reply: React.FC<ReplyProps> = ({ originalPost, addReply }) => {
   const { user } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
   const textRef: RefObject<HTMLInputElement> = useRef(null);
@@ -37,21 +39,11 @@ const Reply: React.FC<ReplyProps> = ({ originalPost }) => {
     if (!user) return;
     const parentId = originalPost as string;
     const res = await createPost(user.token, inputText, parentId);
-    console.log(res);
     const post = res.data.post;
 
-    // TODO: DRY - move this to a util that shows the standard format to pull posts from body?
-    const newPost: Chirp = {
-      id: post.id,
-      displayName: post.user.displayName,
-      username: post.user.username,
-      photo: post.user.photo,
-      date: post.dateFormatted,
-      message: post.message,
-      parent: originalPost,
-    };
+    const newPost = postToChirp(post);
 
-    // addPost(newPost);
+    addReply(newPost);
     return;
   };
 

@@ -12,6 +12,7 @@ import styles from "../styles/Compose.module.css";
 import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
+import { postToChirp } from "../utils";
 
 interface ComposeProps {
   addPost: (post: Chirp) => void;
@@ -35,18 +36,8 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
   const submitData = async () => {
     if (!user) return;
     const res = await createPost(user.token, inputText);
-    console.log(res);
     const post = res.data.post;
-
-    // TODO: DRY - move this to a util that shows the standard format to pull posts from body?
-    const newPost: Chirp = {
-      id: post.id,
-      displayName: post.user.displayName,
-      username: post.user.username,
-      photo: post.user.photo,
-      date: post.dateFormatted,
-      message: post.message,
-    };
+    const newPost = postToChirp(post);
 
     addPost(newPost);
     return;

@@ -7,11 +7,13 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import Image from "next/image";
 import Link from "next/link";
+import PostActions from "./PostActions";
 
 interface PostMainProps {
   post: Chirp;
 }
 
+// TODO: post should have its own state because we need to update like counter
 const PostMain: React.FC<PostMainProps> = ({ post }) => {
   return (
     <div className={styles.postContainer}>
@@ -37,12 +39,14 @@ const PostMain: React.FC<PostMainProps> = ({ post }) => {
                 <>
                   <Link href={`/${post.username}`}>
                     <a>
-                      <span>
+                      <div>
                         <span className={styles.displayName}>
                           {post.displayName}
-                        </span>{" "}
-                        @{post.username}
-                      </span>
+                        </span>
+                      </div>
+                      <div>
+                        <span>@{post.username}</span>
+                      </div>
                     </a>
                   </Link>
                 </>
@@ -54,41 +58,43 @@ const PostMain: React.FC<PostMainProps> = ({ post }) => {
           </div>
         </div>
       </div>
-      <div>{post.message}</div>
-      <Link href={`/${post.username}/status/${post.id}`}>
-        <a>
-          <span className={styles.datePosted}>{post.date.toString()}</span>
-        </a>
-      </Link>
-      <div className={styles.postActions}>
-        <div className={styles.repliesIconHolder}>
-          <ChatBubbleOutlineIcon className={styles.repliesIcon} />
-          <span>
-            {post.replies ? (
-              <>{post.replies.length > 0 ? <>{post.replies.length}</> : null}</>
-            ) : null}
-          </span>
-        </div>
-        <div className={styles.repostsIconHolder}>
-          <AutorenewIcon className={styles.repostsIcon} />
-          <span>
+      <div>
+        <p className={styles.messageMain}>{post.message}</p>
+      </div>
+
+      <div>
+        <span>
+          <>
+            Time ·{" "}
+            <Link href={`/${post.username}/status/${post.id}`}>
+              <a>
+                <span className={styles.datePosted}>
+                  {post.date.toString()}
+                </span>
+              </a>
+            </Link>
+          </>
+        </span>
+        <div>
+          <div>
             {post.reposts ? (
-              <>{post.reposts.length > 0 ? <>{post.reposts.length}</> : null}</>
+              <>
+                {post.reposts.length}{" "}
+                {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
+              </>
             ) : null}
-          </span>
-        </div>
-        <div className={styles.likesIconHolder}>
-          <FavoriteBorderOutlinedIcon className={styles.likesIcon} />
-          <span>
+          </div>
+          <div>
             {post.likes ? (
-              <>{post.likes.length > 0 ? <>{post.likes.length}</> : null}</>
+              <>
+                {post.likes.length}{" "}
+                {post.likes.length > 1 ? <>Likes</> : <>Like</>}
+              </>
             ) : null}
-          </span>
-        </div>
-        <div className={styles.sharesIconHolder}>
-          <IosShareIcon className={styles.sharesIcon} />
+          </div>
         </div>
       </div>
+      <PostActions post={post} />
     </div>
   );
 };

@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       // TODO: Check for other values other than 1d
       let timeLimit = 2000;
       if (expires === "1d") {
+        // 1 day in ms
         timeLimit = 86400000;
       }
 
@@ -41,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const userObj = JSON.parse(userData);
 
     if (!checkTokenValidity(userObj.expires, userObj.iat)) {
+      // Use logout function which is stored in one place for this
       localStorage.removeItem("user");
       setUser(null);
       return;

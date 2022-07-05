@@ -1,5 +1,5 @@
 export interface Chirp {
-  id: number;
+  id: string;
   username: string;
   displayName: string;
   photo: string;
@@ -13,5 +13,16 @@ export interface Chirp {
 }
 
 export interface User {
-  //
+  username: string;
+  displayName: string;
+  photo: string;
+  joinDate: string;
+
+  followers: User[];
+  following: User[];
+
+  header?: string;
+  bio?: string;
+  location?: string;
+  url?: string;
 }

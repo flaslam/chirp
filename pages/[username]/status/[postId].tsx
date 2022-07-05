@@ -22,7 +22,23 @@ const SinglePost: React.FC = () => {
 
     if (!router.isReady) return;
     fetchData();
-  }, [router.isReady]);
+  }, [router.isReady, username, postId]);
+
+  const addReply = (newReply: Chirp) => {
+    if (!post) return;
+
+    // Need to create new object to force re-render when changing array value
+    const postToAdd: Chirp = { ...post };
+
+    if (postToAdd) {
+      // Create replies array if we don't have any yet
+      if (!postToAdd.replies) postToAdd.replies = [];
+
+      postToAdd.replies.push(newReply);
+    }
+
+    setPost(postToAdd);
+  };
 
   return (
     <div>
@@ -31,28 +47,24 @@ const SinglePost: React.FC = () => {
         <div>
           <div>
             {post.parent ? (
-              <>
-                {/* parent: we got one */}
-                {/* {console.log(post.parent)} */}
+              <div>
                 <Post post={post.parent} />
                 Replying to ^
-              </>
+              </div>
             ) : null}
           </div>
           <PostMain post={post} />
           <div>
-            <Reply originalPost={router.query.postId as string} />
+            <Reply
+              originalPost={router.query.postId as string}
+              addReply={addReply}
+            />
           </div>
           <div>
             {post.replies ? (
               <>
                 {post.replies.map((reply) => {
-                  return (
-                    <>
-                      <Post key={reply.id} post={reply} />
-                      {/* {console.log(reply)} */}
-                    </>
-                  );
+                  return <Post key={reply.id} post={reply} />;
                 })}
               </>
             ) : null}

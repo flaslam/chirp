@@ -111,6 +111,15 @@
   color: #f91880;
 }
 
+.likesIconHolderFilled span,
+.likesIconHolderFilled svg {
+  color: #f91880;
+}
+
+.likesIconFilled svg {
+  fill: #f91880;
+}
+
 .sharesIconHolder:hover span,
 .sharesIconHolder:hover svg {
   color: #1d9bf0;
@@ -127,4 +136,13 @@
 
 .postNameRow {
   color: #5d6d79;
+}
+
+.messageMain {
+  font-size: 1.4rem;
+}
+
+/* This makes our spacing even even if there are no stats */
+.postActions span {
+  min-width: 1rem;
 }

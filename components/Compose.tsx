@@ -1,24 +1,28 @@
-import { Button, TextareaAutosize, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Image from "next/image";
 import {
   ChangeEvent,
   FormEvent,
   RefObject,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
 import styles from "../styles/Compose.module.css";
 import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
-import { Chirp } from "../types";
+import { Chirp, ComposeType } from "../types";
 import { postToChirp } from "../utils";
+import { StandardButton } from "./Styled/Buttons";
 
 interface ComposeProps {
   addPost: (post: Chirp) => void;
 }
 
 const Compose: React.FC<ComposeProps> = ({ addPost }) => {
+  const [postDisabled, setPostDisabled] = useState<boolean>(true);
+
   const { user } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
   const textRef: RefObject<HTMLInputElement> = useRef(null);
@@ -48,6 +52,16 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
     setInputText(input.value);
   };
 
+  useEffect(() => {
+    //
+    if (inputText.length > 0) {
+      setPostDisabled(false);
+      return;
+    }
+
+    setPostDisabled(true);
+  }, [inputText]);
+
   return (
     <>
       {!user ? null : (
@@ -75,7 +89,7 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                 />
               </div>
               <div className={styles.buttonHolder}>
-                <Button type="submit">Post</Button>
+                <StandardButton disabled={postDisabled}>Post</StandardButton>
               </div>
             </form>
           </div>

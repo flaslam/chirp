@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useContext } from "react";
+import { BlueLargeButton } from "./Styled/Buttons";
 import { UserContext } from "./UserContext";
 
 const LogOut = () => {
@@ -10,7 +11,7 @@ const LogOut = () => {
 
     // TODO: redirect to homepage.
   };
-  return <Button onClick={handleLogout}>Log Out</Button>;
+  return <BlueLargeButton onClick={handleLogout}>Log Out</BlueLargeButton>;
 };
 
 export default LogOut;

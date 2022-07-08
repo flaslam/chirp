@@ -1,9 +1,14 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { createUser } from "./ApiCalls";
 import styles from "../styles/SignUp.module.css";
+import { BlueLargeButton } from "./Styled/Buttons";
 
-const SignUp = () => {
+interface SignUpProps {
+  setOpenSignUpDialog(status: boolean): void;
+}
+
+const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
   const [selectedFile, setSelectedFile] = useState<File>();
   const [formInputData, setFormInputData] = useState<{
     username: string;
@@ -61,18 +66,20 @@ const SignUp = () => {
 
   // Handle sending data and the resolving the outcome
   const submitData = async (data: FormData) => {
-    const res = await createUser(data);
-    if (res.data.success) {
-      console.log("Successfully created user!");
-      console.log(res);
+    let res;
 
-      // TODO: redirect to homepage and log user in.
-    } else {
-      console.log("Failed to create user.");
-
-      // TODO: Show prompt on screen telling user that something went wrong
-      prompt("Something went wrong.");
+    try {
+      res = await createUser(data);
+    } catch (error) {
+      alert(
+        `User "${formInputData.username}" already exists. Try a different username.`
+      );
+      return;
     }
+
+    // TODO: auto log-in user
+    alert("User created successfully! Please sign in.");
+    setOpenSignUpDialog(false);
   };
 
   const checkValidFileExtension = (file: File): boolean => {
@@ -127,7 +134,7 @@ const SignUp = () => {
           />
           <label>Upload profile photo:</label>
           <input type="file" onChange={onFileChange} />
-          <Button type="submit">Sign Up</Button>
+          <BlueLargeButton type="submit">Sign Up</BlueLargeButton>
         </form>
       </div>
     </div>

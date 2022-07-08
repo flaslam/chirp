@@ -1,5 +1,4 @@
-import { Button, TextField } from "@mui/material";
-import { styled } from "@mui/system";
+import { TextField } from "@mui/material";
 import Image from "next/image";
 import {
   ChangeEvent,
@@ -14,6 +13,7 @@ import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { Chirp } from "../types";
 import { postToChirp } from "../utils";
+import { StandardButton } from "./Styled/Buttons";
 
 interface ReplyProps {
   originalPost: string;
@@ -77,7 +77,7 @@ const Reply: React.FC<ReplyProps> = ({ originalPost, addReply }) => {
                 />
               </div>
               <div className={styles.buttonHolder}>
-                <Button type="submit">Reply</Button>
+                <StandardButton type="submit">Reply</StandardButton>
               </div>
             </form>
           </div>

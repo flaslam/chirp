@@ -31,3 +31,8 @@ export enum PostDisplayType {
   Main,
   Timeline,
 }
+
+export enum ComposeType {
+  Post,
+  Reply,
+}

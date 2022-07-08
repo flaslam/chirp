@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { followUser } from "./ApiCalls";
 import styles from "../styles/Profile.module.css";
+import { WhiteButton } from "./Styled/Buttons";
 
 interface ProfileProps {
   // TODO: define user objects
@@ -66,7 +67,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
             </div>
           ) : (
             <div>
-              <Button>Edit profile</Button>
+              <WhiteButton>Edit profile</WhiteButton>
             </div>
           )}
         </div>

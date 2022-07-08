@@ -47,12 +47,12 @@ const SinglePost: React.FC = () => {
           <div>
             {post.parent ? (
               <div>
-                <Post post={post.parent} />
+                <Post post={post.parent} postType={PostDisplayType.Timeline} />
                 Replying to ^
               </div>
             ) : null}
           </div>
-          <Post post={post} />
+          <Post post={post} postType={PostDisplayType.Main} />
           <div>
             <Reply
               originalPost={router.query.postId as string}

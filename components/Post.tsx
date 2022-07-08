@@ -9,7 +9,7 @@ import { UserContext } from "./UserContext";
 
 interface PostProps {
   post: Chirp;
-  postType?: PostDisplayType;
+  postType: PostDisplayType;
 }
 
 // TODO: post should have its own state because we need to update like counter
@@ -24,6 +24,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     if (post.likes?.includes(user._id)) {
       setLiked(true);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const PostTimeline = () => {
@@ -170,9 +172,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
   };
 
   return (
-    <>
-      {postType === PostDisplayType.Timeline ? <PostTimeline /> : <PostMain />}
-    </>
+    <>{postType === PostDisplayType.Main ? <PostMain /> : <PostTimeline />}</>
   );
 };
 

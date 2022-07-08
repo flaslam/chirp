@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getPost } from "../../../components/ApiCalls";
-import { Chirp } from "../../../types";
+import { Chirp, PostDisplayType } from "../../../types";
 import Post from "../../../components/Post";
 import Reply from "../../../components/Reply";
-import PostMain from "../../../components/PostMain";
 import Back from "../../../components/Back";
 
 const SinglePost: React.FC = () => {
@@ -53,7 +52,7 @@ const SinglePost: React.FC = () => {
               </div>
             ) : null}
           </div>
-          <PostMain post={post} />
+          <Post post={post} />
           <div>
             <Reply
               originalPost={router.query.postId as string}
@@ -64,7 +63,13 @@ const SinglePost: React.FC = () => {
             {post.replies ? (
               <>
                 {post.replies.map((reply) => {
-                  return <Post key={reply.id} post={reply} />;
+                  return (
+                    <Post
+                      key={reply.id}
+                      post={reply}
+                      postType={PostDisplayType.Timeline}
+                    />
+                  );
                 })}
               </>
             ) : null}

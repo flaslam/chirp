@@ -26,3 +26,8 @@ export interface User {
   location?: string;
   url?: string;
 }
+
+export enum PostDisplayType {
+  Main,
+  Timeline,
+}

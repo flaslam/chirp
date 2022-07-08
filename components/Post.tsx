@@ -18,6 +18,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const [liked, setLiked] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!user) return;
+
     // Check if liked posts contains this user
     if (post.likes?.includes(user._id)) {
       setLiked(true);

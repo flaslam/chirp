@@ -20,13 +20,16 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   // On component mount: check if liked posts contains this user
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setLiked(false);
+      return;
+    }
     if (post.likes?.includes(user._id)) {
       setLiked(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const PostTimeline = () => {
     return (

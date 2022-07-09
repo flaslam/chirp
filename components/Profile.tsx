@@ -1,9 +1,10 @@
-import { Button } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { followUser } from "./ApiCalls";
 import styles from "../styles/Profile.module.css";
 import { WhiteButton } from "./Styled/Buttons";
+import EditProfile from "./EditProfile";
 
 interface ProfileProps {
   // TODO: define user objects
@@ -19,11 +20,15 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
   } else {
     isUser = false;
   }
+  // user ? (isUser = userData.username === user.username) : (isUser = false);
 
   const [following, setFollowing] = useState<boolean>(false);
+  const [openEditProfileDialog, setOpenEditProfileDialog] =
+    useState<boolean>(false);
 
+  // On component mount
   useEffect(() => {
-    // Check if following and set following accordingly
+    // Check if following user and set following accordingly
   }, []);
 
   const handleClickFollow = async () => {
@@ -68,6 +73,14 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
           ) : (
             <div>
               <WhiteButton>Edit profile</WhiteButton>
+              <Dialog
+                open={openEditProfileDialog}
+                onClose={() => setOpenEditProfileDialog(false)}
+              >
+                <EditProfile
+                  setOpenEditProfileDialog={setOpenEditProfileDialog}
+                />
+              </Dialog>
             </div>
           )}
         </div>

@@ -6,6 +6,7 @@ import { BlueLargeButton } from "./Styled/Buttons";
 import { useContext, useState } from "react";
 import { Dialog } from "@mui/material";
 import { UserContext } from "./UserContext";
+import { CustomDialog } from "./Styled/Dialog";
 
 const SidebarRight = () => {
   const { user } = useContext(UserContext);

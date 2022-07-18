@@ -29,9 +29,7 @@ export const getAllPosts = async (token: string = "") => {
 export const getPost = async (post: string, user: string) => {
   const res = await axios.get(`${DB_HOST}/${user}/status/${post}`);
   const postData = await res.data.post;
-
   const retrievedPost: Chirp = populateData(postData);
-
   return retrievedPost;
 };
 
@@ -69,6 +67,7 @@ export const createUser = async (formData: FormData) => {
     },
     data: formData,
   });
+
   return await res;
 };
 
@@ -123,7 +122,3 @@ export const likePost = async (
   };
   return await axios.patch(`${DB_HOST}/${author}/status/${post}/like`, body);
 };
-
-// export const getFollowingStatus = async (username: string, userToCheck: string) => {
-//   return await axios.get(`${DB_HOST}/${userToFollow}/follow`)
-// }

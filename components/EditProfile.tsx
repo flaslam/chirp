@@ -7,7 +7,11 @@ interface EditProfileProps {
 const EditProfile: React.FC<EditProfileProps> = ({
   setOpenEditProfileDialog,
 }) => {
-  return <div onClick={() => setOpenEditProfileDialog(true)}>EditProfile</div>;
+  return (
+    <div onClick={() => setOpenEditProfileDialog(false)}>
+      EditPtestsetsrofile
+    </div>
+  );
 };
 
 export default EditProfile;

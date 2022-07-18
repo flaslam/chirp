@@ -31,6 +31,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  // console.log(post);
   const PostTimeline = () => {
     return (
       <Link href={`/${post.username}/status/${post.id}`}>

@@ -8,7 +8,7 @@ export interface Chirp {
   // media: [{type: string, url: string}] // make type enum?
   replies?: Chirp[];
   reposts?: Chirp[];
-  likes?: User[];
+  likes?: User[] | string[];
   parent?: Chirp;
 }
 

@@ -5,7 +5,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import IosShareIcon from "@mui/icons-material/IosShare";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "./UserContext";
 import { likePost } from "./ApiCalls";
 
@@ -20,6 +20,8 @@ interface PostActionsProps {
 const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
   const { user } = useContext(UserContext);
 
+  const [likes, setLikes] = useState<Chirp["likes"]>(post.likes);
+
   const handleLike = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -32,10 +34,20 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
     const res = await likePost(user.username, post.id, post.username, !liked);
     console.log(res);
 
+    // TODO: set post like count increase properly
+    if (likes != undefined) {
+      if (!liked) {
+        // setLikes(likes.push(likes[likes.length]));
+        // Array filter
+      } else {
+        // setLikes(likes.pop());
+      }
+    }
+
+    console.log(likes);
+
     // Set liked
     setLiked(!liked);
-
-    // TODO: set post like count increase.
   };
 
   const handleShare = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -78,6 +90,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
         </span>
       </div>
 
+      {/* TODO: repetitive code */}
       {liked ? (
         <div className={styles.likesIconHolderFilled} onClick={handleLike}>
           <FavoriteIcon
@@ -87,8 +100,8 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
           <span>
             {!showStats ? null : (
               <>
-                {post.likes ? (
-                  <>{post.likes.length > 0 ? <>{post.likes.length}</> : null}</>
+                {likes ? (
+                  <>{likes.length > 0 ? <>{likes.length}</> : null}</>
                 ) : null}
               </>
             )}
@@ -98,8 +111,8 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
         <div className={styles.likesIconHolder} onClick={handleLike}>
           <FavoriteBorderOutlinedIcon className={styles.likesIcon} />
           <span>
-            {post.likes ? (
-              <>{post.likes.length > 0 ? <>{post.likes.length}</> : null}</>
+            {likes ? (
+              <>{likes.length > 0 ? <>{likes.length}</> : null}</>
             ) : null}
           </span>
         </div>

@@ -65,23 +65,27 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
         </div>
 
         <div>
-          {!isUser ? (
-            <div>
-              <Button onClick={handleClickFollow}>Follow User</Button>
-              <Button onClick={handleClickFollow}>Unfollow User</Button>
-            </div>
-          ) : (
-            <div>
-              <WhiteButton>Edit profile</WhiteButton>
-              <Dialog
-                open={openEditProfileDialog}
-                onClose={() => setOpenEditProfileDialog(false)}
-              >
-                <EditProfile
-                  setOpenEditProfileDialog={setOpenEditProfileDialog}
-                />
-              </Dialog>
-            </div>
+          {!user ? null : (
+            <>
+              {!isUser ? (
+                <div>
+                  <Button onClick={handleClickFollow}>Follow User</Button>
+                  <Button onClick={handleClickFollow}>Unfollow User</Button>
+                </div>
+              ) : (
+                <div>
+                  <WhiteButton>Edit profile</WhiteButton>
+                  <Dialog
+                    open={openEditProfileDialog}
+                    onClose={() => setOpenEditProfileDialog(false)}
+                  >
+                    <EditProfile
+                      setOpenEditProfileDialog={setOpenEditProfileDialog}
+                    />
+                  </Dialog>
+                </div>
+              )}
+            </>
           )}
         </div>
 

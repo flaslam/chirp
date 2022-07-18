@@ -20,10 +20,10 @@ export const StandardButton = styled.button`
     transition: 0.25s;
   }
   &:focus {
-    background-color: #1a8cd8;
+    background-color: #1a8cd8 !important;
   }
   &:disabled {
-    background-color: #8ecdf7;
+    background-color: #8ecdf7 !important;
   }
 `;
 
@@ -49,10 +49,10 @@ export const WhiteButton = styled(StandardButton)`
   border: 1px solid #dee2e5;
   outline: 1px;
   &:hover {
-    background-color: ${grey};
+    background-color: ${grey} !important;
   }
   &:focus {
-    background-color: ${grey};
+    background-color: ${grey} !important;
   }
 `;
 

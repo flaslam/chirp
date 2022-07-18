@@ -92,7 +92,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   const PostMain = () => {
     return (
-      <div className={styles.postContainer}>
+      <div className="p-4">
         <div className={styles.post}>
           <div className={styles.photoContainer}>
             <Link href={`/${post.username}`} style={{ position: "relative" }}>
@@ -108,7 +108,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               </a>
             </Link>
           </div>
-          <div className={styles.postContents}>
+          <div className="grow">
             <div className={styles.postNameRow}>
               <div className={styles.postName}>
                 <div>
@@ -134,14 +134,14 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="py-4">
           <p className={styles.messageMain}>{post.message}</p>
         </div>
 
-        <div>
+        <div className="text-gray-500 text-sm">
           <span>
             <>
-              Time ·{" "}
+              17:42 PM ·{" "}
               <Link href={`/${post.username}/status/${post.id}`}>
                 <a>
                   <span className={styles.datePosted}>

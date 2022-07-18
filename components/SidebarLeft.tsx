@@ -71,7 +71,7 @@ const SidebarLeft = () => {
           </a>
         </Link>
         {!user ? null : (
-          <Link href={user.username}>
+          <Link href={`/${user.username}`}>
             <a>
               <li>
                 <PersonOutlineOutlinedIcon />

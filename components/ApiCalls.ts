@@ -122,3 +122,7 @@ export const likePost = async (
   };
   return await axios.patch(`${DB_HOST}/${author}/status/${post}/like`, body);
 };
+
+export const updateProfile = async (data: FormData) => {
+  return data;
+};

@@ -1,7 +1,11 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 
-const Back = () => {
+interface BackProps {
+  profileName?: string;
+}
+
+const Back: React.FC<BackProps> = (props) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -9,8 +13,11 @@ const Back = () => {
   };
 
   return (
-    <div style={{ margin: "1rem" }}>
+    <div className="m-4 flex flex-row items-center">
       <ArrowBackIcon onClick={handleBack} style={{ cursor: "pointer" }} />
+      <div className="font-medium text-lg px-8">
+        {!props.profileName ? null : props.profileName}
+      </div>
     </div>
   );
 };

@@ -31,9 +31,12 @@ const UserPage: React.FC = () => {
 
   return (
     <>
-      <Back />
-      {!userData || !userPosts ? null : (
+      {/* <Back profileName={username?.toString()} /> */}
+      {!userData || !userPosts ? (
+        <Back />
+      ) : (
         <>
+          <Back profileName={userData.displayName} />
           <Profile userData={userData} user={user} />
           {userPosts.map((post: Chirp) => {
             return (

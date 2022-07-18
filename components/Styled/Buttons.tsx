@@ -5,9 +5,9 @@ const grey = "#e7e7e8";
 
 export const StandardButton = styled.button`
   color: #ffffff;
-  padding: 0.6rem 1.2rem;
+  padding: 0.3rem 1rem;
   margin: 0.4rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   border-radius: 25px;
   background-color: #1d9bf0;
@@ -16,7 +16,7 @@ export const StandardButton = styled.button`
   outline: none;
   &:hover {
     cursor: pointer;
-    background-color: #1a8cd8;
+    background-color: #1a8cd8 !important;
     transition: 0.25s;
   }
   &:focus {
@@ -35,10 +35,11 @@ export const BlueButton = styled(StandardButton)`
 
 export const BlueLargeButton = styled(BlueButton)`
   color: #ffffff;
+  // color: #000000;
   width: 16rem;
   padding: 1rem;
   border-radius: 25px;
-  background-color: #1d9bf0;
+  background-color: #1d9bf0 !important;
   border: 0;
 `;
 
@@ -52,5 +53,14 @@ export const WhiteButton = styled(StandardButton)`
   }
   &:focus {
     background-color: ${grey};
+  }
+`;
+
+export const BlackButton = styled(WhiteButton)`
+  color: white;
+  background-color: black !important;
+
+  &:hover {
+    background-color: #272c30 !important;
   }
 `;

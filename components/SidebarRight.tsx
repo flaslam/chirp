@@ -15,7 +15,7 @@ const SidebarRight = () => {
   const [openSignUpDialog, setOpenSignUpDialog] = useState<boolean>(false);
 
   return (
-    <div className={styles.sidebarRightContainer}>
+    <div className={`${styles.sidebarRightContainer} p-4`}>
       <div>
         {user ? (
           <LogOut />

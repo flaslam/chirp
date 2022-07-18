@@ -17,7 +17,8 @@ export const postToChirp = (post: any): Chirp => {
 export const populateData = (postData: any): Chirp => {
   const newPost: Chirp = postToChirp(postData);
 
-  console.log(postData);
+  // TODO: this is firing off for a lot of undefined posts
+  // console.log(postData);
 
   // Cycle through parent, replies, reposts, likes
   if (postData.parent && postData.parent !== undefined) {

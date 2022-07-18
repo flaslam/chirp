@@ -20,6 +20,9 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   let isUser: boolean = false;
+  // let isUserFollowingProfile: boolean = false;
+
+  const [following, setFollowing] = useState<boolean>(false);
 
   if (user) {
     isUser = userData.username === user.username;
@@ -28,18 +31,37 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   }
   // user ? (isUser = userData.username === user.username) : (isUser = false);
 
-  const [following, setFollowing] = useState<boolean>(false);
+  // const [following, setFollowing] = useState<boolean>(false);
   const [openEditProfileDialog, setOpenEditProfileDialog] =
     useState<boolean>(false);
 
   // On component mount
   useEffect(() => {
     // Check if following user and set following accordingly
-  }, []);
+    const isUserFollowing = userData.followers.filter(
+      (item: any) => item.username === user.username
+    );
+
+    console.log(isUserFollowing);
+
+    if (isUserFollowing.length > 0) {
+      // The user logged in is folowing the profile page we are currently on.
+      setFollowing(true);
+    }
+
+    // console.log(
+    //   userData.followers.filter((item: any) => item.username === user.username)
+    // );
+  }, [user.username, userData.followers]);
 
   const handleClickFollow = async () => {
+    // e.preventDefault();
     const res = await followUser(user.username, userData.username, !following);
     console.log(res);
+
+    fetchUserData();
+
+    setFollowing((prevState) => !prevState);
   };
 
   return (
@@ -87,12 +109,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                 {!isUser ? (
                   // TODO: check if current user is following this profile
                   <div>
-                    {}
                     <WhiteButton onClick={handleClickFollow}>
-                      Follow User
-                    </WhiteButton>
-                    <WhiteButton onClick={handleClickFollow}>
-                      Unfollow User
+                      {!following ? "Follow" : "Unfollow"}
                     </WhiteButton>
                   </div>
                 ) : (

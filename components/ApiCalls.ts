@@ -106,7 +106,6 @@ export const followUser = async (
   };
 
   const res = await axios.patch(`${DB_HOST}/${userToFollow}/follow`, body);
-
   return res;
 };
 
@@ -120,9 +119,29 @@ export const likePost = async (
     username: username,
     like: like,
   };
+
   return await axios.patch(`${DB_HOST}/${author}/status/${post}/like`, body);
 };
 
-export const updateProfile = async (data: FormData) => {
-  return data;
+export const updateProfile = async (
+  formData: FormData,
+  username: string,
+  token: string
+) => {
+  const body = {
+    name: formData.get("name"),
+    location: formData.get("location"),
+    bio: formData.get("bio"),
+    website: formData.get("website"),
+    birthDate: formData.get("birthDate"),
+  };
+
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  const res = await axios.patch(`${DB_HOST}/${username}`, body, config);
+  return res;
 };

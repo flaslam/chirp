@@ -16,17 +16,20 @@ const UserPage: React.FC = () => {
   const [userPosts, setUserPosts] = useState<Chirp[] | null>(null);
   const [userData, setUserData] = useState<any | null>(null);
 
+  const fetchData = async () => {
+    const postRes = await getUserPosts(username as string);
+    setUserPosts(postRes);
+
+    const userRes = await getUser(username as string);
+    setUserData(userRes.data.user);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const postRes = await getUserPosts(username as string);
-      setUserPosts(postRes);
-
-      const userRes = await getUser(username as string);
-      setUserData(userRes.data.user);
-    };
-
     if (!router.isReady) return;
+
     fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, username]);
 
   return (
@@ -37,7 +40,7 @@ const UserPage: React.FC = () => {
       ) : (
         <>
           <Back profileName={userData.displayName} />
-          <Profile userData={userData} user={user} />
+          <Profile userData={userData} user={user} fetchUserData={fetchData} />
           {userPosts.map((post: Chirp) => {
             return (
               <Post

@@ -9,12 +9,13 @@ interface Props {
 }
 
 const Layout: NextPage<Props> = ({ children }) => {
-  let title = children.type.name + " | Chirp";
-  if (children.type.name === "Home") {
-    title = "Chirp";
-  } else {
-  }
+  // let title = children.type.name + " | Chirp";
+  // if (children.type.name === "Home") {
+  //   title = "Chirp";
+  // } else {
+  // }
 
+  const title = "Chirp";
   return (
     <>
       <Head>

@@ -15,18 +15,11 @@ interface ProfileProps {
   // TODO: define user objects
   userData: any;
   user: any;
+  fetchUserData(): void;
 }
 
-const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
+const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   let isUser: boolean = false;
-
-  const fakeUserData = {
-    bio: "アンリアルライフ作者 個人ゲーム開発者 ピクセルアーティスト (sᴏʟᴏ ɢᴀᴍᴇ ᴅᴇᴠᴇʟᴏᴘᴇʀ/ᴘɪxᴇʟ ᴀʀᴛɪsᴛ, ᴜɴʀᴇᴀʟ ʟɪғᴇ) 製作：幻影AP、ピギーワンスーパースパーク",
-    location: "インディーゲームレーベル ヨカゼ",
-    url: "hakolife.net",
-    birthDate: "August 24",
-    joinDate: "April 2016",
-  };
 
   if (user) {
     isUser = userData.username === user.username;
@@ -94,6 +87,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
                 {!isUser ? (
                   // TODO: check if current user is following this profile
                   <div>
+                    {}
                     <WhiteButton onClick={handleClickFollow}>
                       Follow User
                     </WhiteButton>
@@ -113,6 +107,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
                     >
                       <EditProfile
                         setOpenEditProfileDialog={setOpenEditProfileDialog}
+                        userData={userData}
+                        fetchUserData={fetchUserData}
                       />
                     </Dialog>
                   </div>
@@ -131,26 +127,34 @@ const Profile: React.FC<ProfileProps> = ({ userData, user }) => {
 
           <div className="flex flex-col gap-2 py-2 text-gray-600">
             {/* Profile description */}
-            <div>{fakeUserData.bio}</div>
+            {!userData.bio ? null : <div>{userData.bio}</div>}
 
             {/* Profile info */}
             <div className="flex flex-row flex-wrap gap-x-4 text-sm">
-              <div className="flex items-center justify-center gap-x-1">
-                <PlaceIcon fontSize="small" />
-                {fakeUserData.location}
-              </div>
-              <div className="flex items-center justify-center gap-x-1">
-                <LinkIcon fontSize="small" />
-                {fakeUserData.url}
-              </div>
-              <div className="flex items-center justify-center gap-x-1">
-                <CakeIcon fontSize="small" />
-                Born {fakeUserData.birthDate}
-              </div>
-              <div className="flex items-center justify-center gap-x-1">
-                <CalendarMonthIcon fontSize="small" />
-                Joined {fakeUserData.joinDate}
-              </div>
+              {!userData.location ? null : (
+                <div className="flex items-center justify-center gap-x-1">
+                  <PlaceIcon fontSize="small" />
+                  {userData.location}
+                </div>
+              )}
+              {!userData.url ? null : (
+                <div className="flex items-center justify-center gap-x-1">
+                  <LinkIcon fontSize="small" />
+                  {userData.url}
+                </div>
+              )}
+              {!userData.birthDate ? null : (
+                <div className="flex items-center justify-center gap-x-1">
+                  <CakeIcon fontSize="small" />
+                  Born {userData.birthDate}
+                </div>
+              )}
+              {!userData.joinDateFormatted ? null : (
+                <div className="flex items-center justify-center gap-x-1">
+                  <CalendarMonthIcon fontSize="small" />
+                  Joined {userData.joinDateFormatted}
+                </div>
+              )}
             </div>
 
             {/* Profile data */}

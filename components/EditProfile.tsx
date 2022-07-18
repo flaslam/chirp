@@ -4,23 +4,24 @@ import { updateProfile } from "./ApiCalls";
 import { UserContext } from "./UserContext";
 import { BlackButton, BlueLargeButton, StandardButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
+import { Router, useRouter } from "next/router";
 
 interface EditProfileProps {
   setOpenEditProfileDialog(status: boolean): void;
+  userData: any;
+  fetchUserData(): void;
 }
 
-const EditProfile: React.FC<EditProfileProps> = ({
-  setOpenEditProfileDialog,
-}) => {
+const EditProfile: React.FC<EditProfileProps> = (props) => {
   const { user, setUser } = useContext(UserContext);
 
   const [formInputData, setFormInputData] = useState<{
-    username: string;
-    password: string;
-  }>({
-    username: "",
-    password: "",
-  });
+    name: string;
+    location: string;
+    bio: string;
+    website: string;
+    birthDate: string;
+  }>({ name: "", location: "", bio: "", website: "", birthDate: "" });
 
   // Updates our formInputData as we type into our input fields
   const handleChange = (event: ChangeEvent) => {
@@ -33,7 +34,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
     event.preventDefault();
 
     // TODO: temporary
-    setOpenEditProfileDialog(false);
+    // props.setOpenEditProfileDialog(false);
 
     // Create form data
     const formData = new FormData();
@@ -44,7 +45,18 @@ const EditProfile: React.FC<EditProfileProps> = ({
     }
 
     // Send form data to server
-    submitData(formData);
+    try {
+      await submitData(formData);
+
+      // fetch data again after making change.
+      await props.fetchUserData();
+
+      // Close dialog popup
+      props.setOpenEditProfileDialog(false);
+    } catch (error) {
+      alert("Update could not be processed. Please try again later.");
+      console.log(error);
+    }
   };
 
   // Handle sending data and the resolving the outcome of login attempt
@@ -52,14 +64,11 @@ const EditProfile: React.FC<EditProfileProps> = ({
     let res;
 
     try {
-      res = await updateProfile(data);
+      res = await updateProfile(data, props.userData.username, user.token);
     } catch (error) {
       alert("An error occured, please try again later.");
       return;
     }
-
-    // Close dialog popup
-    setOpenEditProfileDialog(false);
   };
 
   return (
@@ -69,15 +78,20 @@ const EditProfile: React.FC<EditProfileProps> = ({
           <div className="flex flex-row items-center">
             <div
               className="cursor-pointer m-auto rounded-full hover:bg-gray-200 p-1"
-              onClick={() => setOpenEditProfileDialog(false)}
+              onClick={() => props.setOpenEditProfileDialog(false)}
             >
               <CloseIcon className="" />
             </div>
             <div className="grow px-2 font-bold text-xl">Edit profile</div>
             <BlackButton type="submit">Save</BlackButton>
           </div>
-          <TextField id="name" required label="Name" onChange={handleChange} />
-          <TextField id="location" label="Location" onChange={handleChange} />
+          <TextField
+            id="name"
+            required
+            label="Name"
+            onChange={handleChange}
+            defaultValue={props.userData.displayName}
+          />
           <TextField
             id="bio"
             label="Bio"
@@ -86,6 +100,19 @@ const EditProfile: React.FC<EditProfileProps> = ({
             minRows={3}
             inputProps={{ maxLength: 160 }}
             type="bio"
+            defaultValue={props.userData.bio}
+          />
+          <TextField
+            id="location"
+            label="Location"
+            onChange={handleChange}
+            defaultValue={props.userData.location}
+          />
+          <TextField
+            id="website"
+            label="Website"
+            onChange={handleChange}
+            defaultValue={props.userData.url}
           />
           <div className="flex flex-col gap-2">
             <span className="font-medium">Birth date:</span>
@@ -94,6 +121,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
               // label="Birth date"
               type="date"
               onChange={handleChange}
+              defaultValue={props.userData.birthDate}
             />
           </div>
         </form>

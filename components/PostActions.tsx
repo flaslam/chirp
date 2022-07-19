@@ -15,8 +15,6 @@ interface PostActionsProps {
   setLiked: (likedStatus: boolean) => void;
 }
 
-// TODO: fill in heart when post is liked
-
 const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
   const { user } = useContext(UserContext);
 
@@ -90,7 +88,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
         </span>
       </div>
 
-      {/* TODO: repetitive code */}
+      {/* TODO: make code less repetitive */}
       {liked ? (
         <div className={styles.likesIconHolderFilled} onClick={handleLike}>
           <FavoriteIcon

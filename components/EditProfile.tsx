@@ -108,12 +108,14 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
     setSelectedPhotoFile(selectedFile);
   };
 
-  const handleChangeHeader = () => {
+  const handleSelectHeader = () => {
     console.log("changing header");
+    alert("This is still to be added!");
   };
 
   const handleDeleteHeader = () => {
     console.log("deleting header");
+    alert("This is still to be added!");
   };
 
   return (
@@ -143,7 +145,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                     {/* Photo icon */}
                     <div
                       className="bg-black w-12 h-12 rounded-full opacity-70 hover:opacity-50 hover:cursor-pointer"
-                      onClick={handleChangeHeader}
+                      onClick={handleSelectHeader}
                     >
                       <div className="flex justify-center items-center h-full w-full">
                         <AddAPhotoOutlinedIcon />

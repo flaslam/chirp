@@ -4,6 +4,7 @@ import { loginUser } from "./ApiCalls";
 import styles from "../styles/LogIn.module.css";
 import { UserContext } from "./UserContext";
 import { BlueLargeButton } from "./Styled/Buttons";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface LoginProps {
   setOpenLogInDialog(status: boolean): void;
@@ -68,22 +69,35 @@ const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
   return (
     <div className={styles.logInContainer}>
       <div>
-        <h1>Log In</h1>
-        <form onSubmit={handleForm}>
-          <TextField
-            id="username"
-            required
-            label="Username"
-            onChange={handleChange}
-          />
-          <TextField
-            id="password"
-            required
-            label="Password"
-            onChange={handleChange}
-          />
+        <div className="pb-4">
+          <div className="flex flex-row items-center">
+            <div className="grow px-2 font-bold text-xl">Log In</div>
+            <div
+              className="cursor-pointer m-auto rounded-full hover:bg-gray-200 p-1"
+              onClick={() => setOpenLogInDialog(false)}
+            >
+              <CloseIcon className="" />
+            </div>
+          </div>
+        </div>
 
-          <BlueLargeButton type="submit">Log In</BlueLargeButton>
+        <form onSubmit={handleForm}>
+          <div className="flex flex-col gap-4">
+            <TextField
+              id="username"
+              required
+              label="Username"
+              onChange={handleChange}
+            />
+            <TextField
+              id="password"
+              required
+              label="Password"
+              onChange={handleChange}
+            />
+
+            <BlueLargeButton type="submit">Log In</BlueLargeButton>
+          </div>
         </form>
       </div>
     </div>

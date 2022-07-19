@@ -39,3 +39,9 @@ export const checkValidFileSize = (file: File): boolean => {
 
   return true;
 };
+
+export const checkValidFile = (file: File): boolean => {
+  if (!checkValidFileExtension(file)) return false;
+  if (!checkValidFileSize(file)) return false;
+  return true;
+};

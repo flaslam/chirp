@@ -12,7 +12,11 @@ import { BlackButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import { checkValidFileExtension, checkValidFileSize } from "../verifyUpload";
+import {
+  checkValidFile,
+  checkValidFileExtension,
+  checkValidFileSize,
+} from "../verifyUpload";
 
 interface EditProfileProps {
   setOpenEditProfileDialog(status: boolean): void;
@@ -82,10 +86,20 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
       console.log(user);
 
-      // TODO: we need to update our local User object too bc photo link is stored there.
       console.log(res);
-      if (res.data.user) {
-        setUser(res.data.user);
+
+      const userData = res.data.user;
+      if (userData) {
+        // TODO: we need to update our local User object too bc photo link is stored there.
+        // We just want to modify some properties - this needs to be refactored and moved.
+        // Login info should all be in a separate module
+        let currUserData = localStorage.getItem("user");
+        if (currUserData) {
+          const currUserObj = JSON.parse(currUserData);
+          const newUserData = { ...currUserObj, ...userData };
+          localStorage.setItem("user", JSON.stringify(newUserData));
+          setUser(newUserData);
+        }
       }
     } catch (error) {
       alert("An error occured, please try again later.");
@@ -94,22 +108,29 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
   };
 
   const handleSelectPhoto = () => {
-    console.log("selecting photo");
-
     // Simulate click on our invisible input file
     inputPhotoFile.current?.click();
   };
 
   const handleChangePhoto = () => {
-    console.log("changing photo");
     const selectedFile = inputPhotoFile.current?.files?.[0];
 
-    if (!selectedFile) return;
-    if (!checkValidFileExtension(selectedFile)) return;
-    if (!checkValidFileSize(selectedFile)) return;
+    if (!selectedFile) {
+      alert("Could not process this photo file.");
+      return;
+    }
+
+    if (!checkValidFile(selectedFile)) {
+      alert("Could not process this photo file.");
+      return;
+    }
+
+    // TODO: need visual feedback on success or failure
 
     // TODO: need to now change the visible photo
     setSelectedPhotoFile(selectedFile);
+
+    alert("Filed successfully selected. Save to upload file.");
   };
 
   const handleSelectHeader = () => {

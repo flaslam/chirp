@@ -5,20 +5,30 @@ import { Chirp, PostDisplayType } from "../../../types";
 import Post from "../../../components/Post";
 import Back from "../../../components/Back";
 import Compose from "../../../components/Compose";
+import Loading from "../../../components/Loading";
 
 const SinglePost: React.FC = () => {
   const router = useRouter();
   const username = router.query.username;
   const postId = router.query.postId;
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [post, setPost] = useState<Chirp | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getPost(postId as string, username as string);
-      setPost(res);
+      try {
+        const res = await getPost(postId as string, username as string);
+        setPost(res);
+        setLoading(false);
+      } catch (err) {
+        alert("Could not retrieve post.");
+        console.log(err);
+      }
     };
 
+    setLoading(true);
     if (!router.isReady) return;
     fetchData();
   }, [router.isReady, username, postId]);
@@ -42,39 +52,48 @@ const SinglePost: React.FC = () => {
   return (
     <div>
       <Back />
-      {!post ? null : (
-        <div>
-          <div>
-            {post.parent ? (
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {!post ? null : (
+            <div>
               <div>
-                <Post post={post.parent} postType={PostDisplayType.Timeline} />
-                Replying to ^
-              </div>
-            ) : null}
-          </div>
-          <Post post={post} postType={PostDisplayType.Main} />
-          <div>
-            <Compose
-              originalPost={router.query.postId as string}
-              addPost={addReply}
-            />
-          </div>
-          <div>
-            {post.replies ? (
-              <>
-                {post.replies.map((reply) => {
-                  return (
+                {post.parent ? (
+                  <div>
                     <Post
-                      key={reply.id}
-                      post={reply}
+                      post={post.parent}
                       postType={PostDisplayType.Timeline}
                     />
-                  );
-                })}
-              </>
-            ) : null}
-          </div>
-        </div>
+                    Replying to ^
+                  </div>
+                ) : null}
+              </div>
+              <Post post={post} postType={PostDisplayType.Main} />
+              <div>
+                <Compose
+                  originalPost={router.query.postId as string}
+                  addPost={addReply}
+                />
+              </div>
+              <div>
+                {post.replies ? (
+                  <>
+                    {post.replies.map((reply) => {
+                      return (
+                        <Post
+                          key={reply.id}
+                          post={reply}
+                          postType={PostDisplayType.Timeline}
+                        />
+                      );
+                    })}
+                  </>
+                ) : null}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

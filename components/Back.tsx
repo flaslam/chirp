@@ -16,7 +16,8 @@ const Back: React.FC<BackProps> = (props) => {
     <div className="m-4 flex flex-row items-center">
       <ArrowBackIcon onClick={handleBack} style={{ cursor: "pointer" }} />
       <div className="font-medium text-lg px-8">
-        {!props.profileName ? "Post" : props.profileName}
+        {/* {!props.profileName ? "Post" : props.profileName}  */}
+        {!props.profileName ? "" : props.profileName}
       </div>
     </div>
   );

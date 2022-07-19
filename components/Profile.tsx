@@ -47,7 +47,9 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
       // The user logged in is folowing the profile page we are currently on.
       setFollowing(true);
     }
-  }, [user.username, userData.followers]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData.followers]);
 
   const handleClickFollow = async () => {
     // e.preventDefault();

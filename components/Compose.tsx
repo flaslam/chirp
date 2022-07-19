@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import Image from "next/image";
 import {
   ChangeEvent,
@@ -22,6 +22,8 @@ interface ComposeProps {
 }
 
 const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
+  const MAX_CHAR_LIMIT = 140;
+
   const [postDisabled, setPostDisabled] = useState<boolean>(true);
 
   const { user } = useContext(UserContext);
@@ -94,10 +96,18 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
                   className={styles.textField}
                   required
                   multiline
-                  inputProps={{ maxLength: 140 }}
+                  inputProps={{ maxLength: MAX_CHAR_LIMIT }}
                 />
               </div>
               <div className={styles.buttonHolder}>
+                <div className="flex items-center px-1">
+                  <CircularProgress
+                    variant="determinate"
+                    value={(inputText.length / MAX_CHAR_LIMIT) * 100}
+                    size={30}
+                  />
+                </div>
+
                 <StandardButton disabled={postDisabled}>
                   {!originalPost ? "Post" : "Reply"}
                 </StandardButton>

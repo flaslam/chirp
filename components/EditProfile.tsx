@@ -21,7 +21,7 @@ interface EditProfileProps {
 }
 
 const EditProfile: React.FC<EditProfileProps> = (props) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const inputPhotoFile = useRef<HTMLInputElement | null>(null);
   // const [photo, setPhoto] = useState<null | File>({})
@@ -62,14 +62,10 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
     try {
       // Send form data to server
-      const res = await submitData(formData);
-
-      console.log(res);
+      await submitData(formData);
 
       // fetch data again after making change.
       await props.fetchUserData();
-
-      // TODO: we need to update our local User object too bc photo link is stored there.
 
       // Close dialog popup
       props.setOpenEditProfileDialog(false);
@@ -81,10 +77,12 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
   // Handle sending data and the resolving the outcome of login attempt
   const submitData = async (data: FormData) => {
-    let res;
-
     try {
-      res = await updateProfile(data, props.userData.username, user.token);
+      let res = await updateProfile(data, user.username, user.token);
+
+      console.log(user);
+      // TODO: we need to update our local User object too bc photo link is stored there.
+      console.log(res);
     } catch (error) {
       alert("An error occured, please try again later.");
       return;
@@ -92,9 +90,6 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
   };
 
   const handleSelectPhoto = () => {
-    // TODO: if making the div clickable, it propogates through and runs twice.
-    // e.preventDefault();
-    // e.stopPropagation();
     console.log("selecting photo");
 
     // Simulate click on our invisible input file

@@ -192,7 +192,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </Link>
                 </>
               </span>
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 h-5">
                 {post.reposts && post.reposts.length > 0 ? (
                   <div>
                     {post.reposts.length}{" "}

@@ -9,6 +9,11 @@ module.exports = {
       colors: {
         "blue-link": "#1d9bf0",
       },
+      spacing: {
+        timeline: "600px",
+        "sb-left": "330px",
+        "sb-right": "350px",
+      },
     },
   },
   plugins: [],

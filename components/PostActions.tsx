@@ -5,7 +5,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import IosShareIcon from "@mui/icons-material/IosShare";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "./UserContext";
 import { likePost } from "./ApiCalls";
 
@@ -13,12 +13,18 @@ interface PostActionsProps {
   post: Chirp;
   liked: boolean;
   setLiked: (likedStatus: boolean) => void;
+  likes: Chirp["likes"];
+  setLikes: React.Dispatch<React.SetStateAction<Chirp["likes"]>>;
 }
 
-const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
+const PostActions: React.FC<PostActionsProps> = ({
+  post,
+  liked,
+  setLiked,
+  likes,
+  setLikes,
+}) => {
   const { user } = useContext(UserContext);
-
-  const [likes, setLikes] = useState<Chirp["likes"]>(post.likes);
 
   const handleLike = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -33,12 +39,34 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
     console.log(res);
 
     // TODO: set post like count increase properly
-    if (likes != undefined) {
+    if (likes && user) {
+      console.log(likes);
+
       if (!liked) {
-        // setLikes(likes.push(likes[likes.length]));
-        // Array filter
+        setLikes((prevState: any) => {
+          if (prevState) {
+            // console.log(prevState);
+            // console.log(user._id);
+            const newState = [...prevState, user._id];
+            // console.log(newState);
+            return newState;
+          }
+        });
+
+        console.log("ADD like!!");
       } else {
-        // setLikes(likes.pop());
+        // Array filter to remove our user id
+        setLikes((prevState: any) => {
+          console.log(prevState);
+          console.log("Removing like");
+          if (Array.isArray(prevState)) {
+            const newState = prevState.filter((item: any) => item !== user._id);
+            console.log(newState);
+            return newState;
+          } else {
+            return [];
+          }
+        });
       }
     }
 

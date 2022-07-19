@@ -15,8 +15,8 @@ interface PostProps {
 // TODO: post should have its own state because we need to update like counter
 const Post: React.FC<PostProps> = ({ post, postType }) => {
   const { user } = useContext(UserContext);
-
   const [liked, setLiked] = useState<boolean>(false);
+  const [likes, setLikes] = useState<Chirp["likes"]>(post.likes);
 
   // On component mount: check if liked posts contains this user
   useEffect(() => {
@@ -25,9 +25,13 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
       setLiked(false);
       return;
     }
+
     if (post.likes?.includes(user._id)) {
       setLiked(true);
     }
+
+    // Initialise to an empty array
+    if (!post.likes) setLikes([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -86,7 +90,13 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <div>{post.message}</div>
             </div>
           </div>
-          <PostActions post={post} liked={liked} setLiked={setLiked} />
+          <PostActions
+            post={post}
+            liked={liked}
+            setLiked={setLiked}
+            likes={likes}
+            setLikes={setLikes}
+          />
         </div>
       </Link>
     );
@@ -163,15 +173,20 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
               </div>
             ) : null}
-            {post.likes && post.likes.length > 0 ? (
+            {likes && likes.length > 0 ? (
               <div>
-                {post.likes.length}{" "}
-                {post.likes.length > 1 ? <>Likes</> : <>Like</>}
+                {likes.length} {likes.length > 1 ? <>Likes</> : <>Like</>}
               </div>
             ) : null}
           </div>
         </div>
-        <PostActions post={post} liked={liked} setLiked={setLiked} />
+        <PostActions
+          post={post}
+          liked={liked}
+          setLiked={setLiked}
+          likes={likes}
+          setLikes={setLikes}
+        />
       </div>
     );
   };

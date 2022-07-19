@@ -29,7 +29,7 @@ export const StandardButton = styled.button`
 
 export const BlueButton = styled(StandardButton)`
   border-radius: 25px;
-  background-color: ${blue};
+  background-color: ${blue} !important;
   border: 0;
 `;
 

@@ -20,6 +20,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   // On component mount: check if liked posts contains this user
   useEffect(() => {
+    console.log(post);
     if (!user) {
       setLiked(false);
       return;
@@ -141,6 +142,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
         <div className="text-gray-500 text-sm">
           <span>
             <>
+              {/* TODO: update time */}
               17:42 PM ·{" "}
               <Link href={`/${post.username}/status/${post.id}`}>
                 <a>
@@ -151,23 +153,19 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               </Link>
             </>
           </span>
-          <div>
-            <div>
-              {post.reposts ? (
-                <>
-                  {post.reposts.length}{" "}
-                  {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
-                </>
-              ) : null}
-            </div>
-            <div>
-              {post.likes ? (
-                <>
-                  {post.likes.length}{" "}
-                  {post.likes.length > 1 ? <>Likes</> : <>Like</>}
-                </>
-              ) : null}
-            </div>
+          <div className="flex flex-row gap-2">
+            {post.reposts && post.reposts.length > 0 ? (
+              <div>
+                {post.reposts.length}{" "}
+                {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
+              </div>
+            ) : null}
+            {post.likes && post.likes.length > 0 ? (
+              <div>
+                {post.likes.length}{" "}
+                {post.likes.length > 1 ? <>Likes</> : <>Like</>}
+              </div>
+            ) : null}
           </div>
         </div>
         <PostActions post={post} liked={liked} setLiked={setLiked} />

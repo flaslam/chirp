@@ -9,6 +9,9 @@ export const postToChirp = (post: any): Chirp => {
     photo: post.user.photo,
     date: post.dateFormatted,
     message: post.message,
+    replies: post.replies,
+    likes: post.likes,
+    reposts: post.reposts,
   };
 
   return newPost;
@@ -17,20 +20,30 @@ export const postToChirp = (post: any): Chirp => {
 export const populateData = (postData: any): Chirp => {
   const newPost: Chirp = postToChirp(postData);
 
-  // TODO: this is firing off for a lot of undefined posts
-  // console.log(postData);
+  console.log(postData);
 
   // Cycle through parent, replies, reposts, likes
   if (postData.parent && postData.parent !== undefined) {
     try {
-      // Check if it's an object (data has been populated)
-      if (typeof postData.parent === "object") {
-        // TODO: this is returning the reply that we're currently on the page for twice when it's a reply
-        // newPost.parent = populateData(postData.parent);
-        newPost.parent = postToChirp(postData.parent);
-      } else {
-        newPost.parent = postToChirp(postData.parent);
-      }
+      // // Check if it's an object (data has been populated)
+      // if (typeof postData.parent === "object") {
+      //   // TODO: this is returning the reply that we're currently on the page for twice when it's a reply
+      //   newPost.parent = postToChirp(postData.parent);
+      //   const newParentReplies = postData.parent.replies.filter(
+      //     (item: any) => item._id !== newPost.id
+      //   );
+
+      //   console.log(newParentReplies);
+
+      //   newPost.parent.replies = newParentReplies;
+      //   newPost.parent = populateData(postData.parent);
+
+      //   // newPost.paren
+      // } else {
+      //   newPost.parent = postToChirp(postData.parent);
+      // }
+      newPost.parent = postToChirp(postData.parent);
+      // console.log(postData.parent);
     } catch (error) {
       console.log(error);
     }
@@ -40,9 +53,12 @@ export const populateData = (postData: any): Chirp => {
   if (postData.replies && postData.replies.length > 0) {
     newPost.replies = [];
     for (let reply of postData.replies) {
-      // if (typeof reply !== "string") {
-      // }
-      newPost.replies.push(populateData(reply));
+      if (typeof reply !== "string" && typeof reply.user === "string") {
+        // TODO: don't populate these if it's timeline
+        newPost.replies.push(reply);
+      } else {
+        newPost.replies.push(populateData(reply));
+      }
     }
   }
 

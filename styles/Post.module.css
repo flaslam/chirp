@@ -146,3 +146,11 @@
 .postActions span {
   min-width: 1rem;
 }
+
+.repliesIconHolder:hover,
+.repostsIconHolder:hover,
+.likesIconHolder:hover,
+.likesIconHolderFilled:hover,
+.sharesIconHolder:hover {
+  cursor: pointer;
+}

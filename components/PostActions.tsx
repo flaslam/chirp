@@ -51,8 +51,9 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
   const handleShare = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
+    // TODO: dropdown menu
+
     if (!user) return;
-    sendLikeRequest();
   };
 
   const showStats: boolean = true;
@@ -92,7 +93,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
       {liked ? (
         <div className={styles.likesIconHolderFilled} onClick={handleLike}>
           <FavoriteIcon
-            className={styles.likesIconFilled}
+            className={`${styles.likesIconFilled}`}
             style={{ fill: "red" }}
           />
           <span>

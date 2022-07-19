@@ -38,14 +38,16 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
 
   // On component mount
   useEffect(() => {
-    // Check if following user and set following accordingly
-    const isUserFollowing = userData.followers.filter(
-      (item: any) => item.username === user.username
-    );
+    if (user) {
+      // Check if following user and set following accordingly
+      const isUserFollowing = userData.followers.filter(
+        (item: any) => item.username === user.username
+      );
 
-    if (isUserFollowing.length > 0) {
-      // The user logged in is folowing the profile page we are currently on.
-      setFollowing(true);
+      if (isUserFollowing.length > 0) {
+        // The user logged in is folowing the profile page we are currently on.
+        setFollowing(true);
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

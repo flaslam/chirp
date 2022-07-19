@@ -21,7 +21,7 @@ interface EditProfileProps {
 }
 
 const EditProfile: React.FC<EditProfileProps> = (props) => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const inputPhotoFile = useRef<HTMLInputElement | null>(null);
   // const [photo, setPhoto] = useState<null | File>({})
@@ -81,8 +81,12 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
       let res = await updateProfile(data, user.username, user.token);
 
       console.log(user);
+
       // TODO: we need to update our local User object too bc photo link is stored there.
       console.log(res);
+      if (res.data.user) {
+        setUser(res.data.user);
+      }
     } catch (error) {
       alert("An error occured, please try again later.");
       return;

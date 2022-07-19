@@ -12,15 +12,16 @@ import {
 import styles from "../styles/Compose.module.css";
 import { createPost } from "./ApiCalls";
 import { UserContext } from "./UserContext";
-import { Chirp, ComposeType } from "../types";
+import { Chirp } from "../types";
 import { postToChirp } from "../utils";
 import { StandardButton } from "./Styled/Buttons";
 
 interface ComposeProps {
+  originalPost?: string;
   addPost: (post: Chirp) => void;
 }
 
-const Compose: React.FC<ComposeProps> = ({ addPost }) => {
+const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
   const [postDisabled, setPostDisabled] = useState<boolean>(true);
 
   const { user } = useContext(UserContext);
@@ -39,7 +40,12 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
 
   const submitData = async () => {
     if (!user) return;
-    const res = await createPost(user.token, inputText);
+
+    // If parentId is sent as an empty string, post won't have parent
+    let parentId = "";
+    originalPost ? (parentId = originalPost as string) : "";
+
+    const res = await createPost(user.token, inputText, parentId);
     const post = res.data.post;
     const newPost = postToChirp(post);
 
@@ -80,7 +86,9 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                 <TextField
                   inputRef={textRef}
                   onChange={handleChange}
-                  placeholder="What's happening?"
+                  placeholder={
+                    !originalPost ? "What's happening?" : "Post a reply"
+                  }
                   variant="standard"
                   // style={{ width: "100%" }}
                   className={styles.textField}
@@ -90,7 +98,9 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                 />
               </div>
               <div className={styles.buttonHolder}>
-                <StandardButton disabled={postDisabled}>Post</StandardButton>
+                <StandardButton disabled={postDisabled}>
+                  {!originalPost ? "Post" : "Reply"}
+                </StandardButton>
               </div>
             </form>
           </div>

@@ -62,10 +62,14 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
     try {
       // Send form data to server
-      await submitData(formData);
+      const res = await submitData(formData);
+
+      console.log(res);
 
       // fetch data again after making change.
       await props.fetchUserData();
+
+      // TODO: we need to update our local User object too bc photo link is stored there.
 
       // Close dialog popup
       props.setOpenEditProfileDialog(false);

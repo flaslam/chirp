@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { getPost } from "../../../components/ApiCalls";
 import { Chirp, PostDisplayType } from "../../../types";
 import Post from "../../../components/Post";
-import Reply from "../../../components/Reply";
 import Back from "../../../components/Back";
+import Compose from "../../../components/Compose";
 
 const SinglePost: React.FC = () => {
   const router = useRouter();
@@ -54,9 +54,9 @@ const SinglePost: React.FC = () => {
           </div>
           <Post post={post} postType={PostDisplayType.Main} />
           <div>
-            <Reply
+            <Compose
               originalPost={router.query.postId as string}
-              addReply={addReply}
+              addPost={addReply}
             />
           </div>
           <div>

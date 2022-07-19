@@ -15,12 +15,13 @@ export const checkValidFileExtension = (file: File): boolean => {
     return false;
   }
 
-  if (allowedExtensions.indexOf(fileExtension[1])) {
-    console.log(
-      "No file of supported format provided. Received " + fileExtension[1]
-    );
-    return false;
-  }
+  // TODO: this isn't functional
+  // if (allowedExtensions.indexOf(fileExtension[1])) {
+  //   console.log(
+  //     "No file of supported format provided. Received " + fileExtension[1]
+  //   );
+  //   return false;
+  // }
 
   return true;
 };

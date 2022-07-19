@@ -20,7 +20,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   // On component mount: check if liked posts contains this user
   useEffect(() => {
-    console.log(post);
+    // console.log(post);
     if (!user) {
       setLiked(false);
       return;
@@ -48,6 +48,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                     width="100"
                     height="100"
                     className={styles.photo}
+                    objectFit="cover"
                   />
                 </a>
               </Link>
@@ -105,6 +106,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   width="100"
                   height="100"
                   className={styles.photo}
+                  objectFit="cover"
+                  key={Date.now()}
                 />
               </a>
             </Link>

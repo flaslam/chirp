@@ -10,6 +10,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import PlaceIcon from "@mui/icons-material/Place";
 import CakeIcon from "@mui/icons-material/Cake";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Link from "next/link";
 
 interface ProfileProps {
   // TODO: define user objects
@@ -42,16 +43,10 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
       (item: any) => item.username === user.username
     );
 
-    console.log(isUserFollowing);
-
     if (isUserFollowing.length > 0) {
       // The user logged in is folowing the profile page we are currently on.
       setFollowing(true);
     }
-
-    // console.log(
-    //   userData.followers.filter((item: any) => item.username === user.username)
-    // );
   }, [user.username, userData.followers]);
 
   const handleClickFollow = async () => {
@@ -74,6 +69,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
             width="100"
             height="100"
             alt={userData.username}
+            priority
           />
         ) : null}
 
@@ -85,6 +81,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
           alt={userData.username}
           objectFit="cover"
           layout="responsive"
+          className="-translate-y-1/2"
+          priority
         />
       </div>
 
@@ -97,8 +95,10 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
               width="144"
               height="144"
               // layout="fixed"
+              objectFit="cover"
               alt={userData.username}
               className="rounded-full !border-solid !border-4 !border-white z-50 m-auto"
+              priority
             />
           </div>
 
@@ -156,9 +156,13 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                 </div>
               )}
               {!userData.url ? null : (
-                <div className="flex items-center justify-center gap-x-1">
+                <div className="flex items-center justify-center gap-x-1 hover:underline hover:cursor-pointer">
                   <LinkIcon fontSize="small" />
-                  {userData.url}
+                  <span className="text-blue-link">
+                    <Link href={userData.url}>
+                      <a>{userData.url}</a>
+                    </Link>
+                  </span>
                 </div>
               )}
               {!userData.birthDate ? null : (

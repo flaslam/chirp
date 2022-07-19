@@ -128,20 +128,26 @@ export const updateProfile = async (
   username: string,
   token: string
 ) => {
-  const body = {
-    name: formData.get("name"),
-    location: formData.get("location"),
-    bio: formData.get("bio"),
-    website: formData.get("website"),
-    birthDate: formData.get("birthDate"),
-  };
+  // const body = {
+  //   name: formData.get("name"),
+  //   location: formData.get("location"),
+  //   bio: formData.get("bio"),
+  //   website: formData.get("website"),
+  //   birthDate: formData.get("birthDate"),
+  //   username: username,
+  // };
+
+  // console.log(formData.get("photo"));
 
   const config = {
     headers: {
       Authorization: token,
+      "Content-Type": "multipart/form-data",
     },
   };
 
-  const res = await axios.patch(`${DB_HOST}/${username}`, body, config);
-  return res;
+  // const res = await axios.patch(`${DB_HOST}/${username}`, body, config);
+  // return res;
+
+  return await axios.patch(`${DB_HOST}/${username}`, formData, config);
 };

@@ -20,7 +20,7 @@ export const postToChirp = (post: any): Chirp => {
 export const populateData = (postData: any): Chirp => {
   const newPost: Chirp = postToChirp(postData);
 
-  console.log(postData);
+  // console.log(postData);
 
   // Cycle through parent, replies, reposts, likes
   if (postData.parent && postData.parent !== undefined) {
@@ -32,13 +32,9 @@ export const populateData = (postData: any): Chirp => {
       //   const newParentReplies = postData.parent.replies.filter(
       //     (item: any) => item._id !== newPost.id
       //   );
-
       //   console.log(newParentReplies);
-
       //   newPost.parent.replies = newParentReplies;
       //   newPost.parent = populateData(postData.parent);
-
-      //   // newPost.paren
       // } else {
       //   newPost.parent = postToChirp(postData.parent);
       // }

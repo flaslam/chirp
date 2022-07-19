@@ -44,7 +44,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post, liked, setLiked }) => {
       }
     }
 
-    console.log(likes);
+    // console.log(likes);
 
     // Set liked
     setLiked(!liked);

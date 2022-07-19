@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { createUser } from "./ApiCalls";
 import styles from "../styles/SignUp.module.css";
 import { BlueLargeButton } from "./Styled/Buttons";
+import { checkValidFileExtension, checkValidFileSize } from "../verifyUpload";
 
 interface SignUpProps {
   setOpenSignUpDialog(status: boolean): void;
@@ -47,15 +48,7 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
     if (selectedFile) {
       const fileToUpload = selectedFile;
       if (!checkValidFileExtension(fileToUpload)) return;
-
-      // Size limitations
-      const filesizeLimit = 1024 * 1024 * 1; // 1MB
-      if (fileToUpload.size > filesizeLimit) {
-        console.log(
-          `File size is too big. Must be under ${filesizeLimit} bytes.`
-        );
-        return;
-      }
+      if (!checkValidFileSize(fileToUpload)) return;
       // Add our photo file to the form data
       formData.append("photo", fileToUpload);
     }
@@ -80,33 +73,6 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
     // TODO: auto log-in user
     alert("User created successfully! Please sign in.");
     setOpenSignUpDialog(false);
-  };
-
-  const checkValidFileExtension = (file: File): boolean => {
-    // Check file extension using regex
-    var re = /(?:\.([^.]+))?$/;
-    const fileExtension = re.exec(file.name);
-
-    if (fileExtension === null) {
-      console.log("File has no file extension.");
-      return false;
-    }
-
-    if (fileExtension.length < 1) {
-      console.log("Failed to determine the file extension.");
-      return false;
-    }
-
-    const allowedExtensions = ["jpg", "png", "gif"];
-
-    if (allowedExtensions.indexOf(fileExtension[1])) {
-      console.log(
-        "No file of supported format provided. Received " + fileExtension[1]
-      );
-      return false;
-    }
-
-    return true;
   };
 
   return (

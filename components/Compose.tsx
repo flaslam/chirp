@@ -86,6 +86,7 @@ const Compose: React.FC<ComposeProps> = ({ addPost }) => {
                   className={styles.textField}
                   required
                   multiline
+                  inputProps={{ maxLength: 140 }}
                 />
               </div>
               <div className={styles.buttonHolder}>

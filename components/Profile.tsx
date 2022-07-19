@@ -163,8 +163,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                 <div className="flex items-center justify-center gap-x-1 hover:underline hover:cursor-pointer">
                   <LinkIcon fontSize="small" />
                   <span className="text-blue-link">
-                    <Link href={userData.url}>
-                      <a>{userData.url}</a>
+                    <Link href={`http://${userData.url}`}>
+                      <a target="_blank">{userData.url}</a>
                     </Link>
                   </span>
                 </div>

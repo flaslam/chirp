@@ -97,6 +97,12 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
                   required
                   multiline
                   inputProps={{ maxLength: MAX_CHAR_LIMIT }}
+                  sx={{ size: 20 }}
+                  InputProps={{
+                    disableUnderline: true,
+                    style: { fontSize: 20 },
+                  }}
+                  // size="medium"
                 />
               </div>
               <div className={styles.buttonHolder}>

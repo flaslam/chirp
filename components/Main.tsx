@@ -20,6 +20,7 @@ const Main: React.FC<MainProps> = ({ user }) => {
 
   // TODO: Memoise posts to stop unnecessary reloads?
 
+  // TODO: this is loading posts twice - once without user, then once when user is loaded in on first load
   useEffect(() => {
     // Retrieve data from server
     setLoading(true);

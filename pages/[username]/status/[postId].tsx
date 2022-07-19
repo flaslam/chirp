@@ -65,10 +65,11 @@ const SinglePost: React.FC = () => {
                       post={post.parent}
                       postType={PostDisplayType.Timeline}
                     />
-                    Replying to ^
+                    {/* <span className="m-4 ml-16">Replying to ↑</span> */}
                   </div>
                 ) : null}
               </div>
+
               <Post post={post} postType={PostDisplayType.Main} />
               <div>
                 <Compose

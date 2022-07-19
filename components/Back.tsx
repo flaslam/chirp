@@ -13,9 +13,14 @@ const Back: React.FC<BackProps> = (props) => {
   };
 
   return (
-    <div className="m-4 flex flex-row items-center">
-      <ArrowBackIcon onClick={handleBack} style={{ cursor: "pointer" }} />
-      <div className="font-medium text-lg px-8">
+    <div className="m-2 flex flex-row items-center">
+      <div
+        className=" rounded-full hover:bg-gray-200 p-2  transition duration-300 hover:cursor-pointer w-10 h-10"
+        onClick={handleBack}
+      >
+        <ArrowBackIcon className="flex justify-center items-center" />
+      </div>
+      <div className="font-medium text-lg px-6">
         {/* {!props.profileName ? "Post" : props.profileName}  */}
         {!props.profileName ? "" : props.profileName}
       </div>

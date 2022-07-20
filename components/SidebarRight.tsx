@@ -15,7 +15,7 @@ const SidebarRight = () => {
   const [openSignUpDialog, setOpenSignUpDialog] = useState<boolean>(false);
 
   return (
-    <div className="p-4 hidden lg:w-sb-right lg:flex flex-col">
+    <div className="p-4 hidden w-1/4 lg:w-1/8 xl:w-1/6 xl:flex flex-col">
       {/* invisible md:visible */}
       <div>
         {user ? (

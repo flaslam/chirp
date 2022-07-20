@@ -6,9 +6,9 @@
 }
 
 .postActions {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 3rem 0rem 3rem;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* padding: 1rem 3rem 0rem 3rem; */
 }
 
 .postActions > div {
@@ -62,12 +62,20 @@
 
 .postNameRow {
   display: flex;
-  flex-grow: 1;
+  /* flex-grow: 1; */
+
+  /* white-space: nowrap;
+  overflow: hidden; */
 }
 
 .postNameRow > div:first-child {
   display: flex;
   flex-grow: 1;
+}
+
+.postName {
+  flex: 1;
+  /* text-overflow: ellipsis; */
 }
 
 .postContainer {

@@ -87,7 +87,9 @@ const PostActions: React.FC<PostActionsProps> = ({
   const showStats: boolean = true;
 
   return (
-    <div className={styles.postActions}>
+    <div
+      className={`${styles.postActions} flex justify-between pt-4 px-4 md:px-12`}
+    >
       <div className={styles.repliesIconHolder}>
         <ChatBubbleOutlineIcon className={styles.repliesIcon} />
         <span>

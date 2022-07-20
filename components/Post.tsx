@@ -65,7 +65,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </Link>
                 </div>
                 <div className={styles.postContents}>
-                  <div className={styles.postNameRow}>
+                  {/* Name row */}
+                  {/* <div className={styles.postNameRow}>
                     <div className={styles.postName}>
                       <div>
                         <>
@@ -93,7 +94,34 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                     <div className={styles.postMore}>
                       <MoreHorizIcon />
                     </div>
+                  </div> */}
+
+                  {/* New name row */}
+                  <div className="flex">
+                    <div className="flex gap-1 whitespace-nowrap grow">
+                      <div className="font-bold truncate hover:underline">
+                        <Link href={`/${post.username}`}>
+                          <a>{post.displayName}</a>
+                        </Link>
+                      </div>
+                      <div className="text-gray-500 whitespace-nowrap">
+                        <Link href={`/${post.username}`}>
+                          <a>@{post.username}</a>
+                        </Link>
+                      </div>
+                      <div className="text-gray-500 whitespace-nowrap">·</div>
+                      <div className="text-gray-500 whitespace-nowrap hover:underline">
+                        <Link href={`/${post.username}/status/${post.id}`}>
+                          <a>{post.date.toString()}</a>
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="text-gray-500 whitespace-nowrap">
+                      <MoreHorizIcon />
+                    </div>
                   </div>
+
+                  {/* Message */}
                   <div>{post.message}</div>
                 </div>
               </div>

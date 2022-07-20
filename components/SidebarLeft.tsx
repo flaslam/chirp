@@ -18,9 +18,10 @@ const SidebarLeft = () => {
   const { user } = useContext(UserContext);
   // min-w-20 md:max-w-sb-left
   return (
-    <div className="mt-2 md:w-1/6 xl:w-sb-left">
-      <div className="">
-        <ul className="ml-6 flex flex-col justify-end items-end gap-4 [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:rounded-full [&>*]:w-12 [&>*]:h-12 [&>*]:transition [&>*:hover]:duration-200 [&>*:hover]:bg-sky-100">
+    // add "hidden sm:block to disable on mobile
+    <div className="mt-2 xl:w-sb-left">
+      <div className=" ">
+        <ul className="mx-2 flex flex-col justify-start items-end gap-4 [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:rounded-full [&>*]:w-12 [&>*]:h-12 [&>*]:transition [&>*:hover]:duration-200 [&>*:hover]:bg-sky-100">
           <Link href="/" passHref>
             <a>
               <li>
@@ -30,7 +31,7 @@ const SidebarLeft = () => {
               </li>
             </a>
           </Link>
-          <Link href="/">
+          {/* <Link href="/">
             <a>
               <li>
                 <HomeOutlinedIcon fontSize="large" />
@@ -71,7 +72,7 @@ const SidebarLeft = () => {
                 <ListAltOutlinedIcon fontSize="large" />
               </li>
             </a>
-          </Link>
+          </Link> */}
           {!user ? null : (
             <Link href={`/${user.username}`}>
               <a>

@@ -17,20 +17,18 @@ const SidebarRight = () => {
   return (
     <div className="p-4 hidden w-1/4 lg:w-1/8 xl:w-1/6 xl:flex flex-col">
       {/* invisible md:visible */}
-      <div>
-        {user ? (
-          <LogOut />
-        ) : (
-          <>
-            <BlueLargeButton onClick={() => setOpenLogInDialog(true)}>
-              Log In
-            </BlueLargeButton>
-            <BlueLargeButton onClick={() => setOpenSignUpDialog(true)}>
-              Sign Up
-            </BlueLargeButton>
-          </>
-        )}
-      </div>
+      {user ? (
+        <LogOut />
+      ) : (
+        <>
+          <BlueLargeButton onClick={() => setOpenLogInDialog(true)}>
+            Log In
+          </BlueLargeButton>
+          <BlueLargeButton onClick={() => setOpenSignUpDialog(true)}>
+            Sign Up
+          </BlueLargeButton>
+        </>
+      )}
 
       <Dialog open={openLogInDialog} onClose={() => setOpenLogInDialog(false)}>
         <LogIn setOpenLogInDialog={setOpenLogInDialog} />

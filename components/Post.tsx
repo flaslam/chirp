@@ -44,7 +44,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
           "There is no post"
         ) : (
           <Link href={`/${post.username}/status/${post.id}`}>
-            <div className="p-4  hover:bg-gray-100 transition duration-300 hover:cursor-pointer">
+            <div className="p-4 transition duration-300 hover:cursor-pointer hover:bg-gray-100">
               <div className={styles.post}>
                 <div className={`${styles.photoContainer}`}>
                   <Link
@@ -65,64 +65,48 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </Link>
                 </div>
                 <div className={styles.postContents}>
-                  {/* Name row */}
-                  {/* <div className={styles.postNameRow}>
-                    <div className={styles.postName}>
-                      <div>
-                        <>
-                          <Link href={`/${post.username}`}>
-                            <a>
-                              <span>
-                                <span className={styles.displayName}>
-                                  {post.displayName}
-                                </span>{" "}
-                                @{post.username}
-                              </span>
-                            </a>
-                          </Link>
-                          <> · </>
-                          <Link href={`/${post.username}/status/${post.id}`}>
-                            <a>
-                              <span className={styles.datePosted}>
-                                {post.date.toString()}
-                              </span>
-                            </a>
-                          </Link>
-                        </>
-                      </div>
-                    </div>
-                    <div className={styles.postMore}>
-                      <MoreHorizIcon />
-                    </div>
-                  </div> */}
-
                   {/* New name row */}
                   <div className="flex">
-                    <div className="flex gap-1 whitespace-nowrap grow">
-                      <div className="font-bold truncate hover:underline">
+                    <div className="flex grow gap-1 whitespace-nowrap">
+                      <div className="truncate font-bold hover:underline">
                         <Link href={`/${post.username}`}>
                           <a>{post.displayName}</a>
                         </Link>
                       </div>
-                      <div className="text-gray-500 whitespace-nowrap">
+                      <div className="whitespace-nowrap text-gray-500">
                         <Link href={`/${post.username}`}>
                           <a>@{post.username}</a>
                         </Link>
                       </div>
-                      <div className="text-gray-500 whitespace-nowrap">·</div>
-                      <div className="text-gray-500 whitespace-nowrap hover:underline">
+                      <div className="whitespace-nowrap text-gray-500">·</div>
+                      <div className="whitespace-nowrap text-gray-500 hover:underline">
                         <Link href={`/${post.username}/status/${post.id}`}>
                           <a>{post.date.toString()}</a>
                         </Link>
                       </div>
                     </div>
-                    <div className="text-gray-500 whitespace-nowrap">
+                    <div className="whitespace-nowrap text-gray-500">
                       <MoreHorizIcon />
                     </div>
                   </div>
 
                   {/* Message */}
                   <div>{post.message}</div>
+
+                  {/* Media */}
+                  <div className="pt-2">
+                    {post.media ? (
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.media[0]}`}
+                        alt={post.id}
+                        width="16"
+                        height="9"
+                        layout="responsive"
+                        objectFit="cover"
+                        className="rounded-lg"
+                      />
+                    ) : null}
+                  </div>
                 </div>
               </div>
               <PostActions
@@ -150,9 +134,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <div className={styles.photoContainer}>
                 {/* Line to link up to parent post if we have one TODO: make dynamic*/}
                 {!post.parent ? null : (
-                  <div className="absolute w-full h-full">
-                    <div className="flex justify-center items-center">
-                      <div className="w-0.5 bg-gray-300 flex items-center justify-center z-50 h-28 -translate-y-28 -z-50"></div>
+                  <div className="absolute h-full w-full">
+                    <div className="flex items-center justify-center">
+                      <div className="z-50 -z-50 flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
                     </div>
                   </div>
                 )}
@@ -202,11 +186,30 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 </div>
               </div>
             </div>
+
+            {/* Body */}
+
             <div className="py-4">
+              {/* Message */}
               <p className={styles.messageMain}>{post.message}</p>
+
+              {/* Media */}
+              <div className="pt-2">
+                {post.media ? (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.media[0]}`}
+                    alt={post.id}
+                    width="16"
+                    height="9"
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-lg"
+                  />
+                ) : null}
+              </div>
             </div>
 
-            <div className="text-gray-500 text-sm">
+            <div className="text-sm text-gray-500">
               <span>
                 <>
                   {/* TODO: update time */}
@@ -220,7 +223,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </Link>
                 </>
               </span>
-              <div className="flex flex-row gap-2 h-5">
+              <div className="flex h-5 flex-row gap-2">
                 {post.reposts && post.reposts.length > 0 ? (
                   <div>
                     {post.reposts.length}{" "}

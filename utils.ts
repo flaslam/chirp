@@ -45,6 +45,10 @@ export const populateData = (postData: any): Chirp => {
     }
   }
 
+  if (postData.media && postData.media.length > 0) {
+    newPost.media = postData.media;
+  }
+
   // NOTE: this fails if replies are not populated by server
   if (postData.replies && postData.replies.length > 0) {
     newPost.replies = [];

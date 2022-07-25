@@ -1,5 +1,5 @@
 export const checkValidFileExtension = (file: File): boolean => {
-  const allowedExtensions = ["jpg", "png", "gif"];
+  const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
 
   // Check file extension using regex
   var re = /(?:\.([^.]+))?$/;
@@ -15,13 +15,23 @@ export const checkValidFileExtension = (file: File): boolean => {
     return false;
   }
 
-  // TODO: this isn't functional
-  // if (allowedExtensions.indexOf(fileExtension[1])) {
-  //   console.log(
-  //     "No file of supported format provided. Received " + fileExtension[1]
-  //   );
-  //   return false;
-  // }
+  const fileExtensionToCheck = fileExtension[1];
+
+  let extensionIsValid = false;
+
+  for (const extension of allowedExtensions) {
+    if (extension === fileExtensionToCheck) {
+      extensionIsValid = true;
+      break;
+    }
+  }
+
+  if (!extensionIsValid) {
+    console.log(
+      "No file of supported format provided. Received " + fileExtensionToCheck
+    );
+    return false;
+  }
 
   return true;
 };

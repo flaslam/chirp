@@ -41,32 +41,51 @@ export const uploadFile = async (formData: FormData) => {
   });
 };
 
-export const createPost = async (
-  token: string,
-  message: string,
-  parent: string = ""
-) => {
+// export const createPost = async (
+//   token: string,
+//   message: string,
+//   parent: string = ""
+// ) => {
+//   const config = {
+//     headers: { Authorization: token },
+//   };
+
+//   const body = {
+//     message: message,
+//     parent: parent,
+//   };
+
+//   const res = await axios.post(`${DB_HOST}`, body, config);
+
+//   return await res;
+// };
+
+// Send post as formdata
+export const createPost = async (token: string, data: FormData) => {
   const config = {
     headers: { Authorization: token },
+    "Content-Type": "multipart/form-data",
   };
 
-  const body = {
-    message: message,
-    parent: parent,
-  };
+  // const body = {
+  //   message: message,
+  //   parent: parent,
+  // };
 
-  const res = await axios.post(`${DB_HOST}`, body, config);
+  const res = await axios.post(`${DB_HOST}`, data, config);
 
   return await res;
 };
 
 export const createUser = async (formData: FormData) => {
-  const res = await axios.post(`${DB_HOST}/signup`, formData, {
+  const config = {
     headers: {
       "Content-Type": "multipart/form-data",
     },
     data: formData,
-  });
+  };
+
+  const res = await axios.post(`${DB_HOST}/signup`, formData, config);
 
   return await res;
 };

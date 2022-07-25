@@ -13,15 +13,16 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
+import Image from "next/image";
 
 const SidebarLeft = () => {
   const { user } = useContext(UserContext);
   // min-w-20 md:max-w-sb-left
   return (
     // add "hidden sm:block to disable on mobile
-    <div className="mt-2 xl:w-sb-left">
-      <div className=" ">
-        <ul className="mx-2 flex flex-col justify-start items-end gap-4 [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:rounded-full [&>*]:w-12 [&>*]:h-12 [&>*]:transition [&>*:hover]:duration-200 [&>*:hover]:bg-sky-100">
+    <div className="">
+      <div className="mt-2 flex h-screen flex-col xl:w-sb-left">
+        <ul className="mx-2 flex flex-grow flex-col items-end justify-start gap-4 [&>*]:flex [&>*]:h-12 [&>*]:w-12 [&>*]:items-center [&>*]:justify-center [&>*]:rounded-full [&>*]:transition [&>*:hover]:bg-sky-100 [&>*:hover]:duration-200">
           <Link href="/" passHref>
             <a>
               <li>
@@ -32,47 +33,49 @@ const SidebarLeft = () => {
             </a>
           </Link>
           {/* <Link href="/">
-            <a>
-              <li>
-                <HomeOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <SearchOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <NotificationsOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <EmailOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <BookmarkBorderOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <ListAltOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link> */}
+          <a>
+            <li>
+              <HomeOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <SearchOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <NotificationsOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <EmailOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <BookmarkBorderOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <ListAltOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link> */}
+
+          {/* Profile icon */}
           {!user ? null : (
             <Link href={`/${user.username}`}>
               <a>
@@ -82,39 +85,51 @@ const SidebarLeft = () => {
               </a>
             </Link>
           )}
-          <Link href="/">
-            <a>
-              <li>
-                <PendingOutlinedIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <li>
-                <AddIcon fontSize="large" />
-              </li>
-            </a>
-          </Link>
+
+          {/* <Link href="/">
+          <a>
+            <li>
+              <PendingOutlinedIcon fontSize="large" />
+            </li>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <li>
+              <AddIcon fontSize="large" />
+            </li>
+          </a>
+        </Link> */}
           {/* <li>Home</li>
-        <li>Explore</li>
-        <li>Notifications</li>
-        <li>Messages</li>
-        <li>Bookmarks</li>
-        <li>Lists</li>
-        <li>Profile</li>
-        <li>More</li>
-        <li>Compose</li> */}
+      <li>Explore</li>
+      <li>Notifications</li>
+      <li>Messages</li>
+      <li>Bookmarks</li>
+      <li>Lists</li>
+      <li>Profile</li>
+      <li>More</li>
+      <li>Compose</li> */}
 
           {/* <Link href="/" passHref>
-          <Button
-            sx={{ borderRadius: 28, textTransform: "none" }}
-            component="a"
-          >
-            <HomeOutlinedIcon />
-          </Button>
-        </Link> */}
+        <Button
+          sx={{ borderRadius: 28, textTransform: "none" }}
+          component="a"
+        >
+          <HomeOutlinedIcon />
+        </Button>
+      </Link> */}
         </ul>
+        <div className="flex justify-end pb-4">
+          {user ? (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
+              width="48"
+              height="48"
+              alt={user.username}
+              className="rounded-full"
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   );

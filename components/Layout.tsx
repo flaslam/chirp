@@ -29,10 +29,10 @@ const Layout: NextPage<Props> = ({ children }) => {
       </Head>
       <div className="flex flex-col">
         {/* flex-col sm:flex-row for mobile view */}
-        <div className="flex flex-row sm:justify-center min-h-screen">
+        <div className="flex min-h-screen flex-row sm:justify-center">
           {/* <MobileBanner /> */}
           <SidebarLeft />
-          <main className="w-full max-w-timeline md:w-timeline">
+          <main className="max-w-timeline w-full md:w-timeline">
             {children}
           </main>
           <SidebarRight />

@@ -5,7 +5,7 @@ export interface Chirp {
   photo: string;
   date: Date;
   message: string;
-  // media: [{type: string, url: string}] // make type enum?
+  media?: string[]; // make type with enum?
   replies?: Chirp[];
   reposts?: Chirp[];
   likes?: User[] | string[];

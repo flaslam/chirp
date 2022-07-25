@@ -60,10 +60,8 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
 
   // Handle sending data and the resolving the outcome
   const submitData = async (data: FormData) => {
-    let res;
-
     try {
-      res = await createUser(data);
+      await createUser(data);
     } catch (error) {
       alert(
         `User "${formInputData.username}" already exists. Try a different username.`

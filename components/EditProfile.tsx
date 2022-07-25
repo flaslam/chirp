@@ -12,11 +12,7 @@ import { BlackButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import {
-  checkValidFile,
-  checkValidFileExtension,
-  checkValidFileSize,
-} from "../verifyUpload";
+import { checkValidFile } from "../verifyUpload";
 
 interface EditProfileProps {
   setOpenEditProfileDialog(status: boolean): void;

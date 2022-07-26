@@ -65,7 +65,7 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
 
     formData.append("message", inputText);
 
-    formData.append("parentId", parentId);
+    formData.append("parent", parentId);
 
     // const res = await createPost(user.token, inputText, parentId);
     const res = await createPost(user.token, formData);

@@ -41,6 +41,7 @@ const Main: React.FC<MainProps> = ({ user }) => {
         console.log(err);
       }
     };
+
     getPosts();
   }, [user]);
 

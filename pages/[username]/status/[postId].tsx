@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getPost } from "../../../components/ApiCalls";
+import { getPost } from "../../../components/api-calls";
 import { Chirp, PostDisplayType } from "../../../types";
-import Post from "../../../components/Post";
-import Back from "../../../components/Back";
-import Compose from "../../../components/Compose";
-import Loading from "../../../components/Loading";
+import Post from "../../../components/post";
+import Back from "../../../components/back";
+import Compose from "../../../components/compose";
+import Loading from "../../../components/loading";
 
 const SinglePost: React.FC = () => {
   const router = useRouter();

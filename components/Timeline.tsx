@@ -1,5 +1,4 @@
-import Post from "./Post";
-import styles from "../styles/Timeline.module.css";
+import Post from "./post";
 import { Chirp, PostDisplayType } from "../types";
 
 interface TimelineProps {

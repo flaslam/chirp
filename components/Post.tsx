@@ -3,9 +3,9 @@ import styles from "../styles/Post.module.css";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Image from "next/image";
 import Link from "next/link";
-import PostActions from "./PostActions";
+import PostActions from "./post-actions";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./user-context";
 
 interface PostProps {
   post?: Chirp;

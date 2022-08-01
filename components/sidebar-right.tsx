@@ -1,12 +1,10 @@
-import styles from "../styles/SidebarRight.module.css";
-import LogIn from "./LogIn";
-import SignUp from "./SignUp";
-import LogOut from "./LogOut";
+import LogIn from "./log-in";
+import SignUp from "./sign-up";
+import LogOut from "./log-out";
 import { BlueLargeButton } from "./Styled/Buttons";
 import { useContext, useState } from "react";
 import { Dialog } from "@mui/material";
-import { UserContext } from "./UserContext";
-import { CustomDialog } from "./Styled/Dialog";
+import { UserContext } from "./user-context";
 
 const SidebarRight = () => {
   const { user } = useContext(UserContext);
@@ -15,7 +13,7 @@ const SidebarRight = () => {
   const [openSignUpDialog, setOpenSignUpDialog] = useState<boolean>(false);
 
   return (
-    <div className="p-4 hidden w-1/4 lg:w-1/8 xl:w-1/6 xl:flex flex-col">
+    <div className="lg:w-1/8 hidden w-1/4 flex-col p-4 xl:flex xl:w-1/6">
       {/* invisible md:visible */}
       {user ? (
         <LogOut />

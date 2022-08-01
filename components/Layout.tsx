@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import SidebarLeft from "./SidebarLeft";
-import SidebarRight from "./SidebarRight";
-import styles from "../styles/Home.module.css";
-import MobileBanner from "./MobileBanner";
+import SidebarLeft from "./sidebar-left";
+import SidebarRight from "./sidebar-right";
+import MobileBanner from "./mobile-banner";
 import { useState } from "react";
 
 interface Props {
@@ -11,12 +10,6 @@ interface Props {
 }
 
 const Layout: NextPage<Props> = ({ children }) => {
-  // let title = children.type.name + " | Chirp";
-  // if (children.type.name === "Home") {
-  //   title = "Chirp";
-  // } else {
-  // }
-
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
   const title = "Chirp";

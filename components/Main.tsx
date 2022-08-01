@@ -1,12 +1,10 @@
-import Timeline from "./Timeline";
-import Compose from "./Compose";
-import styles from "../styles/Main.module.css";
-import Banner from "./Banner";
-import { useContext, useEffect, useState } from "react";
-import { getAllPosts } from "./ApiCalls";
+import Timeline from "./timeline";
+import Compose from "./compose";
+import Banner from "./banner";
+import { useEffect, useState } from "react";
+import { getAllPosts } from "./api-calls";
 import { Chirp } from "../types";
-import { UserContext } from "./UserContext";
-import Loading from "./Loading";
+import Loading from "./loading";
 
 interface MainProps {
   user: any;
@@ -51,7 +49,7 @@ const Main: React.FC<MainProps> = ({ user }) => {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div>
       <Banner />
       <Compose addPost={addPost} />
       {loading ? <Loading /> : <Timeline posts={posts} />}

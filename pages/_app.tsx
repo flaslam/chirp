@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
-import { UserContext } from "../components/UserContext";
+import Layout from "../components/layout";
+import { UserContext } from "../components/user-context";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 

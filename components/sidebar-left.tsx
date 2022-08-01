@@ -1,19 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useContext } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./user-context";
 
-import styles from "../styles/SidebarLeft.module.css";
+// Icons
 import TwitterIcon from "@mui/icons-material/Twitter";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/Search";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import Image from "next/image";
 
 const SidebarLeft = () => {
   const { user } = useContext(UserContext);
@@ -32,14 +32,14 @@ const SidebarLeft = () => {
               </li>
             </a>
           </Link>
+          <Link href="/">
+            <a>
+              <li>
+                <HomeOutlinedIcon fontSize="large" />
+              </li>
+            </a>
+          </Link>
           {/* <Link href="/">
-          <a>
-            <li>
-              <HomeOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
           <a>
             <li>
               <SearchOutlinedIcon fontSize="large" />

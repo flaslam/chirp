@@ -1,12 +1,12 @@
 import { Chirp, PostDisplayType } from "../types";
-import Post from "../components/Post";
-import Profile from "../components/Profile";
-import Back from "../components/Back";
+import Post from "../components/post";
+import Profile from "../components/profile";
+import Back from "../components/back";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getUser, getUserPosts } from "../components/ApiCalls";
-import { UserContext } from "../components/UserContext";
-import Loading from "../components/Loading";
+import { getUser, getUserPosts } from "../components/api-calls";
+import { UserContext } from "../components/user-context";
+import Loading from "../components/loading";
 
 const UserPage: React.FC = () => {
   const router = useRouter();

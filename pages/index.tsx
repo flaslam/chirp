@@ -1,11 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Main from "../components/Main";
-import SidebarLeft from "../components/SidebarLeft";
-import SidebarRight from "../components/SidebarRight";
-import styles from "../styles/Home.module.css";
-import { UserContext } from "../components/UserContext";
-import { useContext, useEffect, useMemo, useState } from "react";
+import Main from "../components/main";
+import { UserContext } from "../components/user-context";
+import { useContext } from "react";
 
 interface HomeProps {}
 

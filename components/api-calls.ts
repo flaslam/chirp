@@ -19,6 +19,7 @@ export const getAllPosts = async (token: string = "") => {
   }
 
   let retrievedPosts: Chirp[] = [];
+
   for (let post of res.data) {
     retrievedPosts.push(populateData(post));
   }
@@ -41,25 +42,6 @@ export const uploadFile = async (formData: FormData) => {
   });
 };
 
-// export const createPost = async (
-//   token: string,
-//   message: string,
-//   parent: string = ""
-// ) => {
-//   const config = {
-//     headers: { Authorization: token },
-//   };
-
-//   const body = {
-//     message: message,
-//     parent: parent,
-//   };
-
-//   const res = await axios.post(`${DB_HOST}`, body, config);
-
-//   return await res;
-// };
-
 // Send post as formdata
 export const createPost = async (token: string, data: FormData) => {
   const config = {
@@ -67,14 +49,7 @@ export const createPost = async (token: string, data: FormData) => {
     "Content-Type": "multipart/form-data",
   };
 
-  // const body = {
-  //   message: message,
-  //   parent: parent,
-  // };
-
-  const res = await axios.post(`${DB_HOST}`, data, config);
-
-  return await res;
+  return await axios.post(`${DB_HOST}`, data, config);
 };
 
 export const createUser = async (formData: FormData) => {
@@ -85,9 +60,7 @@ export const createUser = async (formData: FormData) => {
     data: formData,
   };
 
-  const res = await axios.post(`${DB_HOST}/signup`, formData, config);
-
-  return await res;
+  return await axios.post(`${DB_HOST}/signup`, formData, config);
 };
 
 export const loginUser = async (formData: FormData) => {
@@ -124,8 +97,7 @@ export const followUser = async (
     follow: follow,
   };
 
-  const res = await axios.patch(`${DB_HOST}/${userToFollow}/follow`, body);
-  return res;
+  return await axios.patch(`${DB_HOST}/${userToFollow}/follow`, body);
 };
 
 export const likePost = async (
@@ -147,26 +119,12 @@ export const updateProfile = async (
   username: string,
   token: string
 ) => {
-  // const body = {
-  //   name: formData.get("name"),
-  //   location: formData.get("location"),
-  //   bio: formData.get("bio"),
-  //   website: formData.get("website"),
-  //   birthDate: formData.get("birthDate"),
-  //   username: username,
-  // };
-
-  // console.log(formData.get("photo"));
-
   const config = {
     headers: {
       Authorization: token,
       "Content-Type": "multipart/form-data",
     },
   };
-
-  // const res = await axios.patch(`${DB_HOST}/${username}`, body, config);
-  // return res;
 
   return await axios.patch(`${DB_HOST}/${username}`, formData, config);
 };

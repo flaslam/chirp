@@ -9,11 +9,9 @@ import {
   useRef,
   useState,
 } from "react";
-import styles from "../styles/Compose.module.css";
-import { createPost, getPost } from "./ApiCalls";
-import { UserContext } from "./UserContext";
+import { createPost, getPost } from "./api-calls";
+import { UserContext } from "./user-context";
 import { Chirp } from "../types";
-import { postToChirp } from "../utils";
 import { StandardButton } from "./Styled/Buttons";
 import { checkValidFile } from "../verifyUpload";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
@@ -57,23 +55,16 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
 
     const formData = new FormData();
 
-    if (media) formData.append("media", media);
-
     // If parentId is sent as an empty string, post won't have parent
     let parentId = "";
     originalPost ? (parentId = originalPost as string) : "";
 
+    if (media) formData.append("media", media);
     formData.append("message", inputText);
-
     formData.append("parent", parentId);
 
-    // const res = await createPost(user.token, inputText, parentId);
     const res = await createPost(user.token, formData);
     const post = res.data.post;
-    // const newPost = postToChirp(post);
-    // newPost.media = [mediaLocalPath];
-
-    // addPost(newPost);
 
     const newPost = await getPost(post.id, post.user.username);
 
@@ -111,12 +102,7 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
     // TODO: need to now change the visible photo
     setMedia(selectedFile);
 
-    // setMediaLocalPath(selectedFile.)
-
-    // selectedFile.
     setMediaLocalPath(URL.createObjectURL(selectedFile));
-
-    // alert("Filed successfully selected. Save to upload file.");
   };
 
   const handleClearMedia = () => {
@@ -137,19 +123,19 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
   return (
     <>
       {!user ? null : (
-        <div className={styles.composeContainer}>
+        <div className="flex gap-3 p-4">
           {/* Profile picture */}
-          <div className={styles.photoContainer}>
+          <div className="relative flex h-12 w-12 flex-shrink">
             <Image
               src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
               alt="pp"
               layout="fill"
-              className={styles.photo}
+              className="rounded-full"
             />
           </div>
 
           {/* Form */}
-          <div className={styles.formContainer}>
+          <div className="grow">
             <form onSubmit={handleForm}>
               <div>
                 <TextField
@@ -160,7 +146,7 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
                   }
                   variant="standard"
                   // style={{ width: "100%" }}
-                  className={styles.textField}
+                  className="w-full"
                   required
                   multiline
                   inputProps={{ maxLength: MAX_CHAR_LIMIT }}
@@ -214,7 +200,7 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
                   onChange={handleChangeMedia}
                 />
 
-                {/* Text input limit bar */}
+                {/* Text input progress/limit bar */}
                 <div className="flex items-center px-1">
                   <CircularProgress
                     variant="determinate"

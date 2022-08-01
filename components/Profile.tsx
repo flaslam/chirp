@@ -1,10 +1,9 @@
-import { Button, Dialog } from "@mui/material";
+import { Dialog } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { followUser } from "./ApiCalls";
-import styles from "../styles/Profile.module.css";
+import { followUser } from "./api-calls";
 import { WhiteButton } from "./Styled/Buttons";
-import EditProfile from "./EditProfile";
+import EditProfile from "./edit-profile";
 
 import LinkIcon from "@mui/icons-material/Link";
 import PlaceIcon from "@mui/icons-material/Place";
@@ -66,7 +65,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   return (
     <div className="border-b">
       {/* Header image */}
-      <div className="w-full h-48 overflow-hidden -z-50">
+      <div className="-z-50 h-48 w-full overflow-hidden">
         {userData.header ? (
           <Image
             src={`${process.env.NEXT_PUBLIC_DB_HOST}/${userData.header}`}
@@ -101,13 +100,13 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
               // layout="fixed"
               objectFit="cover"
               alt={userData.username}
-              className="rounded-full !border-solid !border-4 !border-white z-50 m-auto"
+              className="z-50 m-auto rounded-full !border-4 !border-solid !border-white"
               priority
             />
           </div>
 
           {/* Top button row */}
-          <div className="py-2 ml-auto shrink">
+          <div className="ml-auto shrink py-2">
             {!user ? null : (
               <>
                 {!isUser ? (
@@ -143,8 +142,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
         <div className="my-2">
           {/* Display name and username */}
           <div className="my-2">
-            <h2 className="font-bold text-xl">{userData.displayName}</h2>
-            <h3 className="text-gray-600 leading-none">@{userData.username}</h3>
+            <h2 className="text-xl font-bold">{userData.displayName}</h2>
+            <h3 className="leading-none text-gray-600">@{userData.username}</h3>
           </div>
 
           <div className="flex flex-col gap-2 py-2 text-gray-600">
@@ -160,7 +159,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                 </div>
               )}
               {!userData.url ? null : (
-                <div className="flex items-center justify-center gap-x-1 hover:underline hover:cursor-pointer">
+                <div className="flex items-center justify-center gap-x-1 hover:cursor-pointer hover:underline">
                   <LinkIcon fontSize="small" />
                   <span className="text-blue-link">
                     <Link href={`http://${userData.url}`}>
@@ -184,7 +183,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
             </div>
 
             {/* Profile data */}
-            <div className="flex flex-row gap-4 text-sm my-1">
+            <div className="my-1 flex flex-row gap-4 text-sm">
               <div>
                 <span className="font-bold">{userData.following.length}</span>{" "}
                 Following

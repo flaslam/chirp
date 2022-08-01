@@ -1,16 +1,19 @@
-import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BlueLargeButton } from "./Styled/Buttons";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./user-context";
 
-const LogOut = () => {
+export const LogOut = () => {
   const { user, setUser } = useContext(UserContext);
+  const router = useRouter();
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
 
     // TODO: redirect to homepage.
+    router.push("/");
   };
+
   return <BlueLargeButton onClick={handleLogout}>Log Out</BlueLargeButton>;
 };
 

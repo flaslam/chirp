@@ -1,7 +1,6 @@
 import { TextField } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { createUser } from "./ApiCalls";
-import styles from "../styles/SignUp.module.css";
+import { createUser } from "./api-calls";
 import { BlueLargeButton } from "./Styled/Buttons";
 import { checkValidFileExtension, checkValidFileSize } from "../verifyUpload";
 import CloseIcon from "@mui/icons-material/Close";
@@ -75,20 +74,20 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
   };
 
   return (
-    <div className={styles.signUpContainer}>
+    <div className="flex flex-col p-4">
       <div>
         <div className="pb-4">
           <div className="flex flex-row items-center">
-            <div className="grow px-2 font-bold text-xl">Sign Up</div>
+            <div className="grow px-2 text-xl font-bold">Sign Up</div>
             <div
-              className="cursor-pointer m-auto rounded-full hover:bg-gray-200 p-1"
+              className="m-auto cursor-pointer rounded-full p-1 hover:bg-gray-200"
               onClick={() => setOpenSignUpDialog(false)}
             >
               <CloseIcon className="" />
             </div>
           </div>
         </div>
-        <form onSubmit={handleForm}>
+        <form onSubmit={handleForm} className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             <TextField
               id="username"

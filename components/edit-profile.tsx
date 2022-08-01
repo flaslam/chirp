@@ -6,8 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { updateProfile } from "./ApiCalls";
-import { UserContext } from "./UserContext";
+import { updateProfile } from "./api-calls";
+import { UserContext } from "./user-context";
 import { BlackButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
@@ -140,17 +140,17 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
   };
 
   return (
-    <div className="flex flex-col p-1 w-96">
+    <div className="flex w-96 flex-col p-1">
       <form onSubmit={handleForm} className="flex flex-col gap-2 py-0">
         {/* Top row to exit and save */}
         <div className="flex flex-row items-center pl-2">
           <div
-            className="cursor-pointer m-auto rounded-full hover:bg-gray-200 p-1"
+            className="m-auto cursor-pointer rounded-full p-1 hover:bg-gray-200"
             onClick={() => props.setOpenEditProfileDialog(false)}
           >
             <CloseIcon className="" />
           </div>
-          <div className="grow px-2 font-bold text-xl">Edit profile</div>
+          <div className="grow px-2 text-xl font-bold">Edit profile</div>
           <BlackButton type="submit">Save</BlackButton>
         </div>
 
@@ -158,27 +158,27 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
         <div>
           <div className="pb-4">
             {/* Header image */}
-            <div className="w-full h-48 overflow-hidden z-0">
+            <div className="z-0 h-48 w-full overflow-hidden">
               <div className="relative">
-                <div className="absolute min-w-full min-h-full z-20 bg-black opacity-20 z-20" />
-                <div className="absolute text-white z-20 w-full h-full">
-                  <div className="flex items-center justify-center mt-24 gap-4">
+                <div className="absolute z-20 z-20 min-h-full min-w-full bg-black opacity-20" />
+                <div className="absolute z-20 h-full w-full text-white">
+                  <div className="mt-24 flex items-center justify-center gap-4">
                     {/* Photo icon */}
                     <div
-                      className="bg-black w-12 h-12 rounded-full opacity-70 hover:opacity-50 hover:cursor-pointer"
+                      className="h-12 w-12 rounded-full bg-black opacity-70 hover:cursor-pointer hover:opacity-50"
                       onClick={handleSelectHeader}
                     >
-                      <div className="flex justify-center items-center h-full w-full">
+                      <div className="flex h-full w-full items-center justify-center">
                         <AddAPhotoOutlinedIcon />
                       </div>
                     </div>
 
                     {/* Delete icon */}
                     <div
-                      className="bg-black w-12 h-12 rounded-full opacity-70 hover:opacity-50 hover:cursor-pointer"
+                      className="h-12 w-12 rounded-full bg-black opacity-70 hover:cursor-pointer hover:opacity-50"
                       onClick={handleDeleteHeader}
                     >
-                      <div className="flex justify-center items-center h-full w-full">
+                      <div className="flex h-full w-full items-center justify-center">
                         <CloseIcon />
                       </div>
                     </div>
@@ -208,12 +208,12 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
             <div className="flex">
               {/* Profile photo */}
               <div className="-mt-20">
-                <div className="relative flex items-center justify-center z-20">
-                  <div className="absolute min-w-full min-h-full z-10 bg-black border-4 rounded-full opacity-25" />
+                <div className="relative z-20 flex items-center justify-center">
+                  <div className="absolute z-10 min-h-full min-w-full rounded-full border-4 bg-black opacity-25" />
                   <div className="absolute z-20 text-white">
-                    <div className="bg-black w-12 h-12 rounded-full opacity-70 hover:opacity-50 hover:cursor-pointer">
+                    <div className="h-12 w-12 rounded-full bg-black opacity-70 hover:cursor-pointer hover:opacity-50">
                       <div
-                        className="flex justify-center items-center h-full w-full"
+                        className="flex h-full w-full items-center justify-center"
                         onClick={handleSelectPhoto}
                       >
                         <AddAPhotoOutlinedIcon />
@@ -234,7 +234,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                     height="144"
                     // layout="fixed"
                     alt={props.userData.username}
-                    className="rounded-full !border-solid !border-4 !border-white z-0 m-auto"
+                    className="z-0 m-auto rounded-full !border-4 !border-solid !border-white"
                     objectFit="cover"
                   />
                 </div>

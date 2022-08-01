@@ -1,8 +1,7 @@
 import { TextField } from "@mui/material";
 import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { loginUser } from "./ApiCalls";
-import styles from "../styles/LogIn.module.css";
-import { UserContext } from "./UserContext";
+import { loginUser } from "./api-calls";
+import { UserContext } from "./user-context";
 import { BlueLargeButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -67,13 +66,13 @@ const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
   };
 
   return (
-    <div className={styles.logInContainer}>
+    <div className="flex flex-col p-4">
       <div>
         <div className="pb-4">
           <div className="flex flex-row items-center">
-            <div className="grow px-2 font-bold text-xl">Log In</div>
+            <div className="grow px-2 text-xl font-bold">Log In</div>
             <div
-              className="cursor-pointer m-auto rounded-full hover:bg-gray-200 p-1"
+              className="m-auto cursor-pointer rounded-full p-1 hover:bg-gray-200"
               onClick={() => setOpenLogInDialog(false)}
             >
               <CloseIcon className="" />
@@ -81,7 +80,7 @@ const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
           </div>
         </div>
 
-        <form onSubmit={handleForm}>
+        <form onSubmit={handleForm} className="flex flex-col gap-2">
           <div className="flex flex-col gap-4">
             <TextField
               id="username"

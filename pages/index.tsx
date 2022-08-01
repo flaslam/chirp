@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import Main from "../components/main";
-import { UserContext } from "../components/user-context";
+import Main from "../component/main";
+import { UserContext } from "../component/user-context";
 import { useContext } from "react";
 
 interface HomeProps {}

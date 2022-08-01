@@ -1,10 +1,10 @@
-import Timeline from "./timeline";
-import Compose from "./compose";
 import Banner from "./banner";
+import Compose from "./compose";
+import Loading from "./loading";
+import Timeline from "./timeline";
 import { useEffect, useState } from "react";
 import { getAllPosts } from "./api-calls";
 import { Chirp } from "../types";
-import Loading from "./loading";
 
 interface MainProps {
   user: any;

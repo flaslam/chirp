@@ -55,7 +55,7 @@ const UserPage: React.FC = () => {
           {!userData || !userPosts ? (
             <Back />
           ) : (
-            <>
+            <div>
               <Back profileName={userData.displayName} />
               <Profile
                 userData={userData}
@@ -73,7 +73,7 @@ const UserPage: React.FC = () => {
                   );
                 })}
               </div>
-            </>
+            </div>
           )}
         </>
       )}

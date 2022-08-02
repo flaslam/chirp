@@ -123,7 +123,7 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
   return (
     <>
       {!user ? null : (
-        <div className="flex gap-3 p-4">
+        <div className="flex gap-3 border-b p-4">
           {/* Profile picture */}
           <div className="relative flex h-12 w-12 flex-shrink">
             <Image

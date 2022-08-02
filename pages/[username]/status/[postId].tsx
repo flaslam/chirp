@@ -77,7 +77,7 @@ const SinglePost: React.FC = () => {
                   addPost={addReply}
                 />
               </div>
-              <div>
+              <div className="divide-y">
                 {post.replies ? (
                   <>
                     {post.replies.map((reply) => {

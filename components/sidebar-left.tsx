@@ -117,7 +117,7 @@ const SidebarLeft = () => {
       </div>
 
       {/* Second flex element: bottom user panel */}
-      <div className="flex items-center py-10">
+      <div className="flex items-center py-4">
         {!user ? null : (
           <div
             className={`flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200`}

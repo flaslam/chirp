@@ -81,7 +81,9 @@ const SidebarLeft = () => {
 
                   {/* Single column view */}
                   <div className="block rounded-full p-2 text-3xl transition hover:bg-gray-200 md:hidden">
-                    {link.icon}
+                    {linkIsActive && link.iconFilled
+                      ? link.iconFilled
+                      : link.icon}
                   </div>
                 </a>
               </Link>

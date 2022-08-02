@@ -24,7 +24,7 @@ const Layout: NextPage<LayoutProps> = ({ children }) => {
       <div className="flex flex-col">
         {/* flex-col sm:flex-row for mobile view */}
 
-        <div className="flex min-h-screen flex-row justify-center gap-2">
+        <div className="flex min-h-screen flex-row justify-center">
           {/* <MobileBanner /> */}
           <SidebarLeft />
           <main className="w-full border md:w-timeline">{children}</main>

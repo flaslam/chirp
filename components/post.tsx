@@ -65,28 +65,29 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                     </a>
                   </Link>
                 </div>
+
                 <div className={styles.postContents}>
-                  {/* New name row */}
+                  {/* Name row */}
                   <div className="flex">
-                    <div className="flex grow gap-1 whitespace-nowrap">
+                    <div className="flex grow gap-1">
                       <div className="truncate font-bold hover:underline">
                         <Link href={`/${post.username}`}>
                           <a>{post.displayName}</a>
                         </Link>
                       </div>
-                      <div className="whitespace-nowrap text-gray-500">
+                      <div className="truncate text-gray-500">
                         <Link href={`/${post.username}`}>
                           <a>@{post.username}</a>
                         </Link>
                       </div>
-                      <div className="whitespace-nowrap text-gray-500">·</div>
-                      <div className="whitespace-nowrap text-gray-500 hover:underline">
+                      <div className="text-gray-500">·</div>
+                      <div className="text-gray-500 hover:underline">
                         <Link href={`/${post.username}/status/${post.id}`}>
                           <a>{post.date.toString()}</a>
                         </Link>
                       </div>
                     </div>
-                    <div className="whitespace-nowrap text-gray-500">
+                    <div className="text-gray-500">
                       <MoreHorizIcon />
                     </div>
                   </div>

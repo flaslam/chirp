@@ -50,11 +50,11 @@ const Main: React.FC<MainProps> = ({ user }) => {
   };
 
   return (
-    <div>
+    <>
       <Banner />
       <Compose addPost={addPost} />
       {loading ? <Loading /> : <Timeline posts={posts} />}
-    </div>
+    </>
   );
 };
 

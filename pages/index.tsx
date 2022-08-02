@@ -8,11 +8,7 @@ interface HomeProps {}
 const Home: NextPage<HomeProps> = () => {
   const { user } = useContext(UserContext);
 
-  return (
-    <div>
-      <Main user={user} />
-    </div>
-  );
+  return <Main user={user} />;
 };
 
 export default Home;

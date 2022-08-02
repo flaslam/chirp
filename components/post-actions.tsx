@@ -17,6 +17,7 @@ interface PostActionsProps {
   setLiked: (likedStatus: boolean) => void;
   likes: Chirp["likes"];
   setLikes: React.Dispatch<React.SetStateAction<Chirp["likes"]>>;
+  shrinkActions?: boolean;
 }
 
 const PostActions: React.FC<PostActionsProps> = ({
@@ -25,6 +26,7 @@ const PostActions: React.FC<PostActionsProps> = ({
   setLiked,
   likes,
   setLikes,
+  shrinkActions,
 }) => {
   const { user } = useContext(UserContext);
 
@@ -90,7 +92,11 @@ const PostActions: React.FC<PostActionsProps> = ({
 
   return (
     <div
-      className={`${styles.postActions} ml-12 flex justify-between px-4 pt-4 md:ml-0 md:px-14`}
+      className={`${
+        styles.postActions
+      } flex justify-between px-6 pt-4 md:ml-0 md:px-14 ${
+        shrinkActions ? "ml-12" : null
+      }`}
     >
       <div className={styles.repliesIconHolder}>
         <ChatBubbleOutlineIcon className={styles.repliesIcon} />

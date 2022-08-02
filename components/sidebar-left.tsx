@@ -54,7 +54,7 @@ const SidebarLeft = () => {
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
   return (
-    <div className="sticky top-0 z-30 flex h-screen flex-col items-center justify-center pt-2 md:w-60 md:items-start xl:w-sb-left">
+    <div className="sticky top-0 z-30 mx-2 flex h-screen flex-col items-center justify-center pt-2 md:w-60 md:items-start xl:w-sb-left">
       {/* First verical flex element: all icons */}
       <div className="flex w-full grow flex-col items-center gap-2 md:items-start">
         {links.map((link, index) => {
@@ -126,7 +126,7 @@ const SidebarLeft = () => {
       </div>
 
       {/* Second flex element: bottom user panel */}
-      <div className="mb-4 flex w-full flex-col gap-2 md:px-4">
+      <div className="mb-4 flex flex-col gap-2 md:w-full md:px-4">
         {!user ? (
           <>
             <LogInModal>

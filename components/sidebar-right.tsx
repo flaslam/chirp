@@ -1,21 +1,15 @@
-import LogIn from "./log-in";
-import SignUp from "./sign-up";
-import LogOut from "./log-out";
-import { BlueLargeButton } from "./Styled/Buttons";
-import { useContext, useState } from "react";
-import { Dialog } from "@mui/material";
+import { useContext } from "react";
 import { UserContext } from "./user-context";
 import LogInModal from "./log-in-modal";
 import SignUpModal from "./sign-up-modal";
+import LogOut from "./log-out";
+import { BlueLargeButton } from "./Styled/Buttons";
 
 const SidebarRight = () => {
   const { user } = useContext(UserContext);
 
-  const [openSignUpDialog, setOpenSignUpDialog] = useState<boolean>(false);
-
   return (
-    <div className="lg:w-1/8 hidden w-1/4 flex-col p-4 xl:flex xl:w-1/6">
-      {/* invisible md:visible */}
+    <div className="lg:w-1/8 sticky top-0 block hidden h-screen w-1/4 flex-col p-4 xl:flex xl:w-1/6">
       {user ? (
         <LogOut>
           <BlueLargeButton>Log Out</BlueLargeButton>

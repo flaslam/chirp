@@ -3,7 +3,11 @@ import { useContext } from "react";
 import { BlueLargeButton } from "./Styled/Buttons";
 import { UserContext } from "./user-context";
 
-export const LogOut = () => {
+interface LogOutProps {
+  children?: JSX.Element;
+}
+
+export const LogOut: React.FC<LogOutProps> = (props) => {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   const handleLogout = () => {
@@ -14,7 +18,9 @@ export const LogOut = () => {
     router.push("/");
   };
 
-  return <BlueLargeButton onClick={handleLogout}>Log Out</BlueLargeButton>;
+  return <div onClick={handleLogout}>{props.children}</div>;
 };
 
 export default LogOut;
+
+//<BlueLargeButton onClick={handleLogout}>Log Out</BlueLargeButton>

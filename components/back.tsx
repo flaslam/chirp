@@ -13,14 +13,14 @@ const Back: React.FC<BackProps> = (props) => {
   };
 
   return (
-    <div className="m-2 flex flex-row items-center">
+    <div className="sticky top-0 z-50 flex flex-row items-center bg-white bg-opacity-80 py-2 backdrop-blur-lg">
       <div
-        className=" rounded-full hover:bg-gray-200 p-2  transition duration-300 hover:cursor-pointer w-10 h-10"
+        className="ml-2 h-10 w-10 rounded-full  p-2 transition duration-300 hover:cursor-pointer hover:bg-gray-200"
         onClick={handleBack}
       >
-        <ArrowBackIcon className="flex justify-center items-center" />
+        <ArrowBackIcon className="flex items-center justify-center" />
       </div>
-      <div className="font-medium text-lg px-6">
+      <div className="px-6 text-lg font-medium">
         {/* {!props.profileName ? "Post" : props.profileName}  */}
         {!props.profileName ? "" : props.profileName}
       </div>

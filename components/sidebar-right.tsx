@@ -16,7 +16,9 @@ const SidebarRight = () => {
     <div className="lg:w-1/8 hidden w-1/4 flex-col p-4 xl:flex xl:w-1/6">
       {/* invisible md:visible */}
       {user ? (
-        <LogOut />
+        <LogOut>
+          <BlueLargeButton>Log Out</BlueLargeButton>
+        </LogOut>
       ) : (
         <>
           <BlueLargeButton onClick={() => setOpenLogInDialog(true)}>

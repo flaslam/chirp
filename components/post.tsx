@@ -137,7 +137,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 {!post.parent ? null : (
                   <div className="absolute h-full w-full">
                     <div className="flex items-center justify-center">
-                      <div className="z-10  flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
+                      <div className="z-10 flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
                     </div>
                   </div>
                 )}

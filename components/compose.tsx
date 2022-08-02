@@ -16,13 +16,19 @@ import { StandardButton } from "./Styled/Buttons";
 import { checkValidFile } from "../verifyUpload";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/router";
 
 interface ComposeProps {
   originalPost?: string;
-  addPost: (post: Chirp) => void;
+  addPost?: (post: Chirp) => void;
+  setModal?(status: boolean): void;
 }
 
-const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
+const Compose: React.FC<ComposeProps> = ({
+  originalPost,
+  addPost,
+  setModal,
+}) => {
   const MAX_CHAR_LIMIT = 140;
 
   const [postDisabled, setPostDisabled] = useState<boolean>(true);
@@ -37,10 +43,17 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
 
   const [mediaLocalPath, setMediaLocalPath] = useState<string>("");
 
+  const router = useRouter();
+
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
     // TODO: loading time between post and display, disable input in jsx by checking state disabled={state}
     await submitData();
+
+    // TODO: Composed from outside of timeline - redirect?
+    if (setModal) {
+      setModal(false);
+    }
 
     // Clear input text
     setInputText("");
@@ -68,7 +81,14 @@ const Compose: React.FC<ComposeProps> = ({ originalPost, addPost }) => {
 
     const newPost = await getPost(post.id, post.user.username);
 
-    await addPost(newPost);
+    if (addPost) {
+      await addPost(newPost);
+      return;
+    }
+
+    // Redirect to the post since we have modal open
+    router.push(`/${newPost.username}/status/${newPost.id}`);
+
     return;
   };
 

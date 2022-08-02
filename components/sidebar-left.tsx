@@ -5,16 +5,23 @@ import { useContext, useState } from "react";
 import { UserContext } from "./user-context";
 
 // Icons
-import { HiHome, HiOutlineHome, HiUser, HiOutlineUser } from "react-icons/hi";
+import {
+  HiHome,
+  HiOutlineHome,
+  HiUser,
+  HiOutlineUser,
+  HiLogin,
+  HiUserAdd,
+} from "react-icons/hi";
 import { RiQuillPenFill } from "react-icons/ri";
 import { FaTwitter } from "react-icons/fa";
 
 import { motion } from "framer-motion";
 import { BlueLargeButton } from "./Styled/Buttons";
 import LogOut from "./log-out";
-import Modal from "./modal";
 import LogInModal from "./log-in-modal";
 import SignUpModal from "./sign-up-modal";
+import ComposeModal from "./compose-modal";
 
 interface link {
   name?: string;
@@ -47,8 +54,8 @@ const SidebarLeft = () => {
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
   return (
-    <div className="sticky top-0 z-30 flex h-screen w-20 flex-col items-center px-2 pt-2 md:w-60 md:items-start xl:w-sb-left">
-      {/* First flex element: all icons */}
+    <div className="sticky top-0 z-30 flex h-screen flex-col items-center justify-center pt-2 md:w-60 md:items-start xl:w-sb-left">
+      {/* First verical flex element: all icons */}
       <div className="flex w-full grow flex-col items-center gap-2 md:items-start">
         {links.map((link, index) => {
           // Get current link
@@ -60,9 +67,6 @@ const SidebarLeft = () => {
 
           // Is this link the one we are currently on?
           const linkIsActive = currentRoute === targetLink;
-
-          // const iconProps = linkIsActive?{ (style: { fill: "black" }) }: null;
-          // {React.cloneElement(link.icon, iconProps)}
 
           return link.reqLoggedIn === true && !user ? null : (
             <div key={index}>
@@ -100,44 +104,55 @@ const SidebarLeft = () => {
           <>
             {/* Post button full width */}
             <div className="hidden w-full py-3 md:block">
-              <Link href="/">
-                <a>
-                  <div className="flex items-center justify-center">
-                    <Modal>
-                      <BlueLargeButton>Compose Post</BlueLargeButton>
-                    </Modal>
-                  </div>
-                </a>
-              </Link>
+              <div>
+                <ComposeModal>
+                  <BlueLargeButton>Compose Post</BlueLargeButton>
+                </ComposeModal>
+              </div>
             </div>
 
             {/* Post button single icon */}
             <div className="py-3 md:hidden">
-              <Link href="/">
-                <a>
-                  <div className="text-3xl md:hidden">
-                    <div className="rounded-full bg-sky-500 p-2 transition hover:bg-sky-600">
-                      <RiQuillPenFill style={{ fill: "white" }} />
-                    </div>
-                  </div>
-                </a>
-              </Link>
+              <div className="text-3xl md:hidden">
+                <div className="rounded-full bg-sky-500 p-2 transition hover:cursor-pointer hover:bg-sky-600">
+                  <ComposeModal>
+                    <RiQuillPenFill style={{ fill: "white" }} />
+                  </ComposeModal>
+                </div>
+              </div>
             </div>
           </>
         )}
       </div>
 
       {/* Second flex element: bottom user panel */}
-      <div className="flex w-full items-center py-4">
+      <div className="mb-4 flex w-full flex-col gap-0 md:px-4">
         {!user ? (
-          <div className="w-full">
+          <>
             <LogInModal>
-              <BlueLargeButton>Log In</BlueLargeButton>
+              <>
+                <div className="hidden w-full md:block">
+                  <BlueLargeButton>Log In</BlueLargeButton>
+                  {/* <div className="hidden items-center gap-3 rounded-full p-2 px-4 text-xl transition hover:cursor-pointer hover:bg-gray-200 md:flex">
+                    <HiLogin /> Log In
+                  </div> */}
+                </div>
+                <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden">
+                  <HiLogin />
+                </div>
+              </>
             </LogInModal>
             <SignUpModal>
-              <BlueLargeButton>Sign Up</BlueLargeButton>
+              <>
+                <div className="hidden md:block">
+                  <BlueLargeButton>Sign Up</BlueLargeButton>
+                </div>
+                <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden">
+                  <HiUserAdd />
+                </div>
+              </>
             </SignUpModal>
-          </div>
+          </>
         ) : (
           <div
             className={`flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200`}

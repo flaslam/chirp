@@ -109,6 +109,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </div>
                 </div>
               </div>
+
               <PostActions
                 post={post}
                 liked={liked}
@@ -136,7 +137,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 {!post.parent ? null : (
                   <div className="absolute h-full w-full">
                     <div className="flex items-center justify-center">
-                      <div className="z-50 -z-50 flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
+                      <div className="z-30  flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
                     </div>
                   </div>
                 )}
@@ -223,27 +224,34 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </Link>
                 </>
               </span>
+            </div>
+
+            <div className="mt-4 border-t py-4 text-sm text-gray-500">
               <div className="flex h-5 flex-row gap-2">
                 {post.reposts && post.reposts.length > 0 ? (
                   <div>
-                    {post.reposts.length}{" "}
+                    <span className="font-bold">{post.reposts.length}</span>{" "}
                     {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
                   </div>
                 ) : null}
                 {likes && likes.length > 0 ? (
                   <div>
-                    {likes.length} {likes.length > 1 ? <>Likes</> : <>Like</>}
+                    <span className="font-bold">{likes.length}</span>{" "}
+                    {likes.length > 1 ? <>Likes</> : <>Like</>}
                   </div>
                 ) : null}
               </div>
             </div>
-            <PostActions
-              post={post}
-              liked={liked}
-              setLiked={setLiked}
-              likes={likes}
-              setLikes={setLikes}
-            />
+
+            <div className="border-t border-b pb-4">
+              <PostActions
+                post={post}
+                liked={liked}
+                setLiked={setLiked}
+                likes={likes}
+                setLikes={setLikes}
+              />
+            </div>
           </div>
         )}
       </>

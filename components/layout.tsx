@@ -5,14 +5,15 @@ import SidebarRight from "./sidebar-right";
 import MobileBanner from "./mobile-banner";
 import { useState } from "react";
 
-interface Props {
+interface LayoutProps {
   children: any;
 }
 
-const Layout: NextPage<Props> = ({ children }) => {
+const Layout: NextPage<LayoutProps> = ({ children }) => {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
   const title = "Chirp";
+
   return (
     <>
       <Head>
@@ -22,7 +23,8 @@ const Layout: NextPage<Props> = ({ children }) => {
       </Head>
       <div className="flex flex-col">
         {/* flex-col sm:flex-row for mobile view */}
-        <div className="flex min-h-screen flex-row sm:justify-center">
+
+        <div className="flex min-h-screen flex-row justify-center">
           {/* <MobileBanner /> */}
           <SidebarLeft />
           <main className="max-w-timeline w-full md:w-timeline">

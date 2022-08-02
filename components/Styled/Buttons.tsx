@@ -36,7 +36,8 @@ export const BlueButton = styled(StandardButton)`
 export const BlueLargeButton = styled(BlueButton)`
   color: #ffffff;
   // color: #000000;
-  width: 14rem;
+  width: 100%;
+  max-width: 14rem;
   // max-width: 100%;
   padding: 1rem;
   border-radius: 25px;

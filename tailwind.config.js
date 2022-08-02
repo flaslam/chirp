@@ -11,7 +11,7 @@ module.exports = {
       },
       spacing: {
         timeline: "600px",
-        "sb-left": "330px",
+        "sb-left": "275px",
         "sb-right": "350px",
       },
     },

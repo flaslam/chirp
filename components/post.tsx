@@ -44,7 +44,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
           "There is no post"
         ) : (
           <Link href={`/${post.username}/status/${post.id}`}>
-            <div className="p-4 transition duration-300 hover:cursor-pointer hover:bg-gray-100">
+            <div className="p-4 transition hover:cursor-pointer hover:bg-gray-100">
               <div className={styles.post}>
                 <div className={`${styles.photoContainer}`}>
                   <Link

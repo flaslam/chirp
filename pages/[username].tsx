@@ -62,15 +62,17 @@ const UserPage: React.FC = () => {
                 user={user}
                 fetchUserData={fetchData}
               />
-              {userPosts.map((post: Chirp) => {
-                return (
-                  <Post
-                    key={post.id}
-                    post={post}
-                    postType={PostDisplayType.Timeline}
-                  />
-                );
-              })}
+              <div className="divide-y">
+                {userPosts.map((post: Chirp) => {
+                  return (
+                    <Post
+                      key={post.id}
+                      post={post}
+                      postType={PostDisplayType.Timeline}
+                    />
+                  );
+                })}
+              </div>
             </>
           )}
         </>

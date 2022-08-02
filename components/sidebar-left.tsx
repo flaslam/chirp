@@ -1,126 +1,126 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useContext } from "react";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 import { UserContext } from "./user-context";
 
 // Icons
-import TwitterIcon from "@mui/icons-material/Twitter";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/Search";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
-import AddIcon from "@mui/icons-material/Add";
-import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
+import { HiHome, HiOutlineHome, HiUser, HiOutlineUser } from "react-icons/hi";
+import { RiQuillPenFill } from "react-icons/ri";
+import { FaTwitter } from "react-icons/fa";
+
+import { motion } from "framer-motion";
+import { BlueLargeButton } from "./Styled/Buttons";
+
+interface link {
+  name?: string;
+  link: string;
+  icon: JSX.Element;
+  iconFilled?: JSX.Element;
+  reqLoggedIn?: boolean;
+}
+
+const links: link[] = [
+  {
+    link: "/",
+    icon: <FaTwitter style={{ color: "#1d9bf0" }} />,
+  },
+  { name: "Home", link: "/", icon: <HiOutlineHome />, iconFilled: <HiHome /> },
+  {
+    name: "Profile",
+    link: "/",
+    icon: <HiOutlineUser />,
+    iconFilled: <HiUser />,
+    reqLoggedIn: true,
+  },
+];
 
 const SidebarLeft = () => {
   const { user } = useContext(UserContext);
-  // min-w-20 md:max-w-sb-left
+  const router = useRouter();
+  const currentRoute = router.asPath;
+
+  const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
+
   return (
-    // add "hidden sm:block to disable on mobile
-    <div className="">
-      <div className="mt-2 flex h-screen flex-col xl:w-sb-left">
-        <ul className="mx-2 flex flex-grow flex-col items-end justify-start gap-4 [&>*]:flex [&>*]:h-12 [&>*]:w-12 [&>*]:items-center [&>*]:justify-center [&>*]:rounded-full [&>*]:transition [&>*:hover]:bg-sky-100 [&>*:hover]:duration-200">
-          <Link href="/" passHref>
-            <a>
-              <li>
-                <div>
-                  <TwitterIcon style={{ color: "#1d9bf0" }} fontSize="large" />
-                </div>
-              </li>
-            </a>
-          </Link>
+    <div className="flex h-screen w-20 flex-col items-center overflow-y-auto px-2 pt-2 md:w-60 md:items-start xl:w-sb-left">
+      {/* First flex element: all icons */}
+      <div className="flex w-full grow flex-col items-center gap-2 md:items-start">
+        {links.map((link, index) => {
+          // Get active link
+          let targetLink = link.link;
+          if (link.name === "Profile" && user) {
+            targetLink = `/${user.username}`;
+          }
+
+          // Is this link the one we are currently on?
+          const linkIsActive = currentRoute === targetLink;
+
+          // const iconProps = linkIsActive?{ (style: { fill: "black" }) }: null;
+          // {React.cloneElement(link.icon, iconProps)}
+
+          return link.reqLoggedIn === true && !user ? null : (
+            <div key={index}>
+              <Link href={link.reqLoggedIn ? user.username : link.link}>
+                <a>
+                  {/* Full view with text */}
+                  <div className="hidden items-center gap-3 rounded-full p-2 text-xl transition hover:bg-gray-200 md:flex">
+                    <span className="text-3xl">
+                      {linkIsActive && link.iconFilled
+                        ? link.iconFilled
+                        : link.icon}
+                    </span>
+                    {!link.name ? null : (
+                      <span
+                        className={`pr-2 ${linkIsActive ? "font-bold" : null}`}
+                      >
+                        {link.name}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Single column view */}
+                  <div className="block rounded-full p-2 text-3xl transition hover:bg-gray-200 md:hidden">
+                    {link.icon}
+                  </div>
+                </a>
+              </Link>
+            </div>
+          );
+        })}
+
+        {/* Post button full width */}
+        <div className="hidden w-full py-3 md:block">
           <Link href="/">
             <a>
-              <li>
-                <HomeOutlinedIcon fontSize="large" />
-              </li>
+              <div className="flex items-center justify-center">
+                <BlueLargeButton>Compose Post</BlueLargeButton>
+              </div>
             </a>
           </Link>
-          {/* <Link href="/">
-          <a>
-            <li>
-              <SearchOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <NotificationsOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <EmailOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <BookmarkBorderOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <ListAltOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link> */}
+        </div>
 
-          {/* Profile icon */}
-          {!user ? null : (
-            <Link href={`/${user.username}`}>
-              <a>
-                <li>
-                  <PersonOutlineOutlinedIcon fontSize="large" />
-                </li>
-              </a>
-            </Link>
-          )}
+        {/* Post button single icon */}
+        <div className="py-3 md:hidden">
+          <Link href="/">
+            <a>
+              <div className="text-3xl md:hidden">
+                <div className="rounded-full bg-sky-500 p-2 transition hover:bg-sky-600">
+                  <RiQuillPenFill style={{ fill: "white" }} />
+                </div>
+              </div>
+            </a>
+          </Link>
+        </div>
+      </div>
 
-          {/* <Link href="/">
-          <a>
-            <li>
-              <PendingOutlinedIcon fontSize="large" />
-            </li>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <li>
-              <AddIcon fontSize="large" />
-            </li>
-          </a>
-        </Link> */}
-          {/* <li>Home</li>
-      <li>Explore</li>
-      <li>Notifications</li>
-      <li>Messages</li>
-      <li>Bookmarks</li>
-      <li>Lists</li>
-      <li>Profile</li>
-      <li>More</li>
-      <li>Compose</li> */}
-
-          {/* <Link href="/" passHref>
-        <Button
-          sx={{ borderRadius: 28, textTransform: "none" }}
-          component="a"
-        >
-          <HomeOutlinedIcon />
-        </Button>
-      </Link> */}
-        </ul>
-        <div className="flex justify-end pb-4">
-          {user ? (
+      {/* Second flex element: bottom user panel */}
+      <div className="flex items-center py-10">
+        {!user ? null : (
+          <div
+            className={`flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200`}
+            onClick={() => setOpenUserPanel((prevState) => !prevState)}
+          >
             <Image
               src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
               width="48"
@@ -128,8 +128,48 @@ const SidebarLeft = () => {
               alt={user.username}
               className="rounded-full"
             />
-          ) : null}
-        </div>
+            <div className="hidden pr-2 md:block">
+              <div className="font-bold">{user.displayName}</div>
+              <div>@{user.username}</div>
+            </div>
+
+            {/* Pop up */}
+            {!openUserPanel ? null : (
+              <motion.div
+                className="absolute z-50 -translate-y-full"
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className="flex -translate-y-4 flex-col justify-center divide-y rounded-xl bg-white drop-shadow-lg">
+                  {/* 1st row */}
+                  <div className="flex cursor-default flex-row gap-2 py-4 pl-4 pr-12">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
+                      width="48"
+                      height="48"
+                      alt={user.username}
+                      className="rounded-full"
+                    />
+                    <div>
+                      <div className="font-bold">{user.displayName}</div>
+                      <div>@{user.username}</div>
+                    </div>
+                  </div>
+
+                  {/* 2nd row */}
+                  <Link href="/">
+                    <a>
+                      <div className="rounded-b-lg py-4 pl-4 pr-12 hover:bg-gray-200">
+                        Log out @{user.username}
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

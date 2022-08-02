@@ -1,13 +1,15 @@
 import styles from "../styles/Post.module.css";
-import { Chirp } from "../types";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import IosShareIcon from "@mui/icons-material/IosShare";
 import React, { useContext } from "react";
 import { UserContext } from "./user-context";
 import { likePost } from "./api-calls";
+import { Chirp } from "../types";
+
+// Icons
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import IosShareIcon from "@mui/icons-material/IosShare";
 
 interface PostActionsProps {
   post: Chirp;
@@ -88,7 +90,7 @@ const PostActions: React.FC<PostActionsProps> = ({
 
   return (
     <div
-      className={`${styles.postActions} flex justify-between px-4 pt-4 md:px-12`}
+      className={`${styles.postActions} ml-12 flex justify-between px-4 pt-4 md:ml-0 md:px-14`}
     >
       <div className={styles.repliesIconHolder}>
         <ChatBubbleOutlineIcon className={styles.repliesIcon} />

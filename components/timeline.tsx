@@ -7,8 +7,8 @@ interface TimelineProps {
 
 const Timeline: React.FC<TimelineProps> = ({ posts }) => {
   return (
-    <div>
-      {posts.map((post, index) => {
+    <div className="divide-y">
+      {posts.map((post) => {
         return (
           <Post key={post.id} post={post} postType={PostDisplayType.Timeline} />
         );

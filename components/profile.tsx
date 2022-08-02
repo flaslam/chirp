@@ -125,6 +125,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                     <Dialog
                       open={openEditProfileDialog}
                       onClose={() => setOpenEditProfileDialog(false)}
+                      fullWidth
                     >
                       <EditProfile
                         setOpenEditProfileDialog={setOpenEditProfileDialog}

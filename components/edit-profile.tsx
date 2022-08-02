@@ -35,6 +35,8 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
     birthDate: string;
   }>({ name: "", location: "", bio: "", website: "", birthDate: "" });
 
+  const [mediaLocalPath, setMediaLocalPath] = useState<string>("");
+
   // Updates our formInputData as we type into our input fields
   const handleChange = (event: ChangeEvent) => {
     const input: HTMLInputElement = event.target as HTMLInputElement;
@@ -126,21 +128,23 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
     // TODO: need to now change the visible photo
     setSelectedPhotoFile(selectedFile);
 
-    alert("Filed successfully selected. Save to upload file.");
+    // Show photo before saving
+    setMediaLocalPath(URL.createObjectURL(selectedFile));
+    // alert("Filed successfully selected. Save to upload file.");
   };
 
   const handleSelectHeader = () => {
     console.log("changing header");
-    alert("This is still to be added!");
+    alert("Banner customisation is to be added.");
   };
 
   const handleDeleteHeader = () => {
     console.log("deleting header");
-    alert("This is still to be added!");
+    alert("Deleting banner is to be added.");
   };
 
   return (
-    <div className="flex w-96 flex-col p-1">
+    <div className="flex w-full flex-col p-1">
       <form onSubmit={handleForm} className="flex flex-col gap-2 py-0">
         {/* Top row to exit and save */}
         <div className="flex flex-row items-center pl-2">
@@ -229,7 +233,12 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                     </div>
                   </div>
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`}
+                    src={
+                      mediaLocalPath
+                        ? mediaLocalPath
+                        : `${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`
+                    }
+                    // src={`${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`}
                     width="144"
                     height="144"
                     // layout="fixed"

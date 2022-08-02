@@ -43,7 +43,7 @@ const SidebarLeft = () => {
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
   return (
-    <div className="flex h-screen w-20 flex-col items-center overflow-y-auto px-2 pt-2 md:w-60 md:items-start xl:w-sb-left">
+    <div className="sticky top-0 flex h-screen w-20 flex-col items-center overflow-y-auto px-2 pt-2 md:w-60 md:items-start xl:w-sb-left">
       {/* First flex element: all icons */}
       <div className="flex w-full grow flex-col items-center gap-2 md:items-start">
         {links.map((link, index) => {

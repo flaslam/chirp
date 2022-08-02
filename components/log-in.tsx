@@ -6,10 +6,10 @@ import { BlueLargeButton } from "./Styled/Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface LoginProps {
-  setOpenLogInDialog(status: boolean): void;
+  setOpenDialog(status: boolean): void;
 }
 
-const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
+const LogIn: React.FC<LoginProps> = ({ setOpenDialog }) => {
   const { user, setUser } = useContext(UserContext);
 
   const [formInputData, setFormInputData] = useState<{
@@ -62,7 +62,7 @@ const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
     setUser(userData);
 
     // Close dialog popup
-    setOpenLogInDialog(false);
+    setOpenDialog(false);
   };
 
   return (
@@ -73,7 +73,7 @@ const LogIn: React.FC<LoginProps> = ({ setOpenLogInDialog }) => {
             <div className="grow px-2 text-xl font-bold">Log In</div>
             <div
               className="m-auto cursor-pointer rounded-full p-1 hover:bg-gray-200"
-              onClick={() => setOpenLogInDialog(false)}
+              onClick={() => setOpenDialog(false)}
             >
               <CloseIcon className="" />
             </div>

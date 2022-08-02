@@ -12,6 +12,9 @@ import { FaTwitter } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { BlueLargeButton } from "./Styled/Buttons";
 import LogOut from "./log-out";
+import Modal from "./modal";
+import LogInModal from "./log-in-modal";
+import SignUpModal from "./sign-up-modal";
 
 interface link {
   name?: string;
@@ -48,8 +51,9 @@ const SidebarLeft = () => {
       {/* First flex element: all icons */}
       <div className="flex w-full grow flex-col items-center gap-2 md:items-start">
         {links.map((link, index) => {
-          // Get active link
+          // Get current link
           let targetLink = link.link;
+
           if (link.name === "Profile" && user) {
             targetLink = `/${user.username}`;
           }
@@ -62,7 +66,7 @@ const SidebarLeft = () => {
 
           return link.reqLoggedIn === true && !user ? null : (
             <div key={index}>
-              <Link href={link.reqLoggedIn ? user.username : link.link}>
+              <Link href={targetLink}>
                 <a>
                   {/* Full view with text */}
                   <div className="hidden items-center gap-3 rounded-full p-2 text-xl transition hover:bg-gray-200 md:flex">
@@ -99,7 +103,9 @@ const SidebarLeft = () => {
               <Link href="/">
                 <a>
                   <div className="flex items-center justify-center">
-                    <BlueLargeButton>Compose Post</BlueLargeButton>
+                    <Modal>
+                      <BlueLargeButton>Compose Post</BlueLargeButton>
+                    </Modal>
                   </div>
                 </a>
               </Link>
@@ -122,8 +128,17 @@ const SidebarLeft = () => {
       </div>
 
       {/* Second flex element: bottom user panel */}
-      <div className="flex items-center py-4">
-        {!user ? null : (
+      <div className="flex w-full items-center py-4">
+        {!user ? (
+          <div className="w-full">
+            <LogInModal>
+              <BlueLargeButton>Log In</BlueLargeButton>
+            </LogInModal>
+            <SignUpModal>
+              <BlueLargeButton>Sign Up</BlueLargeButton>
+            </SignUpModal>
+          </div>
+        ) : (
           <div
             className={`flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200`}
             onClick={() => setOpenUserPanel((prevState) => !prevState)}

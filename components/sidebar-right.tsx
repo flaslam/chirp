@@ -5,11 +5,12 @@ import { BlueLargeButton } from "./Styled/Buttons";
 import { useContext, useState } from "react";
 import { Dialog } from "@mui/material";
 import { UserContext } from "./user-context";
+import LogInModal from "./log-in-modal";
+import SignUpModal from "./sign-up-modal";
 
 const SidebarRight = () => {
   const { user } = useContext(UserContext);
 
-  const [openLogInDialog, setOpenLogInDialog] = useState<boolean>(false);
   const [openSignUpDialog, setOpenSignUpDialog] = useState<boolean>(false);
 
   return (
@@ -21,24 +22,15 @@ const SidebarRight = () => {
         </LogOut>
       ) : (
         <>
-          <BlueLargeButton onClick={() => setOpenLogInDialog(true)}>
-            Log In
-          </BlueLargeButton>
-          <BlueLargeButton onClick={() => setOpenSignUpDialog(true)}>
-            Sign Up
-          </BlueLargeButton>
+          <LogInModal>
+            <BlueLargeButton>Log In</BlueLargeButton>
+          </LogInModal>
+
+          <SignUpModal>
+            <BlueLargeButton>Sign Up</BlueLargeButton>
+          </SignUpModal>
         </>
       )}
-
-      <Dialog open={openLogInDialog} onClose={() => setOpenLogInDialog(false)}>
-        <LogIn setOpenLogInDialog={setOpenLogInDialog} />
-      </Dialog>
-      <Dialog
-        open={openSignUpDialog}
-        onClose={() => setOpenSignUpDialog(false)}
-      >
-        <SignUp setOpenSignUpDialog={setOpenSignUpDialog} />
-      </Dialog>
     </div>
   );
 };

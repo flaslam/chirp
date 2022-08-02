@@ -42,7 +42,7 @@ const PostActions: React.FC<PostActionsProps> = ({
 
     // TODO: set post like count increase properly
     if (likes && user) {
-      console.log(likes);
+      // console.log(likes);
 
       if (!liked) {
         setLikes((prevState: any) => {
@@ -55,7 +55,7 @@ const PostActions: React.FC<PostActionsProps> = ({
           }
         });
 
-        console.log("ADD like!!");
+        // console.log("ADD like!!");
       } else {
         // Array filter to remove our user id
         setLikes((prevState: any) => {

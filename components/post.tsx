@@ -6,6 +6,7 @@ import Link from "next/link";
 import PostActions from "./post-actions";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./user-context";
+import { openStdin } from "process";
 
 interface PostProps {
   post?: Chirp;
@@ -210,7 +211,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               </div>
             </div>
 
-            <div className="text-sm text-gray-500">
+            {/* Date and time */}
+            <div className="mb-4 text-sm text-gray-500">
               <span>
                 <>
                   {/* TODO: update time */}
@@ -226,22 +228,26 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               </span>
             </div>
 
-            <div className="mt-4 border-t py-4 text-sm text-gray-500">
-              <div className="flex h-5 flex-row gap-2">
-                {post.reposts && post.reposts.length > 0 ? (
-                  <div>
-                    <span className="font-bold">{post.reposts.length}</span>{" "}
-                    {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
-                  </div>
-                ) : null}
-                {likes && likes.length > 0 ? (
-                  <div>
-                    <span className="font-bold">{likes.length}</span>{" "}
-                    {likes.length > 1 ? <>Likes</> : <>Like</>}
-                  </div>
-                ) : null}
+            {/* Post statistics */}
+            {(post.reposts && post.reposts?.length > 0) ||
+            (post.likes && post.likes?.length > 0) ? (
+              <div className="border-t py-4 text-sm text-gray-500">
+                <div className="flex h-5 flex-row gap-2">
+                  {post.reposts && post.reposts.length > 0 ? (
+                    <div>
+                      <span className="font-bold">{post.reposts.length}</span>{" "}
+                      {post.reposts.length > 1 ? <>Reposts</> : <>Repost</>}
+                    </div>
+                  ) : null}
+                  {likes && likes.length > 0 ? (
+                    <div>
+                      <span className="font-bold">{likes.length}</span>{" "}
+                      {likes.length > 1 ? <>Likes</> : <>Like</>}
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div className="border-t border-b pb-4">
               <PostActions

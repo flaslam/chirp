@@ -6,10 +6,10 @@ import { checkValidFileExtension, checkValidFileSize } from "../verifyUpload";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface SignUpProps {
-  setOpenSignUpDialog(status: boolean): void;
+  setOpenDialog(status: boolean): void;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
+const SignUp: React.FC<SignUpProps> = ({ setOpenDialog }) => {
   const [selectedFile, setSelectedFile] = useState<File>();
   const [formInputData, setFormInputData] = useState<{
     username: string;
@@ -70,7 +70,7 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
 
     // TODO: auto log-in user
     alert("User created successfully! Please sign in.");
-    setOpenSignUpDialog(false);
+    setOpenDialog(false);
   };
 
   return (
@@ -81,7 +81,7 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
             <div className="grow px-2 text-xl font-bold">Sign Up</div>
             <div
               className="m-auto cursor-pointer rounded-full p-1 hover:bg-gray-200"
-              onClick={() => setOpenSignUpDialog(false)}
+              onClick={() => setOpenDialog(false)}
             >
               <CloseIcon className="" />
             </div>
@@ -109,7 +109,9 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenSignUpDialog }) => {
             />
             <label>Upload profile photo:</label>
             <input type="file" onChange={onFileChange} />
-            <BlueLargeButton type="submit">Sign Up</BlueLargeButton>
+            <BlueLargeButton type="submit" className="mx-auto">
+              Sign Up
+            </BlueLargeButton>
           </div>
         </form>
       </div>

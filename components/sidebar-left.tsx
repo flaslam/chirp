@@ -126,7 +126,7 @@ const SidebarLeft = () => {
       </div>
 
       {/* Second flex element: bottom user panel */}
-      <div className="mb-4 flex w-full flex-col gap-0 md:px-4">
+      <div className="mb-4 flex w-full flex-col gap-2 md:px-4">
         {!user ? (
           <>
             <LogInModal>
@@ -137,8 +137,9 @@ const SidebarLeft = () => {
                     <HiLogin /> Log In
                   </div> */}
                 </div>
-                <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden">
-                  <HiLogin />
+                {/* <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden"> */}
+                <div className="rounded-full bg-sky-500 p-2 text-3xl transition hover:cursor-pointer hover:bg-sky-600 md:hidden">
+                  <HiLogin style={{ fill: "white" }} />
                 </div>
               </>
             </LogInModal>
@@ -147,8 +148,9 @@ const SidebarLeft = () => {
                 <div className="hidden md:block">
                   <BlueLargeButton>Sign Up</BlueLargeButton>
                 </div>
-                <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden">
-                  <HiUserAdd />
+                {/* <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden"> */}
+                <div className="rounded-full bg-sky-500 p-2 text-3xl transition hover:cursor-pointer hover:bg-sky-600 md:hidden">
+                  <HiUserAdd style={{ fill: "white" }} />
                 </div>
               </>
             </SignUpModal>

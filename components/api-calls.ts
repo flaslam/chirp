@@ -128,3 +128,17 @@ export const updateProfile = async (
 
   return await axios.patch(`${DB_HOST}/${username}`, formData, config);
 };
+
+export const deletePost = async (
+  username: string,
+  postId: string,
+  token: string
+) => {
+  const config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  return await axios.delete(`${DB_HOST}/${username}/status/${postId}`, config);
+};

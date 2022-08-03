@@ -1,12 +1,13 @@
-import { Chirp, PostDisplayType } from "../types";
 import styles from "../styles/Post.module.css";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Image from "next/image";
 import Link from "next/link";
 import PostActions from "./post-actions";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./user-context";
-import { openStdin } from "process";
+import { Chirp, PostDisplayType } from "../types";
+import { deletePost } from "./api-calls";
+import { useRouter } from "next/router";
 
 interface PostProps {
   post?: Chirp;
@@ -19,7 +20,11 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [likes, setLikes] = useState<Chirp["likes"]>(post?.likes);
 
-  // On component mount: check if liked posts contains this user
+  const router = useRouter();
+
+  const [showMore, setShowMore] = useState<boolean>(false);
+
+  // On user change: check if liked posts contains this user
   useEffect(() => {
     // console.log(post);
     if (!user) {
@@ -37,6 +42,77 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  const handleMore = (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setShowMore((prevState) => !prevState);
+  };
+
+  const handleDelete = async (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setShowMore(false);
+
+    if (post?.id && post?.username && user) {
+      try {
+        await deletePost(post?.username, post?.id, user.token);
+      } catch (err) {
+        console.log(err);
+        alert("Could not delete post.");
+        return;
+      }
+    } else {
+      alert("Could not delete post.");
+      return;
+    }
+
+    alert("Post has been deleted");
+
+    await router.push("/");
+    router.reload();
+  };
+
+  const moreIcon = () => {
+    return (
+      <>
+        <div className="">
+          <div
+            className={`${
+              showMore ? "absolute" : "hidden"
+            } z-10 flex w-60 -translate-x-full flex-col overflow-hidden rounded-md bg-white drop-shadow-lg [&>*]:p-2`}
+          >
+            {post?.username === user?.username ? (
+              <div
+                className="truncate hover:bg-gray-300"
+                onClick={handleDelete}
+              >
+                Delete post
+              </div>
+            ) : (
+              <div className="truncate hover:bg-gray-300">
+                <Link href={`/${post?.username}`}>
+                  <a>Go to @{post?.username}&#39;s profile</a>
+                </Link>
+              </div>
+            )}
+            <div className="truncate hover:bg-gray-300">
+              <Link href={`/${post?.username}/status/${post?.id}`}>
+                <a>
+                  {/* Share/copy URL */}
+                  Go to post page
+                </a>
+              </Link>
+            </div>
+          </div>
+          <div
+            className="rounded-full text-gray-500 transition hover:cursor-pointer hover:bg-gray-300"
+            onClick={handleMore}
+          >
+            <MoreHorizIcon />
+          </div>
+        </div>
+      </>
+    );
+  };
+
   // console.log(post);
   const PostTimeline = () => {
     return (
@@ -45,7 +121,11 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
           "There is no post"
         ) : (
           <Link href={`/${post.username}/status/${post.id}`}>
-            <div className="p-4 transition hover:cursor-pointer hover:bg-gray-100">
+            <div
+              className={`p-4 transition hover:cursor-pointer ${
+                showMore ? null : "hover:bg-gray-100"
+              }`}
+            >
               <div className={styles.post}>
                 <div className={`${styles.photoContainer}`}>
                   <Link
@@ -87,9 +167,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                         </Link>
                       </div>
                     </div>
-                    <div className="text-gray-500">
-                      <MoreHorizIcon />
-                    </div>
+
+                    {moreIcon()}
                   </div>
 
                   {/* Message */}
@@ -183,9 +262,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                       </>
                     </div>
                   </div>
-                  <div className={styles.postMore}>
-                    <MoreHorizIcon />
-                  </div>
+                  {moreIcon()}
                 </div>
               </div>
             </div>

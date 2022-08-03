@@ -157,19 +157,21 @@ const SidebarLeft = () => {
           </>
         ) : (
           <div
-            className={`flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200`}
+            className={`flex flex-row  rounded-full`}
             onClick={() => setOpenUserPanel((prevState) => !prevState)}
           >
-            <Image
-              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
-              width="48"
-              height="48"
-              alt={user.username}
-              className="rounded-full"
-            />
-            <div className="hidden pr-2 md:block">
-              <div className="font-bold">{user.displayName}</div>
-              <div>@{user.username}</div>
+            <div className="flex flex-row gap-2 rounded-full p-2 hover:cursor-pointer hover:bg-gray-200">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
+                width="48"
+                height="48"
+                alt={user.username}
+                className="rounded-full"
+              />
+              <div className="hidden pr-2 md:block">
+                <div className="font-bold">{user.displayName}</div>
+                <div>@{user.username}</div>
+              </div>
             </div>
 
             {/* Pop up */}
@@ -179,7 +181,7 @@ const SidebarLeft = () => {
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}
               >
-                <div className="flex -translate-y-4 flex-col justify-center divide-y rounded-xl bg-white drop-shadow-lg">
+                <div className="flex -translate-y-4 flex-col justify-center divide-y overflow-hidden rounded-xl bg-white drop-shadow-lg">
                   {/* 1st row */}
                   <div className="flex cursor-default flex-row gap-2 py-4 pl-4 pr-12">
                     <Image
@@ -200,7 +202,7 @@ const SidebarLeft = () => {
                   {/* 2nd row */}
 
                   <LogOut>
-                    <div className="rounded-b-lg py-4 pl-4 pr-12 hover:bg-gray-200">
+                    <div className="py-4 pl-4 pr-12 hover:bg-gray-200">
                       Log out @{user.username}
                     </div>
                   </LogOut>

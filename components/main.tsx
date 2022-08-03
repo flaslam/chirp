@@ -53,7 +53,13 @@ const Main: React.FC<MainProps> = ({ user }) => {
     <>
       <Banner />
       <Compose addPost={addPost} />
-      {loading ? <Loading /> : <Timeline posts={posts} />}
+      {loading ? (
+        <div className="py-12">
+          <Loading />
+        </div>
+      ) : (
+        <Timeline posts={posts} />
+      )}
     </>
   );
 };

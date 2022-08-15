@@ -13,6 +13,7 @@ export const postToChirp = (post: any): Chirp => {
     likes: post.likes,
     reposts: post.reposts,
     media: post.media,
+    time: post.time,
   };
 
   return newPost;

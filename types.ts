@@ -4,6 +4,7 @@ export interface Chirp {
   displayName: string;
   photo: string;
   date: Date;
+  time: string;
   message: string;
   media?: string[]; // make type with enum?
   replies?: Chirp[];

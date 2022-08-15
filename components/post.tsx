@@ -294,7 +294,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <span>
                 <>
                   {/* TODO: update time */}
-                  17:42 PM ·{" "}
+                  {post.time} ·{" "}
                   <Link href={`/${post.username}/status/${post.id}`}>
                     <a>
                       <span className={styles.datePosted}>

@@ -160,7 +160,7 @@ const SidebarLeft = () => {
             className={`flex flex-row  rounded-full`}
             onClick={() => setOpenUserPanel((prevState) => !prevState)}
           >
-            <div className="flex flex-row gap-2 rounded-full py-2 pl-2 pr-4 hover:cursor-pointer hover:bg-gray-200">
+            <div className="flex flex-row gap-2 rounded-full py-2 pl-2 pr-2 hover:cursor-pointer hover:bg-gray-200 md:pr-4">
               <Image
                 src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
                 width="48"

@@ -147,7 +147,7 @@ const Compose: React.FC<ComposeProps> = ({
           {/* Profile picture */}
           <div className="relative flex h-12 w-12 flex-shrink">
             <Image
-              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${user.photo}`}
+              src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
               alt="pp"
               layout="fill"
               className="rounded-full"

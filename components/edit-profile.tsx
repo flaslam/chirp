@@ -191,8 +191,8 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
                 {/* Banner */}
                 <Image
-                  // src={`${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`}
-                  src={`${process.env.NEXT_PUBLIC_DB_HOST}/${
+                  // src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`}
+                  src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${
                     props.userData.header
                       ? props.userData.header
                       : props.userData.photo
@@ -236,9 +236,9 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                     src={
                       mediaLocalPath
                         ? mediaLocalPath
-                        : `${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`
+                        : `${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`
                     }
-                    // src={`${process.env.NEXT_PUBLIC_DB_HOST}/${props.userData.photo}`}
+                    // src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`}
                     width="144"
                     height="144"
                     // layout="fixed"

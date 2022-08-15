@@ -134,7 +134,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   >
                     <a>
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.photo}`}
+                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.photo}`}
                         alt={post.username}
                         // layout="fill"
                         width="100"
@@ -176,9 +176,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
                   {/* Media */}
                   <div className="pt-2">
-                    {post.media ? (
+                    {post.media && post.media.length > 0 ? (
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.media[0]}`}
+                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.media[0]}`}
                         alt={post.id}
                         width="16"
                         height="9"
@@ -218,7 +218,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 {!post.parent ? null : (
                   <div className="absolute h-full w-full">
                     <div className="flex items-center justify-center">
-                      <div className="z-10 flex h-28 w-0.5 -translate-y-28 items-center justify-center bg-gray-300"></div>
+                      <div className="h-screen w-0.5 -translate-y-full bg-gray-300" />
                     </div>
                   </div>
                 )}
@@ -229,7 +229,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 >
                   <a>
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.photo}`}
+                      src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.photo}`}
                       alt={post.username}
                       // layout="fill"
                       width="100"
@@ -275,9 +275,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
               {/* Media */}
               <div className="pt-2">
-                {post.media ? (
+                {post.media && post.media.length > 0 ? (
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_DB_HOST}/${post.media[0]}`}
+                    src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.media[0]}`}
                     alt={post.id}
                     width="16"
                     height="9"

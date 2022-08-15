@@ -86,12 +86,14 @@ const LogIn: React.FC<LoginProps> = ({ setOpenDialog }) => {
               id="username"
               required
               label="Username"
+              type="text"
               onChange={handleChange}
             />
             <TextField
               id="password"
               required
               label="Password"
+              type="password"
               onChange={handleChange}
             />
 

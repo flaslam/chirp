@@ -17,6 +17,7 @@ Go to the [backend repository](https://github.com/flaslam/chirp-backend)
 - Express.js
 - MongoDB
 - Passport.js
+- Amazon AWS S3
 
 ## Running the application locally
 

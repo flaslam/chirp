@@ -23,6 +23,7 @@ const SinglePost: React.FC = () => {
         setPost(res);
         setLoading(false);
       } catch (err) {
+        // TODO: handle setting post as deleted
         alert("Could not retrieve post.");
         console.log(err);
       }

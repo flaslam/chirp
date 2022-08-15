@@ -68,7 +68,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
       <div className="-z-50 h-48 w-full overflow-hidden">
         {userData.header ? (
           <Image
-            src={`${process.env.NEXT_PUBLIC_DB_HOST}/${userData.header}`}
+            src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.header}`}
             width="100"
             height="100"
             alt={userData.username}
@@ -78,7 +78,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
 
         {/* Temp banner simulation */}
         <Image
-          src={`${process.env.NEXT_PUBLIC_DB_HOST}/${userData.photo}`}
+          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
           width="100"
           height="100"
           alt={userData.username}
@@ -94,7 +94,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
           {/* Profile photo */}
           <div className="-mt-20">
             <Image
-              src={`${process.env.NEXT_PUBLIC_DB_HOST}/${userData.photo}`}
+              src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
               width="144"
               height="144"
               // layout="fixed"

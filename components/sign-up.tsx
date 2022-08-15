@@ -93,18 +93,21 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenDialog }) => {
               id="username"
               required
               label="Username"
+              type="text"
               onChange={handleChange}
             />
             <TextField
               id="password"
               required
               label="Password"
+              type="password"
               onChange={handleChange}
             />
             <TextField
               id="displayName"
               required
               label="Display Name"
+              type="text"
               onChange={handleChange}
             />
             <label>Upload profile photo:</label>

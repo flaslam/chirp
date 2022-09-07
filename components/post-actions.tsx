@@ -33,8 +33,16 @@ const PostActions: React.FC<PostActionsProps> = ({
   const handleLike = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    if (!user) return;
+    if (!user) {
+      noUserWarning();
+      return;
+    }
+
     sendLikeRequest();
+  };
+
+  const noUserWarning = () => {
+    alert("You must be logged in to perform that action.");
   };
 
   const sendLikeRequest = async () => {
@@ -82,10 +90,22 @@ const PostActions: React.FC<PostActionsProps> = ({
 
   const handleShare = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
+    copyText();
+  };
 
-    // TODO: dropdown menu
+  const copyText = () => {
+    const url = `${document.location.origin}/${post.username}/status/${post.id}`;
+    navigator.clipboard.writeText(url);
+    alert("The link to this post has been copied to the clipboard.");
+  };
 
-    if (!user) return;
+  const handleRepost = (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    if (!user) {
+      noUserWarning();
+      return;
+    }
   };
 
   const showStats: boolean = true;
@@ -112,7 +132,7 @@ const PostActions: React.FC<PostActionsProps> = ({
           )}
         </span>
       </div>
-      <div className={styles.repostsIconHolder}>
+      <div className={styles.repostsIconHolder} onClick={handleRepost}>
         <AutorenewIcon className={styles.repostsIcon} />
         <span>
           {!showStats ? null : (
@@ -155,7 +175,7 @@ const PostActions: React.FC<PostActionsProps> = ({
         </div>
       )}
 
-      <div className={styles.sharesIconHolder}>
+      <div className={styles.sharesIconHolder} onClick={handleShare}>
         <IosShareIcon className={styles.sharesIcon} />
       </div>
     </div>

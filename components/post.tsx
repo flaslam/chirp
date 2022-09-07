@@ -77,7 +77,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
           <div
             className={`${
               showMore ? "absolute" : "hidden"
-            } z-10 flex w-60 -translate-x-full flex-col overflow-hidden rounded-md bg-white drop-shadow-lg [&>*]:p-2`}
+            } z-30 flex w-60 -translate-x-full flex-col overflow-hidden rounded-md bg-white drop-shadow-lg [&>*]:p-2`}
           >
             {post?.username === user?.username ? (
               <div

@@ -5,7 +5,7 @@ import Link from "next/link";
 import PostActions from "./post-actions";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./user-context";
-import { Chirp, PostDisplayType } from "../types";
+import { Chirp, PostDisplayType } from "../lib/types";
 import { deletePost } from "./api-calls";
 import { useRouter } from "next/router";
 
@@ -113,6 +113,24 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     );
   };
 
+  const ShowRelativeOrNormalDate = () => {
+    // If date is less than a day, show time posted relative to now
+    let dateToDisplay = post?.date.toString();
+
+    if (post?.dateRaw) {
+      const timePosted = new Date(post.dateRaw).getTime();
+      const currTime = new Date().getTime();
+      const diff = currTime - timePosted;
+      const timeInDaysSincePost = diff / (1000 * 60 * 60 * 24);
+
+      if (timeInDaysSincePost < 1) {
+        dateToDisplay = post.dateRelative;
+      }
+    }
+
+    return <>{dateToDisplay}</>;
+  };
+
   // console.log(post);
   const PostTimeline = () => {
     return (
@@ -163,7 +181,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                       <div className="text-gray-500">·</div>
                       <div className="text-gray-500 hover:underline">
                         <Link href={`/${post.username}/status/${post.id}`}>
-                          <a>{post.date.toString()}</a>
+                          <a>{ShowRelativeOrNormalDate()}</a>
                         </Link>
                       </div>
                     </div>
@@ -269,6 +287,17 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
             {/* Body */}
 
+            {!post.parent ? null : (
+              <div className="pt-4">
+                Replying to{" "}
+                <Link href={`/${post.parent.username}`}>
+                  <a className="text-sky-600 hover:underline">
+                    @{post.parent.username}
+                  </a>
+                </Link>
+              </div>
+            )}
+
             <div className="py-4">
               {/* Message */}
               <p className={styles.messageMain}>{post.message}</p>
@@ -293,12 +322,10 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
             <div className="mb-4 text-sm text-gray-500">
               <span>
                 <>
-                  {/* TODO: update time */}
-                  {post.time} ·{" "}
                   <Link href={`/${post.username}/status/${post.id}`}>
                     <a>
                       <span className={styles.datePosted}>
-                        {post.date.toString()}
+                        {post.time} · {post.date.toString()}
                       </span>
                     </a>
                   </Link>

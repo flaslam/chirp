@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getPost } from "../../../components/api-calls";
-import { Chirp, PostDisplayType } from "../../../types";
+import { Chirp, PostDisplayType } from "../../../lib/types";
 import Post from "../../../components/post";
 import Back from "../../../components/back";
 import Compose from "../../../components/compose";

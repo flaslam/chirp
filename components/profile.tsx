@@ -2,7 +2,7 @@ import { Dialog } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { followUser } from "./api-calls";
-import { WhiteButton } from "./Styled/Buttons";
+import { WhiteButton } from "./styled/buttons";
 import EditProfile from "./edit-profile";
 
 import LinkIcon from "@mui/icons-material/Link";
@@ -63,7 +63,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   };
 
   return (
-    <div className="border-b">
+    <div>
       {/* Header image */}
       <div className="-z-50 h-48 w-full overflow-hidden">
         {userData.header ? (

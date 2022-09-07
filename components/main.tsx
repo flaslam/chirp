@@ -4,7 +4,7 @@ import Loading from "./loading";
 import Timeline from "./timeline";
 import { useEffect, useState } from "react";
 import { getAllPosts } from "./api-calls";
-import { Chirp } from "../types";
+import { Chirp } from "../lib/types";
 
 interface MainProps {
   user: any;

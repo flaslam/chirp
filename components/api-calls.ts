@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Chirp } from "../types";
-import { populateData } from "../utils";
+import { Chirp } from "../lib/types";
+import { populateData } from "../lib/utils";
 
 const DB_HOST = String(process.env.NEXT_PUBLIC_DB_HOST);
 
@@ -71,12 +71,27 @@ export const loginUser = async (formData: FormData) => {
   return await res;
 };
 
-export const getUser = async (username: string) => {
-  return await axios.get(`${DB_HOST}/${username}`);
+export const getUserProfile = async (username: string) => {
+  return await axios.get(`${DB_HOST}/${username}/profile`);
 };
 
-export const getUserPosts = async (username: string) => {
-  const res = await axios.get(`${DB_HOST}/${username}/status`);
+export const getUserPosts = async (
+  username: string,
+  endpoint: string = `/${username}`
+) => {
+  const res = await axios.get(`${DB_HOST}${endpoint}`);
+
+  let retrievedPosts: Chirp[] = [];
+
+  for (let post of res.data) {
+    retrievedPosts.push(populateData(post));
+  }
+
+  return retrievedPosts;
+};
+
+export const getUserPostsWithReplies = async (username: string) => {
+  const res = await axios.get(`${DB_HOST}/${username}/with_replies`);
 
   let retrievedPosts: Chirp[] = [];
 

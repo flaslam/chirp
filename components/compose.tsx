@@ -11,9 +11,9 @@ import {
 } from "react";
 import { createPost, getPost } from "./api-calls";
 import { UserContext } from "./user-context";
-import { Chirp } from "../types";
-import { StandardButton } from "./Styled/Buttons";
-import { checkValidFile } from "../verifyUpload";
+import { Chirp } from "../lib/types";
+import { StandardButton } from "./styled/buttons";
+import { checkValidFile } from "../lib/verify-upload";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";

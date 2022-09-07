@@ -8,6 +8,8 @@ export const postToChirp = (post: any): Chirp => {
     username: post.user.username,
     photo: post.user.photo,
     date: post.dateFormatted,
+    dateRaw: post.date,
+    dateRelative: post.dateRelative,
     message: post.message,
     replies: post.replies,
     likes: post.likes,

@@ -8,11 +8,11 @@ import React, {
 } from "react";
 import { updateProfile } from "./api-calls";
 import { UserContext } from "./user-context";
-import { BlackButton } from "./Styled/Buttons";
+import { BlackButton } from "./styled/buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import { checkValidFile } from "../verifyUpload";
+import { checkValidFile } from "../lib/verify-upload";
 
 interface EditProfileProps {
   setOpenEditProfileDialog(status: boolean): void;

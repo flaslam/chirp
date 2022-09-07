@@ -1,8 +1,11 @@
 import { TextField } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { createUser } from "./api-calls";
-import { BlueLargeButton } from "./Styled/Buttons";
-import { checkValidFileExtension, checkValidFileSize } from "../verifyUpload";
+import { BlueLargeButton } from "./styled/buttons";
+import {
+  checkValidFileExtension,
+  checkValidFileSize,
+} from "../lib/verify-upload";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface SignUpProps {
@@ -47,8 +50,14 @@ const SignUp: React.FC<SignUpProps> = ({ setOpenDialog }) => {
 
     if (selectedFile) {
       const fileToUpload = selectedFile;
-      if (!checkValidFileExtension(fileToUpload)) return;
-      if (!checkValidFileSize(fileToUpload)) return;
+      if (
+        !checkValidFileExtension(fileToUpload) ||
+        !checkValidFileSize(fileToUpload)
+      ) {
+        alert("File extension not valid.");
+        return;
+      }
+
       // Add our photo file to the form data
       formData.append("photo", fileToUpload);
     }

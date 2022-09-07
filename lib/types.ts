@@ -3,7 +3,9 @@ export interface Chirp {
   username: string;
   displayName: string;
   photo: string;
-  date: Date;
+  date: string;
+  dateRelative: string;
+  dateRaw: Date;
   time: string;
   message: string;
   media?: string[]; // make type with enum?

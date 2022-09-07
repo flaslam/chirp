@@ -2,7 +2,7 @@ import styles from "../styles/Post.module.css";
 import React, { useContext } from "react";
 import { UserContext } from "./user-context";
 import { likePost } from "./api-calls";
-import { Chirp } from "../types";
+import { Chirp } from "../lib/types";
 
 // Icons
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";

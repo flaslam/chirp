@@ -1,5 +1,5 @@
 import Post from "./post";
-import { Chirp, PostDisplayType } from "../types";
+import { Chirp, PostDisplayType } from "../lib/types";
 
 interface TimelineProps {
   posts: Chirp[];

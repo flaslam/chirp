@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       // check EXPIRATION is on client side, SO WE NEED TO
       // check and delete session data here after checking expiry
       // time from our login data
+
       // TODO: implement getExpiration();
       // otherwise logout and redirect to homepage
 
@@ -49,11 +50,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     setUser(userObj);
-
-    // console.log(user);
-
-    // Authorise token
-    // checkTokenValidity(token);
   }, []);
 
   // Router key in app component allows paths to work when using router query

@@ -17,7 +17,7 @@ import { RiQuillPenFill } from "react-icons/ri";
 import { FaTwitter } from "react-icons/fa";
 
 import { motion } from "framer-motion";
-import { BlueLargeButton } from "./Styled/Buttons";
+import { BlueLargeButton } from "./styled/buttons";
 import LogOut from "./log-out";
 import LogInModal from "./log-in-modal";
 import SignUpModal from "./sign-up-modal";

@@ -113,7 +113,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     );
   };
 
-  const ShowRelativeOrNormalDate = () => {
+  const showRelativeOrNormalDate = () => {
     // If date is less than a day, show time posted relative to now
     let dateToDisplay = post?.date.toString();
 
@@ -181,7 +181,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                       <div className="text-gray-500">·</div>
                       <div className="text-gray-500 hover:underline">
                         <Link href={`/${post.username}/status/${post.id}`}>
-                          <a>{ShowRelativeOrNormalDate()}</a>
+                          <a>{showRelativeOrNormalDate()}</a>
                         </Link>
                       </div>
                     </div>
@@ -215,6 +215,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 setLiked={setLiked}
                 likes={likes}
                 setLikes={setLikes}
+                showStats={true}
               />
             </div>
           </Link>
@@ -361,6 +362,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 setLiked={setLiked}
                 likes={likes}
                 setLikes={setLikes}
+                showStats={false}
               />
             </div>
           </div>

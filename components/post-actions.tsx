@@ -18,6 +18,7 @@ interface PostActionsProps {
   likes: Chirp["likes"];
   setLikes: React.Dispatch<React.SetStateAction<Chirp["likes"]>>;
   shrinkActions?: boolean;
+  showStats?: boolean;
 }
 
 const PostActions: React.FC<PostActionsProps> = ({
@@ -27,6 +28,7 @@ const PostActions: React.FC<PostActionsProps> = ({
   likes,
   setLikes,
   shrinkActions,
+  showStats,
 }) => {
   const { user } = useContext(UserContext);
 
@@ -48,32 +50,20 @@ const PostActions: React.FC<PostActionsProps> = ({
   const sendLikeRequest = async () => {
     // Send a bool of liked to determine whether we're liking or unliking
     const res = await likePost(user.username, post.id, post.username, !liked);
-    console.log(res);
 
-    // TODO: set post like count increase properly
     if (likes && user) {
-      // console.log(likes);
-
       if (!liked) {
         setLikes((prevState: any) => {
           if (prevState) {
-            // console.log(prevState);
-            // console.log(user._id);
             const newState = [...prevState, user._id];
-            // console.log(newState);
             return newState;
           }
         });
-
-        // console.log("ADD like!!");
       } else {
         // Array filter to remove our user id
         setLikes((prevState: any) => {
-          console.log(prevState);
-          console.log("Removing like");
           if (Array.isArray(prevState)) {
             const newState = prevState.filter((item: any) => item !== user._id);
-            console.log(newState);
             return newState;
           } else {
             return [];
@@ -81,8 +71,6 @@ const PostActions: React.FC<PostActionsProps> = ({
         });
       }
     }
-
-    // console.log(likes);
 
     // Set liked
     setLiked(!liked);
@@ -106,9 +94,9 @@ const PostActions: React.FC<PostActionsProps> = ({
       noUserWarning();
       return;
     }
-  };
 
-  const showStats: boolean = true;
+    alert("Repost functionality to be added.");
+  };
 
   return (
     <div
@@ -168,9 +156,13 @@ const PostActions: React.FC<PostActionsProps> = ({
         <div className={styles.likesIconHolder} onClick={handleLike}>
           <FavoriteBorderOutlinedIcon className={styles.likesIcon} />
           <span>
-            {likes ? (
-              <>{likes.length > 0 ? <>{likes.length}</> : null}</>
-            ) : null}
+            {!showStats ? null : (
+              <>
+                {likes ? (
+                  <>{likes.length > 0 ? <>{likes.length}</> : null}</>
+                ) : null}
+              </>
+            )}
           </span>
         </div>
       )}
@@ -180,6 +172,10 @@ const PostActions: React.FC<PostActionsProps> = ({
       </div>
     </div>
   );
+};
+
+PostActions.defaultProps = {
+  showStats: false,
 };
 
 export default PostActions;

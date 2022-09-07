@@ -4,18 +4,26 @@ import { populateData } from "../lib/utils";
 
 const DB_HOST = String(process.env.NEXT_PUBLIC_DB_HOST);
 
-export const getAllPosts = async (token: string = "") => {
+export const getAllPosts = async (
+  limit: number,
+  skip: number,
+  token: string = ""
+) => {
   let headers = {
     Authorization: token,
   };
 
   let res;
+
+  const url = `${DB_HOST}/?limit=${limit}&skip=${skip}`;
   if (token) {
     // With headers we get posts of users we're following only
-    res = await axios.get(DB_HOST, { headers });
+    res = await axios.get(`${DB_HOST}/?limit=${limit}&skip=${skip}`, {
+      headers,
+    });
   } else {
     // With no headers we get all posts
-    res = await axios.get(DB_HOST);
+    res = await axios.get(`${DB_HOST}/?limit=${limit}&skip=${skip}`);
   }
 
   let retrievedPosts: Chirp[] = [];
@@ -77,9 +85,13 @@ export const getUserProfile = async (username: string) => {
 
 export const getUserPosts = async (
   username: string,
-  endpoint: string = `/${username}`
+  endpoint: string = `/${username}`,
+  limit: number,
+  skip: number
 ) => {
-  const res = await axios.get(`${DB_HOST}${endpoint}`);
+  const res = await axios.get(
+    `${DB_HOST}${endpoint}?skip=${skip}?limit=${limit}`
+  );
 
   let retrievedPosts: Chirp[] = [];
 

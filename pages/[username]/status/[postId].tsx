@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getPost } from "../../../components/api-calls";
 import { Chirp, PostDisplayType } from "../../../lib/types";
 import Post from "../../../components/post";
-import Back from "../../../components/back";
+import Banner from "../../../components/banner";
 import Compose from "../../../components/compose";
 import Loading from "../../../components/loading";
 
@@ -52,7 +52,7 @@ const SinglePost: React.FC = () => {
 
   return (
     <div>
-      <Back />
+      <Banner showBack={true} />
       {loading ? (
         <Loading />
       ) : (

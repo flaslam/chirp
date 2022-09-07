@@ -1,13 +1,13 @@
 import { Chirp, PostDisplayType, User } from "../lib/types";
 import Post from "../components/post";
 import Profile from "../components/profile";
-import Back from "../components/back";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getUserProfile, getUserPosts } from "../components/api-calls";
 import { UserContext } from "../components/user-context";
 import Loading from "../components/loading";
 import Link from "next/link";
+import Banner from "./banner";
 
 interface UserPageProps {
   params?: string;
@@ -17,6 +17,9 @@ interface UserPageProps {
 const UserPage: React.FC<UserPageProps> = (props) => {
   const router = useRouter();
   const username = router.query.username;
+
+  const limit = 10;
+  let skip = 0;
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -30,13 +33,20 @@ const UserPage: React.FC<UserPageProps> = (props) => {
 
     try {
       // TODO: change to promises.all OR have different loading for user and split that up
-      const postRes = await getUserPosts(username as string, props.params);
+      const postRes = await getUserPosts(
+        username as string,
+        props.params,
+        limit,
+        skip
+      );
       setUserPosts(postRes);
 
       const userRes = await getUserProfile(username as string);
       setUserData(userRes.data.user);
 
       setLoading(false);
+
+      skip += limit;
     } catch (err) {
       console.log("Error loading data.");
     }
@@ -68,16 +78,16 @@ const UserPage: React.FC<UserPageProps> = (props) => {
     <>
       {loading ? (
         <>
-          <Back />
+          <Banner showBack={true} />
           <Loading />
         </>
       ) : (
         <>
           {!userData || !userPosts ? (
-            <Back />
+            <Banner showBack={true} />
           ) : (
             <div>
-              <Back profileName={userData.displayName} />
+              <Banner showBack={true} headerText={userData.displayName} />
               <Profile
                 userData={userData}
                 user={user}
@@ -85,23 +95,21 @@ const UserPage: React.FC<UserPageProps> = (props) => {
               />
 
               <div className="flex cursor-pointer border-b [&>*]:flex [&>*]:grow [&>*]:items-center [&>*]:justify-center [&>*]:font-medium [&>*]:text-gray-500 [&>*]:transition">
-                {viewOptions.map((item) => {
+                {viewOptions.map((item, index) => {
                   return (
-                    <>
-                      <Link href={`/${username}${item.url}`}>
-                        <a>
-                          <div
-                            className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-200 ${
-                              router.asPath == `/${username}${item.url}`
-                                ? "font-bold text-black"
-                                : ""
-                            }`}
-                          >
-                            {item.title}
-                          </div>
-                        </a>
-                      </Link>
-                    </>
+                    <Link href={`/${username}${item.url}`} key={index}>
+                      <a>
+                        <div
+                          className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-100 ${
+                            router.asPath == `/${username}${item.url}`
+                              ? "border-b-4 border-sky-400 font-bold text-black"
+                              : ""
+                          }`}
+                        >
+                          {item.title}
+                        </div>
+                      </a>
+                    </Link>
                   );
                 })}
               </div>

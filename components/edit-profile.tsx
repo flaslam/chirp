@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { updateProfile } from "./api-calls";
 import { UserContext } from "./user-context";
-import { BlackButton } from "./styled/buttons";
+import { BlackButton } from "./styled/button-styles";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";

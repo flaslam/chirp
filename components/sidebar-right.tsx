@@ -3,7 +3,7 @@ import { UserContext } from "./user-context";
 import LogInModal from "./log-in-modal";
 import SignUpModal from "./sign-up-modal";
 import LogOut from "./log-out";
-import { BlueLargeButton } from "./styled/buttons";
+import { BlueLargeButton } from "./styled/button-styles";
 
 const SidebarRight = () => {
   const { user } = useContext(UserContext);

@@ -2,7 +2,7 @@ import { Dialog } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { followUser } from "./api-calls";
-import { WhiteButton } from "./styled/buttons";
+import { WhiteButton } from "./styled/button-styles";
 import EditProfile from "./edit-profile";
 
 import LinkIcon from "@mui/icons-material/Link";

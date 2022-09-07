@@ -12,7 +12,7 @@ import {
 import { createPost, getPost } from "./api-calls";
 import { UserContext } from "./user-context";
 import { Chirp } from "../lib/types";
-import { StandardButton } from "./styled/buttons";
+import { StandardButton } from "./styled/button-styles";
 import { checkValidFile } from "../lib/verify-upload";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import CloseIcon from "@mui/icons-material/Close";

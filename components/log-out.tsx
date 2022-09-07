@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { BlueLargeButton } from "./styled/buttons";
+import { BlueLargeButton } from "./styled/button-styles";
 import { UserContext } from "./user-context";
 
 interface LogOutProps {

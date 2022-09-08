@@ -8,20 +8,14 @@ import { useRouter } from "next/router";
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(null);
 
-  // TODO: the context and login functionality need to be linked
-  // so we don't individually set local storage and setUser
+  // Load and verify user from localStorage on component mount
   useEffect(() => {
     const checkTokenValidity = (expires: string, iat: number): boolean => {
-      // TODO: we need to remove the token if it's past expiry
-      // check EXPIRATION is on client side, SO WE NEED TO
-      // check and delete session data here after checking expiry
-      // time from our login data
-
-      // TODO: implement getExpiration();
-      // otherwise logout and redirect to homepage
+      // TODO: remove the token if it's past expiry
 
       // TODO: Check for other values other than 1d
-      let timeLimit = 2000;
+      let timeLimit = 86400000;
+
       if (expires === "1d") {
         // 1 day in ms
         timeLimit = 86400000;
@@ -57,6 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // Prevent provider value from changing unless value actually changes
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   return (
     <UserContext.Provider value={value}>
       <Layout>

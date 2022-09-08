@@ -2,34 +2,30 @@ import Banner from "./banner";
 import Compose from "./compose";
 import Loading from "./loading";
 import Timeline from "./timeline";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAllPosts } from "./api-calls";
 import { Chirp } from "../lib/types";
-import { UserContext } from "../components/user-context";
-import { useContext } from "react";
 
 interface MainProps {
   user: any;
 }
 
-const Main: React.FC<MainProps> = () => {
-  const limit: number = 10;
+const Main: React.FC<MainProps> = ({ user }) => {
+  const limit: number = 6;
+  const skipCount = useRef<number>(0);
 
   const [posts, setPosts] = useState<Chirp[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [skip, setSkip] = useState<number>(0);
   const [allowMore, setAllowMore] = useState<boolean>(true);
-
-  const { user } = useContext(UserContext);
 
   const getPosts = async () => {
     try {
       let data: Chirp[] = [];
 
       if (user) {
-        data = await getAllPosts(limit, skip, user.token);
+        data = await getAllPosts(limit, skipCount.current, user.token);
       } else {
-        data = await getAllPosts(limit, skip);
+        data = await getAllPosts(limit, skipCount.current);
       }
 
       if (data.length > 0) {
@@ -49,22 +45,20 @@ const Main: React.FC<MainProps> = () => {
 
   const resetPosts = () => {
     setPosts([]);
-    setSkip(0);
+    skipCount.current = 0;
   };
 
   const handleGetMorePosts = async () => {
     await getPosts();
-    incrementSkip();
+    incrementSkip(limit);
   };
 
-  const incrementSkip = async () => {
-    setSkip((prevState) => (prevState += limit));
+  const incrementSkip = async (amount: number) => {
+    skipCount.current = skipCount.current + amount;
   };
 
   // TODO: Memoise or cache posts to stop unnecessary reloads
-
   // Retrieve data from server when user changes
-  // TODO: this is loading posts twice - once without user, then once when user is loaded in on first load
   useEffect(() => {
     const getInitialPosts = async () => {
       try {
@@ -78,7 +72,7 @@ const Main: React.FC<MainProps> = () => {
 
         if (data.length > 0) {
           setPosts(data);
-          setSkip(limit);
+          skipCount.current = limit;
         }
 
         setLoading(false);

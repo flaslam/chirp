@@ -88,9 +88,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
 
       const userData = res.data.user;
       if (userData) {
-        // TODO: we need to update our local User object too bc photo link is stored there.
-        // We just want to modify some properties - this needs to be refactored and moved.
-        // Login info should all be in a separate module
+        // TODO: update our local user object, refactor functionality
         let currUserData = localStorage.getItem("user");
         if (currUserData) {
           const currUserObj = JSON.parse(currUserData);
@@ -123,13 +121,12 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
       return;
     }
 
-    // TODO: need visual feedback on success or failure
-
-    // TODO: need to now change the visible photo
+    // TODO: change the visible photo
     setSelectedPhotoFile(selectedFile);
 
     // Show photo before saving
     setMediaLocalPath(URL.createObjectURL(selectedFile));
+
     // alert("Filed successfully selected. Save to upload file.");
   };
 

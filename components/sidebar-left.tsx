@@ -50,6 +50,7 @@ const SidebarLeft = () => {
   const { user } = useContext(UserContext);
   const router = useRouter();
   const currentRoute = router.asPath;
+  const username = router.query.username;
 
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
@@ -61,12 +62,20 @@ const SidebarLeft = () => {
           // Get current link
           let targetLink = link.link;
 
+          // Set profile link to logged in user's profile
           if (link.name === "Profile" && user) {
             targetLink = `/${user.username}`;
           }
 
           // Is this link the one we are currently on?
-          const linkIsActive = currentRoute === targetLink;
+          let linkIsActive = currentRoute === targetLink;
+
+          // Check if we're on any tab/page of our own profile
+          if (link.name === "Profile" && user) {
+            // Cut off url at second slash
+            const currRouteBeforeSlash = currentRoute.split("/")[1];
+            linkIsActive = currRouteBeforeSlash === user.username;
+          }
 
           return link.reqLoggedIn === true && !user ? null : (
             <div key={index}>

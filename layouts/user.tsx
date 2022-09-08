@@ -1,38 +1,22 @@
 import type { NextPage } from "next";
-
-interface LayoutProps {
-  children: any;
-}
-
-const UserPageLayout: NextPage<LayoutProps> = ({ children }) => {
-  return (
-    <>
-      <main className="w-full border-l border-r md:w-timeline">{children}</main>
-    </>
-  );
-};
-
-export default UserPageLayout;
-
-import { Chirp, PostDisplayType, User } from "../lib/types";
-import Post from "../components/post";
 import Profile from "../components/profile";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { getUserProfile, getUserPosts } from "../components/api-calls";
+import { getUserProfile } from "../components/api-calls";
 import { UserContext } from "../components/user-context";
 import Loading from "../components/loading";
 import Link from "next/link";
-import Banner from "./banner";
+import Banner from "../components/banner";
 
-interface UserPageProps {
-  params?: string;
+interface UserLayoutProps {
+  children: React.ReactNode;
 }
 
-// TODO: change this to a layout so we only have to re-render the posts on changing views
-const UserPage: React.FC<UserPageProps> = (props) => {
+const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
   const router = useRouter();
   const username = router.query.username;
+  const [path, setPath] = useState<string>(router.asPath);
+  // const prevUsername = useRef<string | null>(null);
 
   const limit = 10;
   let skip = 0;
@@ -41,22 +25,12 @@ const UserPage: React.FC<UserPageProps> = (props) => {
 
   const { user } = useContext(UserContext);
 
-  const [userPosts, setUserPosts] = useState<Chirp[] | null>(null);
   const [userData, setUserData] = useState<any | null>(null);
 
   const fetchData = async () => {
     if (!username) return;
 
     try {
-      // TODO: change to promises.all OR have different loading for user and split that up
-      const postRes = await getUserPosts(
-        username as string,
-        props.params,
-        limit,
-        skip
-      );
-      setUserPosts(postRes);
-
       const userRes = await getUserProfile(username as string);
       setUserData(userRes.data.user);
 
@@ -70,6 +44,12 @@ const UserPage: React.FC<UserPageProps> = (props) => {
 
   // On component mount
   useEffect(() => {
+    setPath(router.asPath);
+
+    // Return if we're still on the same user's page as last render (no need to fetch profile again)
+    // if (username == prevUsername.current) return;
+    // prevUsername.current = String(username);
+
     setLoading(true);
 
     if (!router.isReady) return;
@@ -99,7 +79,7 @@ const UserPage: React.FC<UserPageProps> = (props) => {
         </>
       ) : (
         <>
-          {!userData || !userPosts ? (
+          {!userData ? (
             <Banner showBack={true} />
           ) : (
             <div>
@@ -117,7 +97,7 @@ const UserPage: React.FC<UserPageProps> = (props) => {
                       <a>
                         <div
                           className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-100 ${
-                            router.asPath == `/${username}${item.url}`
+                            path == `/${username}${item.url}`
                               ? "border-b-4 border-sky-400 font-bold text-black"
                               : ""
                           }`}
@@ -130,23 +110,7 @@ const UserPage: React.FC<UserPageProps> = (props) => {
                 })}
               </div>
 
-              <div className="divide-y">
-                {userPosts.length > 0 ? (
-                  userPosts.map((post: Chirp) => {
-                    return (
-                      <Post
-                        key={post.id}
-                        post={post}
-                        postType={PostDisplayType.Timeline}
-                      />
-                    );
-                  })
-                ) : (
-                  <div className="flex items-center justify-center py-6">
-                    No posts to show!
-                  </div>
-                )}
-              </div>
+              <div className="divide-y">{children}</div>
             </div>
           )}
         </>
@@ -154,3 +118,5 @@ const UserPage: React.FC<UserPageProps> = (props) => {
     </>
   );
 };
+
+export default UserLayout;

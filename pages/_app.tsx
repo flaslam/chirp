@@ -1,25 +1,23 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/layout";
+import IndexLayout from "../layouts";
 import { UserContext } from "../components/user-context";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
-function MyApp({ Component, pageProps }: AppProps) {
+type ComponentWithPageLayout = AppProps & {
+  Component: AppProps["Component"] & {
+    PageLayout?: React.ComponentType;
+  };
+};
+
+function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
   const [user, setUser] = useState(null);
 
   // Load and verify user from localStorage on component mount
   useEffect(() => {
     const checkTokenValidity = (expires: string, iat: number): boolean => {
-      // TODO: remove the token if it's past expiry
-
-      // TODO: Check for other values other than 1d
-      let timeLimit = 86400000;
-
-      if (expires === "1d") {
-        // 1 day in ms
-        timeLimit = 86400000;
-      }
+      let timeLimit = 86400000; // 1d
 
       if (Date.now() - iat < timeLimit) {
         return true;
@@ -54,9 +52,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <UserContext.Provider value={value}>
-      <Layout>
-        <Component {...pageProps} key={router.asPath} />
-      </Layout>
+      <IndexLayout>
+        {Component.PageLayout ? (
+          <Component.PageLayout {...pageProps} key={router.asPath}>
+            <Component {...pageProps} key={router.asPath} />
+          </Component.PageLayout>
+        ) : (
+          <Component {...pageProps} key={router.asPath} />
+        )}
+      </IndexLayout>
     </UserContext.Provider>
   );
 }

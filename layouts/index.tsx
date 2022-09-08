@@ -1,31 +1,24 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import SidebarLeft from "./sidebar-left";
-import SidebarRight from "./sidebar-right";
-import MobileBanner from "./mobile-banner";
-import { useState } from "react";
+import SidebarLeft from "../components/sidebar-left";
+import SidebarRight from "../components/sidebar-right";
 
-interface LayoutProps {
-  children: any;
+interface IndexLayoutProps {
+  children: React.ReactNode;
 }
 
-const Layout: NextPage<LayoutProps> = ({ children }) => {
-  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
-
+const IndexLayout: NextPage<IndexLayoutProps> = ({ children }) => {
   const title = "Chirp";
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content="Full stack social media MERN app" />
+        <meta name="description" content="Full stack social media app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col">
-        {/* flex-col sm:flex-row for mobile view */}
-
         <div className="flex min-h-screen flex-row justify-center">
-          {/* <MobileBanner /> */}
           <SidebarLeft />
           <main className="w-full border-l border-r md:w-timeline">
             {children}
@@ -37,4 +30,4 @@ const Layout: NextPage<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default IndexLayout;

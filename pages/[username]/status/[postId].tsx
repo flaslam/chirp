@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getPost } from "../../../components/api-calls";
@@ -7,7 +8,7 @@ import Banner from "../../../components/banner";
 import Compose from "../../../components/compose";
 import Loading from "../../../components/loading";
 
-const SinglePost: React.FC = () => {
+const SinglePost: NextPage = () => {
   const router = useRouter();
   const username = router.query.username;
   const postId = router.query.postId;

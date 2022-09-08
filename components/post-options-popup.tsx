@@ -4,7 +4,7 @@ import { Chirp } from "../lib/types";
 import { deletePost } from "./api-calls";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useRef } from "react";
-import useClickOutside from "./hooks/use-click-outside";
+import useClickOutside from "../hooks/use-click-outside";
 
 interface DetailsPopupProps {
   showPostOptions: boolean;

@@ -1,9 +1,9 @@
 import UserLayout from "../../layouts/user";
-import UserPagePath from "../../components/user-page-path";
+import UserPostsFromPath from "../../components/user-posts-from-path";
 import { NextPageWithLayout } from "../_app";
 
 const WithReplies: NextPageWithLayout = () => {
-  return <UserPagePath />;
+  return <UserPostsFromPath />;
 };
 
 WithReplies.getLayout = (page: React.ReactElement) => (

@@ -1,13 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Chirp } from "../lib/types";
-import UserPage from "../components/user-page";
-import PostTimeline from "./post-timeline";
-import UserLayout from "../layouts/user";
 import { getUserPosts } from "./api-calls";
+import Timeline from "./timeline";
 import Loading from "./loading";
 
-const UserPagePath: React.FC = () => {
+const UserPostsFromPath: React.FC = () => {
   const router = useRouter();
   const username = router.query.username as string;
   const [path, setPath] = useState<string>(router.asPath);
@@ -20,7 +18,6 @@ const UserPagePath: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      // TODO: change to promises.all OR have different loading for user and split that up
       const postRes = await getUserPosts(username, path, limit, skip);
       setPosts(postRes);
 
@@ -45,9 +42,15 @@ const UserPagePath: React.FC = () => {
 
   return (
     <>
-      {loading ? <Loading /> : <PostTimeline posts={posts} endpoint={path} />}
+      {loading ? (
+        <div className="py-3">
+          <Loading />
+        </div>
+      ) : (
+        <Timeline posts={posts} />
+      )}
     </>
   );
 };
 
-export default UserPagePath;
+export default UserPostsFromPath;

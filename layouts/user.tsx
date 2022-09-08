@@ -48,7 +48,6 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
 
   // Set path whenever it changes
   useEffect(() => {
-    console.log("updating path");
     setPath(router.asPath);
   }, [router]);
 

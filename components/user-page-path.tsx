@@ -5,6 +5,7 @@ import UserPage from "../components/user-page";
 import PostTimeline from "./post-timeline";
 import UserLayout from "../layouts/user";
 import { getUserPosts } from "./api-calls";
+import Loading from "./loading";
 
 const UserPagePath: React.FC = () => {
   const router = useRouter();
@@ -42,7 +43,11 @@ const UserPagePath: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, username]);
 
-  return <PostTimeline posts={posts} endpoint={path} />;
+  return (
+    <>
+      {loading ? <Loading /> : <PostTimeline posts={posts} endpoint={path} />}
+    </>
+  );
 };
 
 export default UserPagePath;

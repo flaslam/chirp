@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
-import Profile from "../components/profile";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getUserProfile } from "../components/api-calls";
 import { UserContext } from "../components/user-context";
 import Loading from "../components/loading";
 import Link from "next/link";
+import Profile from "../components/profile";
 import Banner from "../components/banner";
 
 interface UserLayoutProps {
@@ -13,18 +13,13 @@ interface UserLayoutProps {
 }
 
 const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
-  const router = useRouter();
-  const username = router.query.username;
-  const [path, setPath] = useState<string>(router.asPath);
-  // const prevUsername = useRef<string | null>(null);
-
-  const limit = 10;
-  let skip = 0;
-
-  const [loading, setLoading] = useState<boolean>(false);
-
   const { user } = useContext(UserContext);
 
+  const router = useRouter();
+  const username = router.query.username;
+
+  const [path, setPath] = useState<string>(router.asPath);
+  const [loading, setLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<any | null>(null);
 
   const fetchData = async () => {
@@ -33,10 +28,7 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
     try {
       const userRes = await getUserProfile(username as string);
       setUserData(userRes.data.user);
-
       setLoading(false);
-
-      skip += limit;
     } catch (err) {
       console.log("Error loading data.");
     }
@@ -45,18 +37,20 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
   // On component mount
   useEffect(() => {
     setPath(router.asPath);
-
-    // Return if we're still on the same user's page as last render (no need to fetch profile again)
-    // if (username == prevUsername.current) return;
-    // prevUsername.current = String(username);
-
     setLoading(true);
 
     if (!router.isReady) return;
+
     fetchData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, username]);
+
+  // Set path whenever it changes
+  useEffect(() => {
+    console.log("updating path");
+    setPath(router.asPath);
+  }, [router]);
 
   interface ViewOption {
     title: string;

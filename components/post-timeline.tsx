@@ -22,7 +22,7 @@ const PostTimeline: React.FC<PostTimelineProps> = ({ posts, endpoint }) => {
         })
       ) : (
         <div className="flex items-center justify-center py-6">
-          {/* No posts to show! */}
+          No posts to show
         </div>
       )}
     </>

@@ -1,11 +1,13 @@
-import { NextPage } from "next";
 import UserLayout from "../../layouts/user";
 import UserPagePath from "../../components/user-page-path";
+import { NextPageWithLayout } from "../_app";
 
-const UserLikes = () => {
+const UserLikes: NextPageWithLayout = () => {
   return <UserPagePath />;
 };
 
-UserLikes.PageLayout = UserLayout;
+UserLikes.getLayout = (page: React.ReactElement) => (
+  <UserLayout>{page}</UserLayout>
+);
 
 export default UserLikes;

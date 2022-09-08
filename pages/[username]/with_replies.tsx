@@ -1,11 +1,13 @@
-import { NextLayoutComponentType, NextPage } from "next";
 import UserLayout from "../../layouts/user";
 import UserPagePath from "../../components/user-page-path";
+import { NextPageWithLayout } from "../_app";
 
-const WithReplies = () => {
+const WithReplies: NextPageWithLayout = () => {
   return <UserPagePath />;
 };
 
-WithReplies.PageLayout = UserLayout;
+WithReplies.getLayout = (page: React.ReactElement) => (
+  <UserLayout>{page}</UserLayout>
+);
 
 export default WithReplies;

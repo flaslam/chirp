@@ -106,7 +106,7 @@ const Home: NextPage<HomeProps> = ({}) => {
   };
 
   return (
-    <div>
+    <>
       <Banner headerText="Latest Posts" showStars={true} />
       <Compose addPost={addPost} />
       {loading ? (
@@ -128,7 +128,7 @@ const Home: NextPage<HomeProps> = ({}) => {
           )}
         </>
       )}
-    </div>
+    </>
   );
 };
 

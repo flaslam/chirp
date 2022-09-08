@@ -1,11 +1,13 @@
-import { NextPage } from "next";
 import UserLayout from "../../layouts/user";
 import UserPagePath from "../../components/user-page-path";
+import { NextPageWithLayout } from "../_app";
 
-const UserMedia = () => {
+const UserMedia: NextPageWithLayout = () => {
   return <UserPagePath />;
 };
 
-UserMedia.PageLayout = UserLayout;
+UserMedia.getLayout = (page: React.ReactElement) => (
+  <UserLayout>{page}</UserLayout>
+);
 
 export default UserMedia;

@@ -2,16 +2,25 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import IndexLayout from "../layouts";
 import { UserContext } from "../components/user-context";
-import { useEffect, useMemo, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
-type ComponentWithPageLayout = AppProps & {
-  Component: AppProps["Component"] & {
-    PageLayout?: React.ComponentType;
-  };
+// type ComponentWithPageLayout = AppProps & {
+//   Component: AppProps["Component"] & {
+//     PageLayout?: React.ComponentType;
+//   };
+// };
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
 };
 
-function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [user, setUser] = useState(null);
 
   // Load and verify user from localStorage on component mount
@@ -50,16 +59,12 @@ function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
   // Prevent provider value from changing unless value actually changes
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <UserContext.Provider value={value}>
       <IndexLayout>
-        {Component.PageLayout ? (
-          <Component.PageLayout {...pageProps} key={router.asPath}>
-            <Component {...pageProps} key={router.asPath} />
-          </Component.PageLayout>
-        ) : (
-          <Component {...pageProps} key={router.asPath} />
-        )}
+        {getLayout(<Component {...pageProps} key={router.asPath} />)}
       </IndexLayout>
     </UserContext.Provider>
   );

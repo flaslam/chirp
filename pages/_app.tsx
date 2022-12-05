@@ -6,12 +6,6 @@ import { ReactElement, ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
-// type ComponentWithPageLayout = AppProps & {
-//   Component: AppProps["Component"] & {
-//     PageLayout?: React.ComponentType;
-//   };
-// };
-
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };

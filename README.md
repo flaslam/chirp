@@ -1,6 +1,7 @@
 # Chirp
 
 Go to the [live deployed application](https://chirp-flaslam.vercel.app)
+
 (Note that the first launch may take some time because of the server idling)
 
 Go to the [backend repository](https://github.com/flaslam/chirp-backend)

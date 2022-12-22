@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { UserContext } from "./user-context";
-import LogInModal from "./log-in-modal";
-import SignUpModal from "./sign-up-modal";
+import LogIn from "./log-in";
+import SignUp from "./sign-up";
+import Modal from "./modal";
 import LogOut from "./log-out";
 import { BlueLargeButton } from "./styled/button-styles";
 
@@ -16,13 +17,13 @@ const SidebarRight = () => {
         </LogOut>
       ) : (
         <>
-          <LogInModal>
+          <Modal render={LogIn}>
             <BlueLargeButton>Log In</BlueLargeButton>
-          </LogInModal>
+          </Modal>
 
-          <SignUpModal>
+          <Modal render={SignUp}>
             <BlueLargeButton>Sign Up</BlueLargeButton>
-          </SignUpModal>
+          </Modal>
         </>
       )}
     </div>

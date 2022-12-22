@@ -6,7 +6,7 @@ import { BlueLargeButton } from "./styled/button-styles";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface LoginProps {
-  setOpenDialog(status: boolean): void;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const LogIn: React.FC<LoginProps> = ({ setOpenDialog }) => {

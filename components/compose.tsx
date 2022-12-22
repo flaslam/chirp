@@ -21,13 +21,13 @@ import { useRouter } from "next/router";
 interface ComposeProps {
   originalPost?: string;
   addPost?: (post: Chirp) => void;
-  setModal?(status: boolean): void;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Compose: React.FC<ComposeProps> = ({
   originalPost,
   addPost,
-  setModal,
+  setOpenDialog,
 }) => {
   const MAX_CHAR_LIMIT = 140;
 
@@ -51,8 +51,8 @@ const Compose: React.FC<ComposeProps> = ({
     await submitData();
 
     // TODO: Composed from outside of timeline - redirect?
-    if (setModal) {
-      setModal(false);
+    if (setOpenDialog) {
+      setOpenDialog(false);
     }
 
     // Clear input text

@@ -9,7 +9,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 interface SignUpProps {
-  setOpenDialog(status: boolean): void;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignUp: React.FC<SignUpProps> = ({ setOpenDialog }) => {

@@ -19,9 +19,12 @@ import { FaTwitter } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { BlueLargeButton } from "./styled/button-styles";
 import LogOut from "./log-out";
-import LogInModal from "./log-in-modal";
-import SignUpModal from "./sign-up-modal";
-import ComposeModal from "./compose-modal";
+import LogIn from "./log-in";
+import SignUp from "./sign-up";
+
+import Compose from "./compose";
+
+import Modal from "./modal";
 
 interface link {
   name?: string;
@@ -114,9 +117,14 @@ const SidebarLeft = () => {
             {/* Post button full width */}
             <div className="hidden w-full py-3 md:block">
               <div>
-                <ComposeModal>
+                <Modal
+                  render={Compose}
+                  title="Compose"
+                  fullWidth={true}
+                  topRow={true}
+                >
                   <BlueLargeButton>Compose Post</BlueLargeButton>
-                </ComposeModal>
+                </Modal>
               </div>
             </div>
 
@@ -124,9 +132,14 @@ const SidebarLeft = () => {
             <div className="py-3 md:hidden">
               <div className="text-3xl md:hidden">
                 <div className="rounded-full bg-sky-500 p-2 transition hover:cursor-pointer hover:bg-sky-600">
-                  <ComposeModal>
+                  <Modal
+                    render={Compose}
+                    title="Compose"
+                    fullWidth={true}
+                    topRow={true}
+                  >
                     <RiQuillPenFill style={{ fill: "white" }} />
-                  </ComposeModal>
+                  </Modal>
                 </div>
               </div>
             </div>
@@ -138,31 +151,29 @@ const SidebarLeft = () => {
       <div className="mb-4 flex flex-col gap-2 md:w-full md:px-4">
         {!user ? (
           <>
-            <LogInModal>
+            <Modal render={LogIn}>
               <>
                 <div className="hidden w-full md:block">
                   <BlueLargeButton>Log In</BlueLargeButton>
-                  {/* <div className="hidden items-center gap-3 rounded-full p-2 px-4 text-xl transition hover:cursor-pointer hover:bg-gray-200 md:flex">
-                    <HiLogin /> Log In
-                  </div> */}
                 </div>
-                {/* <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden"> */}
+
                 <div className="rounded-full bg-sky-500 p-2 text-3xl transition hover:cursor-pointer hover:bg-sky-600 md:hidden">
                   <HiLogin style={{ fill: "white" }} />
                 </div>
               </>
-            </LogInModal>
-            <SignUpModal>
+            </Modal>
+
+            <Modal render={SignUp}>
               <>
                 <div className="hidden md:block">
                   <BlueLargeButton>Sign Up</BlueLargeButton>
                 </div>
-                {/* <div className="block rounded-full p-2 text-3xl transition hover:cursor-pointer hover:bg-gray-200 md:hidden"> */}
+
                 <div className="rounded-full bg-sky-500 p-2 text-3xl transition hover:cursor-pointer hover:bg-sky-600 md:hidden">
                   <HiUserAdd style={{ fill: "white" }} />
                 </div>
               </>
-            </SignUpModal>
+            </Modal>
           </>
         ) : (
           <div

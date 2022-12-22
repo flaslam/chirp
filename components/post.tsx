@@ -55,6 +55,19 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     return <>{dateToDisplay}</>;
   };
 
+  const showParent = () => {
+    return !post?.parent ? null : (
+      <div>
+        Replying to{" "}
+        <Link href={`/${post.parent.username}`}>
+          <a className="text-sky-600 hover:underline">
+            @{post.parent.username}
+          </a>
+        </Link>
+      </div>
+    );
+  };
+
   const PostTimeline = () => {
     return (
       <>
@@ -116,6 +129,8 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                       user={user}
                     />
                   </div>
+
+                  {showParent()}
 
                   {/* Message */}
                   <div>{post.message}</div>
@@ -221,16 +236,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
             {/* Body */}
 
-            {!post.parent ? null : (
-              <div className="pt-4">
-                Replying to{" "}
-                <Link href={`/${post.parent.username}`}>
-                  <a className="text-sky-600 hover:underline">
-                    @{post.parent.username}
-                  </a>
-                </Link>
-              </div>
-            )}
+            <div className="pt-4">{showParent()}</div>
 
             <div className="py-4">
               {/* Message */}

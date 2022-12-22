@@ -3,6 +3,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { UserContext } from "./user-context";
+import { motion } from "framer-motion";
+
+import { BlueLargeButton } from "./styled/button-styles";
+import LogOut from "./log-out";
+import LogIn from "./log-in";
+import SignUp from "./sign-up";
+import Compose from "./compose";
+import Modal from "./modal";
 
 // Icons
 import {
@@ -15,16 +23,6 @@ import {
 } from "react-icons/hi";
 import { RiQuillPenFill } from "react-icons/ri";
 import { FaTwitter } from "react-icons/fa";
-
-import { motion } from "framer-motion";
-import { BlueLargeButton } from "./styled/button-styles";
-import LogOut from "./log-out";
-import LogIn from "./log-in";
-import SignUp from "./sign-up";
-
-import Compose from "./compose";
-
-import Modal from "./modal";
 
 interface link {
   name?: string;
@@ -53,7 +51,7 @@ const SidebarLeft = () => {
   const { user } = useContext(UserContext);
   const router = useRouter();
   const currentRoute = router.asPath;
-  const username = router.query.username;
+  const usernameRoute = router.query.username;
 
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
@@ -75,9 +73,7 @@ const SidebarLeft = () => {
 
           // Check if we're on any tab/page of our own profile
           if (link.name === "Profile" && user) {
-            // Cut off url at second slash
-            const currRouteBeforeSlash = currentRoute.split("/")[1];
-            linkIsActive = currRouteBeforeSlash === user.username;
+            linkIsActive = usernameRoute === user.username;
           }
 
           return link.reqLoggedIn === true && !user ? null : (

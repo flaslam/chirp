@@ -4,15 +4,15 @@ import { HiX } from "react-icons/hi";
 
 interface ModalProps {
   children?: JSX.Element;
-  render: React.FC<ChildProps>;
+  render: React.FC<any>;
   fullWidth?: boolean;
   title?: string;
   topRow?: boolean;
 }
 
-interface ChildProps {
+type ChildProps = {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const Modal: React.FC<ModalProps> = ({
   children,
@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             )}
 
-            {createElement<ChildProps>(render, childProps)}
+            {createElement<any>(render, childProps)}
           </Dialog>
         </>
       )}

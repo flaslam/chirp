@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             )}
 
-            {createElement<any>(render, childProps)}
+            {createElement<ChildProps>(render, childProps)}
           </Dialog>
         </>
       )}

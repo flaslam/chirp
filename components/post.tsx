@@ -57,7 +57,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   const showParent = () => {
     return !post?.parent ? null : (
-      <div>
+      <div className="text-slate-600">
         Replying to{" "}
         <Link href={`/${post.parent.username}`}>
           <a className="text-sky-600 hover:underline">

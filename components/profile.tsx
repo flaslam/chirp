@@ -100,7 +100,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
               // layout="fixed"
               objectFit="cover"
               alt={userData.username}
-              className="z-50 m-auto rounded-full !border-4 !border-solid !border-white"
+              className="z-40 m-auto rounded-full !border-4 !border-solid !border-white"
               priority
             />
           </div>

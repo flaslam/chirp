@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 interface ComposeProps {
   originalPost?: string;
   addPost?: (post: Chirp) => void;
-  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDialog?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Compose: React.FC<ComposeProps> = ({

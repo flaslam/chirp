@@ -33,9 +33,9 @@ const PostOptionsPopup: React.FC<DetailsPopupProps> = ({
     event.preventDefault();
     setShowPostOptions(false);
 
-    if (post?.id && post?.username && user) {
+    if (post?.id && post?.user.username && user) {
       try {
-        await deletePost(post?.username, post?.id, user.token);
+        await deletePost(post?.user.username, post?.id, user.token);
       } catch (err) {
         console.log(err);
         alert("Could not delete post.");
@@ -65,19 +65,19 @@ const PostOptionsPopup: React.FC<DetailsPopupProps> = ({
           showPostOptions ? "absolute" : "hidden"
         } z-30 flex w-60 -translate-x-full flex-col overflow-hidden rounded-md bg-white drop-shadow-lg [&>*]:p-2`}
       >
-        {post?.username === user?.username ? (
+        {post?.user.username === user?.username ? (
           <div className="truncate hover:bg-gray-300" onClick={handleDelete}>
             Delete post
           </div>
         ) : (
           <div className="truncate hover:bg-gray-300" onClick={handleLink}>
-            <Link href={`/${post?.username}`}>
-              <a>Go to @{post?.username}&#39;s profile</a>
+            <Link href={`/${post?.user.username}`}>
+              <a>Go to @{post?.user.username}&#39;s profile</a>
             </Link>
           </div>
         )}
         <div className="truncate hover:bg-gray-300" onClick={handleLink}>
-          <Link href={`/${post?.username}/status/${post?.id}`}>
+          <Link href={`/${post?.user.username}/status/${post?.id}`}>
             <a>
               {/* Share/copy URL */}
               Go to post page

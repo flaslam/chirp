@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "./user-context";
 import { motion } from "framer-motion";
+import useClickOutside from "../hooks/use-click-outside";
 
 import { BlueLargeButton } from "./styled/button-styles";
 import LogOut from "./log-out";
@@ -54,6 +55,9 @@ const SidebarLeft = () => {
   const usernameRoute = router.query.username;
 
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
+
+  const userPanelRef = useRef(null);
+  useClickOutside(userPanelRef, () => setOpenUserPanel(false));
 
   return (
     <div className="sticky top-0 z-30 mx-2 flex h-screen flex-col items-center justify-center pt-2 md:w-60 md:items-start xl:w-sb-left">
@@ -196,6 +200,7 @@ const SidebarLeft = () => {
                 className="absolute z-50 min-w-max -translate-y-full"
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}
+                ref={userPanelRef}
               >
                 <div className="flex -translate-y-4 flex-col justify-center divide-y overflow-hidden rounded-xl bg-white drop-shadow-lg">
                   {/* 1st row */}

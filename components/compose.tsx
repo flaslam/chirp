@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { createPost, getPost } from "./api-calls";
+import { createPost, getPost } from "../lib/api-calls";
 import { UserContext } from "./user-context";
 import { Chirp } from "../lib/types";
 import { StandardButton } from "./styled/button-styles";
@@ -87,7 +87,7 @@ const Compose: React.FC<ComposeProps> = ({
     }
 
     // Redirect to the post since we have modal open
-    router.push(`/${newPost.username}/status/${newPost.id}`);
+    router.push(`/${newPost.user.username}/status/${newPost.id}`);
 
     return;
   };

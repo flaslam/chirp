@@ -1,8 +1,8 @@
 import styles from "../styles/Post.module.css";
 import React, { useContext } from "react";
 import { UserContext } from "./user-context";
-import { likePost } from "./api-calls";
-import { Chirp } from "../lib/types";
+import { likePost } from "../lib/api-calls";
+import { Chirp, User } from "../lib/types";
 
 // Icons
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -49,13 +49,20 @@ const PostActions: React.FC<PostActionsProps> = ({
 
   const sendLikeRequest = async () => {
     // Send a bool of liked to determine whether we're liking or unliking
-    const res = await likePost(user.username, post.id, post.username, !liked);
+    const res = await likePost(
+      user.username,
+      post.id,
+      post.user.username,
+      !liked
+    );
 
     if (likes && user) {
       if (!liked) {
         setLikes((prevState: any) => {
           if (prevState) {
-            const newState = [...prevState, user._id];
+            // TODO: deal differently iff its an object vs string
+            // const newState = [...prevState, user._id];
+            const newState = [...prevState, user];
             return newState;
           }
         });
@@ -63,8 +70,11 @@ const PostActions: React.FC<PostActionsProps> = ({
         // Array filter to remove our user id
         setLikes((prevState: any) => {
           if (Array.isArray(prevState)) {
-            const newState = prevState.filter((item: any) => item !== user._id);
-            return newState;
+            if (typeof prevState[0] === "string") {
+              return prevState.filter((item: any) => item !== user._id);
+            } else if (typeof prevState[0] === "object") {
+              return prevState.filter((item: User) => item._id !== user._id);
+            }
           } else {
             return [];
           }
@@ -82,7 +92,7 @@ const PostActions: React.FC<PostActionsProps> = ({
   };
 
   const copyText = () => {
-    const url = `${document.location.origin}/${post.username}/status/${post.id}`;
+    const url = `${document.location.origin}/${post.user.username}/status/${post.id}`;
     navigator.clipboard.writeText(url);
     alert("The link to this post has been copied to the clipboard.");
   };

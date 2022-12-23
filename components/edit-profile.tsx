@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { updateProfile } from "./api-calls";
+import { updateProfile } from "../lib/api-calls";
 import { UserContext } from "./user-context";
 import { BlackButton } from "./styled/button-styles";
 import CloseIcon from "@mui/icons-material/Close";

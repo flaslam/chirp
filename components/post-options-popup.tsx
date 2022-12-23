@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Chirp } from "../lib/types";
-import { deletePost } from "./api-calls";
+import { deletePost } from "../lib/api-calls";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useRef } from "react";
 import useClickOutside from "../hooks/use-click-outside";

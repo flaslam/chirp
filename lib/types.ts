@@ -1,11 +1,9 @@
 export interface Chirp {
   id: string;
-  username: string;
-  displayName: string;
-  photo: string;
-  date: string;
+  date: Date;
+  dateFormatted: string;
   dateRelative: string;
-  dateRaw: Date;
+  // dateRaw: Date;
   time: string;
   message: string;
   media?: string[]; // make type with enum?
@@ -13,9 +11,16 @@ export interface Chirp {
   reposts?: Chirp[];
   likes?: User[] | string[];
   parent?: Chirp;
+
+  user: User;
+
+  // username: string;
+  // displayName: string;
+  // photo: string;
 }
 
 export interface User {
+  _id: string;
   username: string;
   displayName: string;
   photo: string;

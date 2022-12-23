@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getPost } from "../../../components/api-calls";
+import { getPost } from "../../../lib/api-calls";
 import { Chirp, PostDisplayType } from "../../../lib/types";
 import Post from "../../../components/post";
 import Banner from "../../../components/banner";

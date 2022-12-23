@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { UserContext } from "../components/user-context";
 import { useContext } from "react";
 import { useEffect, useRef, useState } from "react";
-import { getAllPosts } from "../components/api-calls";
+import { getAllPosts } from "../lib/api-calls";
 import { Chirp } from "../lib/types";
 import Banner from "../components/banner";
 import Compose from "../components/compose";

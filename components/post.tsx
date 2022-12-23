@@ -4,8 +4,11 @@ import Link from "next/link";
 import PostActions from "./post-actions";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./user-context";
-import { Chirp, PostDisplayType } from "../lib/types";
+import { Chirp, PostDisplayType, User } from "../lib/types";
 import PostOptionsPopup from "./post-options-popup";
+import { getPostLikes } from "../lib/api-calls";
+import Modal from "./modal";
+import UserList from "./user-list";
 
 interface PostProps {
   post?: Chirp;
@@ -27,8 +30,27 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
       return;
     }
 
-    if (post?.likes?.includes(user._id)) {
-      setLiked(true);
+    // TODO: this works if array is of strings
+    // if (post?.likes?.includes(user._id)) {
+    //   setLiked(true);
+    // }
+
+    // TODO: the like increment doesn't work
+
+    // Loop through array, if first item is a string, then do top, if first item is an object, then check if _id matches
+    if (post && post.likes) {
+      for (const item of post.likes) {
+        if (typeof item === "string") {
+          if (item == user._id) {
+          }
+        } else if (typeof item === "object") {
+          const thisUser = item as User;
+          if (thisUser._id == user._id) {
+            setLiked(true);
+            return;
+          }
+        }
+      }
     }
 
     // Initialise to an empty array
@@ -39,10 +61,10 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
 
   const showRelativeOrNormalDate = () => {
     // If date is less than a day, show time posted relative to now
-    let dateToDisplay = post?.date.toString();
+    let dateToDisplay = post?.dateFormatted;
 
-    if (post?.dateRaw) {
-      const timePosted = new Date(post.dateRaw).getTime();
+    if (post?.date) {
+      const timePosted = new Date(post.date).getTime();
       const currTime = new Date().getTime();
       const diff = currTime - timePosted;
       const timeInDaysSincePost = diff / (1000 * 60 * 60 * 24);
@@ -59,9 +81,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     return !post?.parent ? null : (
       <div className="text-slate-600">
         Replying to{" "}
-        <Link href={`/${post.parent.username}`}>
+        <Link href={`/${post.parent.user.username}`}>
           <a className="text-sky-600 hover:underline">
-            @{post.parent.username}
+            @{post.parent.user.username}
           </a>
         </Link>
       </div>
@@ -74,7 +96,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
         {!post ? (
           "There is no post"
         ) : (
-          <Link href={`/${post.username}/status/${post.id}`}>
+          <Link href={`/${post.user.username}/status/${post.id}`}>
             <div
               className={`p-4 transition hover:cursor-pointer ${
                 showPostOptions ? null : "hover:bg-gray-100"
@@ -83,13 +105,13 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <div className={styles.post}>
                 <div className={`${styles.photoContainer}`}>
                   <Link
-                    href={`/${post.username}`}
+                    href={`/${post.user.username}`}
                     style={{ position: "relative" }}
                   >
                     <a>
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.photo}`}
-                        alt={post.username}
+                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.user.photo}`}
+                        alt={post.user.username}
                         // layout="fill"
                         width="100"
                         height="100"
@@ -105,18 +127,18 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   <div className="flex">
                     <div className="flex grow gap-1">
                       <div className="truncate font-bold hover:underline">
-                        <Link href={`/${post.username}`}>
-                          <a>{post.displayName}</a>
+                        <Link href={`/${post.user.username}`}>
+                          <a>{post.user.displayName}</a>
                         </Link>
                       </div>
                       <div className="truncate text-gray-500">
-                        <Link href={`/${post.username}`}>
-                          <a>@{post.username}</a>
+                        <Link href={`/${post.user.username}`}>
+                          <a>@{post.user.username}</a>
                         </Link>
                       </div>
                       <div className="text-gray-500">·</div>
                       <div className="text-gray-500 hover:underline">
-                        <Link href={`/${post.username}/status/${post.id}`}>
+                        <Link href={`/${post.user.username}/status/${post.id}`}>
                           <a>{showRelativeOrNormalDate()}</a>
                         </Link>
                       </div>
@@ -186,13 +208,13 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 )}
 
                 <Link
-                  href={`/${post.username}`}
+                  href={`/${post.user.username}`}
                   style={{ position: "relative" }}
                 >
                   <a>
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.photo}`}
-                      alt={post.username}
+                      src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.user.photo}`}
+                      alt={post.user.username}
                       // layout="fill"
                       width="100"
                       height="100"
@@ -209,15 +231,15 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   <div className={styles.postName}>
                     <div>
                       <>
-                        <Link href={`/${post.username}`}>
+                        <Link href={`/${post.user.username}`}>
                           <a>
                             <div>
                               <span className={styles.displayName}>
-                                {post.displayName}
+                                {post.user.displayName}
                               </span>
                             </div>
                             <div>
-                              <span>@{post.username}</span>
+                              <span>@{post.user.username}</span>
                             </div>
                           </a>
                         </Link>
@@ -262,10 +284,10 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
             <div className="mb-4 text-sm text-gray-500">
               <span>
                 <>
-                  <Link href={`/${post.username}/status/${post.id}`}>
+                  <Link href={`/${post.user.username}/status/${post.id}`}>
                     <a>
                       <span className={styles.datePosted}>
-                        {post.time} · {post.date.toString()}
+                        {post.time} · {post.dateFormatted}
                       </span>
                     </a>
                   </Link>
@@ -285,10 +307,18 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                     </div>
                   ) : null}
                   {likes && likes.length > 0 ? (
-                    <div>
-                      <span className="font-bold">{likes.length}</span>{" "}
-                      {likes.length > 1 ? <>Likes</> : <>Like</>}
-                    </div>
+                    <Modal
+                      render={UserList}
+                      data={likes as User[]}
+                      title="Liked by"
+                      fullWidth={true}
+                      topRow={true}
+                    >
+                      <div className="hover:cursor-pointer hover:underline">
+                        <span className="font-bold">{likes.length}</span>{" "}
+                        {likes.length > 1 ? <>Likes</> : <>Like</>}
+                      </div>
+                    </Modal>
                   ) : null}
                 </div>
               </div>

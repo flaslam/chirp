@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { createUser } from "./api-calls";
+import { createUser } from "../lib/api-calls";
 import { BlueLargeButton } from "./styled/button-styles";
 import {
   checkValidFileExtension,

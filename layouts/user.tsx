@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getUserProfile } from "../components/api-calls";
+import { getUserProfile } from "../lib/api-calls";
 import { UserContext } from "../components/user-context";
 import Loading from "../components/loading";
 import Link from "next/link";

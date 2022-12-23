@@ -1,13 +1,15 @@
 import { Dialog } from "@mui/material";
-import { createElement, useState } from "react";
+import { createElement, ReactElement, useState } from "react";
 import { HiX } from "react-icons/hi";
 
 interface ModalProps {
   children?: JSX.Element;
   render: React.FC<any>;
+  // render: ReactElement<any>;
   fullWidth?: boolean;
   title?: string;
   topRow?: boolean;
+  data?: any;
 }
 
 type ChildProps = {
@@ -20,9 +22,10 @@ const Modal: React.FC<ModalProps> = ({
   fullWidth,
   topRow,
   title,
+  data,
 }) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const childProps = { setOpenDialog };
+  const childProps = { setOpenDialog, data };
 
   return (
     <>
@@ -37,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({
             fullWidth={fullWidth ? fullWidth : false}
           >
             {!topRow ? null : (
-              <div className="flex items-center justify-center px-4 py-4 text-lg">
+              <div className="flex items-center justify-center px-4 pt-4 text-lg">
                 <div className="grow font-bold">{title ? title : null}</div>
                 <div
                   className="m-auto cursor-pointer rounded-full p-1 text-xl hover:bg-gray-200"
@@ -48,7 +51,11 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             )}
 
-            {createElement<ChildProps>(render, childProps)}
+            {/* {(render.props = { ...render.props, childProps })} */}
+            {/* {render} */}
+            <div className="py-4">
+              {createElement<ChildProps>(render, childProps)}
+            </div>
           </Dialog>
         </>
       )}

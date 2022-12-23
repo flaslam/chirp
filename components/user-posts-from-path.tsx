@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Chirp } from "../lib/types";
-import { getUserPosts } from "./api-calls";
+import { getUserPosts } from "../lib/api-calls";
 import Timeline from "./timeline";
 import Loading from "./loading";
 

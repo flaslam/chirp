@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Chirp } from "../lib/types";
-import { populateData } from "../lib/utils";
+import { Chirp } from "./types";
+import { populateData } from "./utils";
 
 const DB_HOST = String(process.env.NEXT_PUBLIC_DB_HOST);
 
@@ -38,6 +38,14 @@ export const getPost = async (post: string, user: string) => {
   const postData = await res.data.post;
   const retrievedPost: Chirp = populateData(postData);
   return retrievedPost;
+};
+
+export const getPostLikes = async (post: string, user: string) => {
+  const res = await axios.get(`${DB_HOST}/${user}/status/${post}/likes`);
+  return console.log(res);
+  // const postData = await res.data.post;
+  // const retrievedPost: Chirp = populateData(postData);
+  // return retrievedPost;
 };
 
 export const uploadFile = async (formData: FormData) => {

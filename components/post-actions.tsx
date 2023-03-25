@@ -86,10 +86,6 @@ const PostActions: React.FC<PostActionsProps> = ({
     setLiked(!liked);
   };
 
-  const handleReply = (event: React.MouseEvent<HTMLInputElement>) => {
-    event.preventDefault();
-  };
-
   const handleShare = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
     copyText();
@@ -114,7 +110,7 @@ const PostActions: React.FC<PostActionsProps> = ({
 
   return (
     <div className="flex justify-between text-xl text-gray-500 [&>*]:flex [&>*]:cursor-pointer [&>*]:items-center [&>*]:gap-1 [&>*]:transition">
-      <div className="hover:text-brand" onClick={handleReply}>
+      <div className="hover:text-brand">
         <ReplyIcon />
         {showStats && (
           <div className="w-6 text-center text-sm">
@@ -143,7 +139,6 @@ const PostActions: React.FC<PostActionsProps> = ({
 
       <div className="hover:text-brand" onClick={handleShare}>
         <ShareIcon />
-        {showStats && <div className="w-6" />}
       </div>
     </div>
   );

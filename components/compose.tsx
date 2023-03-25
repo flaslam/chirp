@@ -165,7 +165,6 @@ const Compose: React.FC<ComposeProps> = ({
                     !originalPost ? "What's happening?" : "Post a reply"
                   }
                   variant="standard"
-                  // style={{ width: "100%" }}
                   className="w-full"
                   required
                   multiline
@@ -175,7 +174,6 @@ const Compose: React.FC<ComposeProps> = ({
                     disableUnderline: true,
                     style: { fontSize: 20 },
                   }}
-                  // size="medium"
                 />
               </div>
 

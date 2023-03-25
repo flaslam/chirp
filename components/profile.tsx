@@ -96,9 +96,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
               fill
-              style={{ objectFit: "cover" }}
               alt={userData.username}
-              className="z-40 m-auto rounded-full border-4 border-solid border-white"
+              className="z-40 m-auto rounded-full border-4 border-solid border-white object-cover"
               priority
             />
           </div>

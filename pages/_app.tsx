@@ -27,11 +27,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const checkTokenValidity = (expires: string, iat: number): boolean => {
       let timeLimit = 86400000; // 1d
-
-      if (Date.now() - iat < timeLimit) {
-        return true;
-      }
-
+      if (Date.now() - iat < timeLimit) return true;
       return false;
     };
 
@@ -44,7 +40,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const userObj = JSON.parse(userData);
 
     if (!checkTokenValidity(userObj.expires, userObj.iat)) {
-      // Use logout function which is stored in one place for this
+      // TODO: Use logout function which is stored in one place for this
       localStorage.removeItem("user");
       setUser(null);
       return;

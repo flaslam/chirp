@@ -238,8 +238,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                       }
                       fill
                       alt={props.userData.username}
-                      className="z-0 m-auto rounded-full !border-4 !border-solid !border-white"
-                      style={{ objectFit: "cover" }}
+                      className="z-0 m-auto rounded-full !border-4 !border-solid !border-white object-cover"
                     />
                   </div>
                 </div>

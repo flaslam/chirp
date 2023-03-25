@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { BlueLargeButton } from "./styled/button-styles";
 import { UserContext } from "./user-context";
 
 interface LogOutProps {
@@ -8,19 +7,15 @@ interface LogOutProps {
 }
 
 export const LogOut: React.FC<LogOutProps> = (props) => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const router = useRouter();
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
-
-    // TODO: redirect to homepage.
-    router.push("/");
+    router.push("/"); // redirect to homepage.
   };
 
   return <div onClick={handleLogout}>{props.children}</div>;
 };
 
 export default LogOut;
-
-//<BlueLargeButton onClick={handleLogout}>Log Out</BlueLargeButton>

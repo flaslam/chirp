@@ -115,7 +115,7 @@ const SidebarLeft = () => {
           );
         })}
 
-        {!user ? null : (
+        {user && (
           <>
             {/* Post button full width */}
             <div className="hidden w-full py-3 md:block">
@@ -180,18 +180,19 @@ const SidebarLeft = () => {
           </>
         ) : (
           <div
-            className={`flex flex-row  rounded-full`}
+            className={`flex flex-row rounded-full`}
             onClick={handleUserBadgeClick}
             ref={userBadge}
           >
             <div className="flex flex-row gap-2 rounded-full py-2 pl-2 pr-2 hover:cursor-pointer hover:bg-gray-200 md:pr-4">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
-                width="48"
-                height="48"
-                alt={user.username}
-                className="rounded-full"
-              />
+              <div className="relative aspect-square w-12">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
+                  fill
+                  alt={user.username}
+                  className="rounded-full"
+                />
+              </div>
               <div className="hidden pr-2 md:block">
                 <div className="font-bold">{user.displayName}</div>
                 <div>@{user.username}</div>

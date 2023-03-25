@@ -160,7 +160,7 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
               {!userData.url ? null : (
                 <div className="flex items-center justify-center gap-x-1 hover:cursor-pointer hover:underline">
                   <LinkIcon fontSize="small" />
-                  <span className="text-blue-link">
+                  <span className="text-brand-link">
                     <Link href={`http://${userData.url}`} target="_blank">
                       {userData.url}
                     </Link>

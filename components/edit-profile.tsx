@@ -281,7 +281,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
             defaultValue={props.userData.url}
           />
           {/* <div className="flex flex-col gap-2">
-          <span className="font-medium">Birth date:</span>
+          <span className="font-bold">Birth date:</span>
           <TextField
             id="birthDate"
             // label="Birth date"

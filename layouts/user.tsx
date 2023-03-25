@@ -67,23 +67,23 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
     <>
       {loading ? (
         <>
-          <Banner showBack={true} />
+          <Banner showBack />
           <Loading />
         </>
       ) : (
         <>
           {!userData ? (
-            <Banner showBack={true} />
+            <Banner showBack />
           ) : (
             <div>
-              <Banner showBack={true} headerText={userData.displayName} />
+              <Banner showBack headerText={userData.displayName} />
               <Profile
                 userData={userData}
                 user={user}
                 fetchUserData={fetchData}
               />
 
-              <div className="flex cursor-pointer border-b [&>*]:flex [&>*]:grow [&>*]:items-center [&>*]:justify-center [&>*]:font-medium [&>*]:text-gray-500 [&>*]:transition">
+              <div className="flex cursor-pointer border-b [&>*]:flex [&>*]:grow [&>*]:items-center [&>*]:justify-center [&>*]:text-gray-500 [&>*]:transition">
                 {viewOptions.map((item, index) => {
                   return (
                     <Link href={`/${username}${item.url}`} key={index}>

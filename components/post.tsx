@@ -132,7 +132,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               }`}
             >
               <div className={styles.post}>
-                {profilePicture}
+                <div className="shrink">{profilePicture}</div>
 
                 <div className={styles.postContents}>
                   {/* Name row */}

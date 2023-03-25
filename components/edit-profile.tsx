@@ -229,20 +229,19 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                       />
                     </div>
                   </div>
-                  <Image
-                    src={
-                      mediaLocalPath
-                        ? mediaLocalPath
-                        : `${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`
-                    }
-                    // src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`}
-                    width="144"
-                    height="144"
-                    // layout="fixed"
-                    alt={props.userData.username}
-                    className="z-0 m-auto rounded-full !border-4 !border-solid !border-white"
-                    objectFit="cover"
-                  />
+                  <div className="relative aspect-square h-36">
+                    <Image
+                      src={
+                        mediaLocalPath
+                          ? mediaLocalPath
+                          : `${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`
+                      }
+                      fill
+                      alt={props.userData.username}
+                      className="z-0 m-auto rounded-full !border-4 !border-solid !border-white"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

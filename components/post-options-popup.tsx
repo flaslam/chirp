@@ -72,16 +72,14 @@ const PostOptionsPopup: React.FC<DetailsPopupProps> = ({
         ) : (
           <div className="truncate hover:bg-gray-300" onClick={handleLink}>
             <Link href={`/${post?.user.username}`}>
-              <a>Go to @{post?.user.username}&#39;s profile</a>
+              Go to @{post?.user.username}&#39;s profile
             </Link>
           </div>
         )}
         <div className="truncate hover:bg-gray-300" onClick={handleLink}>
           <Link href={`/${post?.user.username}/status/${post?.id}`}>
-            <a>
-              {/* Share/copy URL */}
-              Go to post page
-            </a>
+            {/* Share/copy URL */}
+            Go to post page
           </Link>
         </div>
       </div>

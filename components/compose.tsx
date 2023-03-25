@@ -190,7 +190,7 @@ const Compose: React.FC<ComposeProps> = ({
                   </div>
                   <Image
                     src={mediaLocalPath}
-                    alt={media?.name}
+                    alt={media?.name || "Media"}
                     width="16"
                     height="9"
                     objectFit="cover"

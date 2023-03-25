@@ -74,7 +74,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
       }
     }
 
-    return <>{dateToDisplay}</>;
+    return dateToDisplay;
   };
 
   const showParent = () => {
@@ -82,13 +82,42 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
       <div className="text-slate-600">
         Replying to{" "}
         <Link href={`/${post.parent.user.username}`}>
-          <a className="text-sky-600 hover:underline">
+          <span className="text-sky-600 hover:underline">
             @{post.parent.user.username}
-          </a>
+          </span>
         </Link>
       </div>
     );
   };
+
+  const displayMedia = post?.media && post?.media.length > 0 && (
+    <div className="relative aspect-video">
+      <Image
+        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.media[0]}`}
+        alt={post.id}
+        fill
+        style={{ objectFit: "cover" }}
+        className="rounded-md"
+      />
+    </div>
+  );
+
+  const profilePicture = post && (
+    <Link href={`/${post.user.username}`}>
+      <div className={`${styles.photoContainer} relative`}>
+        <Image
+          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.user.photo}`}
+          alt={post.user.username}
+          // layout="fill"
+          width="100"
+          height="100"
+          className={styles.photo}
+          // objectFit="cover"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    </Link>
+  );
 
   const PostTimeline = () => {
     return (
@@ -103,24 +132,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               }`}
             >
               <div className={styles.post}>
-                <div className={`${styles.photoContainer}`}>
-                  <Link
-                    href={`/${post.user.username}`}
-                    style={{ position: "relative" }}
-                  >
-                    <a>
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.user.photo}`}
-                        alt={post.user.username}
-                        // layout="fill"
-                        width="100"
-                        height="100"
-                        className={styles.photo}
-                        objectFit="cover"
-                      />
-                    </a>
-                  </Link>
-                </div>
+                {profilePicture}
 
                 <div className={styles.postContents}>
                   {/* Name row */}
@@ -128,18 +140,18 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                     <div className="flex grow gap-1">
                       <div className="truncate font-bold hover:underline">
                         <Link href={`/${post.user.username}`}>
-                          <a>{post.user.displayName}</a>
+                          {post.user.displayName}
                         </Link>
                       </div>
                       <div className="truncate text-gray-500">
                         <Link href={`/${post.user.username}`}>
-                          <a>@{post.user.username}</a>
+                          @{post.user.username}
                         </Link>
                       </div>
                       <div className="text-gray-500">·</div>
                       <div className="text-gray-500 hover:underline">
                         <Link href={`/${post.user.username}/status/${post.id}`}>
-                          <a>{showRelativeOrNormalDate()}</a>
+                          {showRelativeOrNormalDate()}
                         </Link>
                       </div>
                     </div>
@@ -158,19 +170,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   <div>{post.message}</div>
 
                   {/* Media */}
-                  <div className="pt-2">
-                    {post.media && post.media.length > 0 ? (
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.media[0]}`}
-                        alt={post.id}
-                        width="16"
-                        height="9"
-                        layout="responsive"
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
-                    ) : null}
-                  </div>
+                  <div className="pt-2">{displayMedia}</div>
                 </div>
               </div>
 
@@ -207,43 +207,23 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                   </div>
                 )}
 
-                <Link
-                  href={`/${post.user.username}`}
-                  style={{ position: "relative" }}
-                >
-                  <a>
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.user.photo}`}
-                      alt={post.user.username}
-                      // layout="fill"
-                      width="100"
-                      height="100"
-                      className={styles.photo}
-                      objectFit="cover"
-                      key={Date.now()}
-                    />
-                  </a>
-                </Link>
+                {profilePicture}
               </div>
 
               <div className="grow">
                 <div className={styles.postNameRow}>
                   <div className={styles.postName}>
                     <div>
-                      <>
-                        <Link href={`/${post.user.username}`}>
-                          <a>
-                            <div>
-                              <span className={styles.displayName}>
-                                {post.user.displayName}
-                              </span>
-                            </div>
-                            <div>
-                              <span>@{post.user.username}</span>
-                            </div>
-                          </a>
-                        </Link>
-                      </>
+                      <Link href={`/${post.user.username}`}>
+                        <div>
+                          <span className={styles.displayName}>
+                            {post.user.displayName}
+                          </span>
+                        </div>
+                        <div>
+                          <span>@{post.user.username}</span>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <PostOptionsPopup
@@ -265,19 +245,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <p className={styles.messageMain}>{post.message}</p>
 
               {/* Media */}
-              <div className="pt-2">
-                {post.media && post.media.length > 0 ? (
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${post.media[0]}`}
-                    alt={post.id}
-                    width="16"
-                    height="9"
-                    layout="responsive"
-                    objectFit="cover"
-                    className="rounded-lg"
-                  />
-                ) : null}
-              </div>
+              <div className="pt-2">{displayMedia}</div>
             </div>
 
             {/* Date and time */}
@@ -285,11 +253,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
               <span>
                 <>
                   <Link href={`/${post.user.username}/status/${post.id}`}>
-                    <a>
-                      <span className={styles.datePosted}>
-                        {post.time} · {post.dateFormatted}
-                      </span>
-                    </a>
+                    <span className={styles.datePosted}>
+                      {post.time} · {post.dateFormatted}
+                    </span>
                   </Link>
                 </>
               </span>

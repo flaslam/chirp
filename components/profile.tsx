@@ -92,15 +92,13 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
       <div className="mx-4">
         <div className="flex">
           {/* Profile photo */}
-          <div className="-mt-20">
+          <div className="relative -mt-20 aspect-square h-36">
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
-              width="144"
-              height="144"
-              // layout="fixed"
-              objectFit="cover"
+              fill
+              style={{ objectFit: "cover" }}
               alt={userData.username}
-              className="z-40 m-auto rounded-full !border-4 !border-solid !border-white"
+              className="z-40 m-auto rounded-full border-4 border-solid border-white"
               priority
             />
           </div>
@@ -163,8 +161,8 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
                 <div className="flex items-center justify-center gap-x-1 hover:cursor-pointer hover:underline">
                   <LinkIcon fontSize="small" />
                   <span className="text-blue-link">
-                    <Link href={`http://${userData.url}`}>
-                      <a target="_blank">{userData.url}</a>
+                    <Link href={`http://${userData.url}`} target="_blank">
+                      {userData.url}
                     </Link>
                   </span>
                 </div>

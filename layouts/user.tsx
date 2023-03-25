@@ -87,17 +87,15 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
                 {viewOptions.map((item, index) => {
                   return (
                     <Link href={`/${username}${item.url}`} key={index}>
-                      <a>
-                        <div
-                          className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-100 ${
-                            path == `/${username}${item.url}`
-                              ? "border-b-4 border-sky-400 font-bold text-black"
-                              : ""
-                          }`}
-                        >
-                          {item.title}
-                        </div>
-                      </a>
+                      <div
+                        className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-100 ${
+                          path == `/${username}${item.url}`
+                            ? "border-b-4 border-sky-400 font-bold text-black"
+                            : ""
+                        }`}
+                      >
+                        {item.title}
+                      </div>
                     </Link>
                   );
                 })}

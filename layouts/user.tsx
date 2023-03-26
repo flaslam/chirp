@@ -8,6 +8,18 @@ import Link from "next/link";
 import Profile from "../components/profile";
 import Banner from "../components/banner";
 
+interface ViewOption {
+  title: string;
+  url: string;
+}
+
+const viewOptions: ViewOption[] = [
+  { title: "Posts", url: "" },
+  { title: "Posts & replies", url: "/with_replies" },
+  { title: "Media", url: "/media" },
+  { title: "Likes", url: "/likes" },
+];
+
 interface UserLayoutProps {
   children: React.ReactNode;
 }
@@ -30,7 +42,7 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
       setUserData(userRes.data.user);
       setLoading(false);
     } catch (err) {
-      console.log("Error loading data.");
+      console.log(err);
     }
   };
 
@@ -50,18 +62,6 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
   useEffect(() => {
     setPath(router.asPath);
   }, [router]);
-
-  interface ViewOption {
-    title: string;
-    url: string;
-  }
-
-  const viewOptions: ViewOption[] = [
-    { title: "Posts", url: "" },
-    { title: "Posts & replies", url: "/with_replies" },
-    { title: "Media", url: "/media" },
-    { title: "Likes", url: "/likes" },
-  ];
 
   return (
     <>

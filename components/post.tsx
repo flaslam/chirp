@@ -18,45 +18,36 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post, postType }) => {
   const { user } = useContext(UserContext);
   const [liked, setLiked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<Chirp["likes"]>(post?.likes);
+  const [likes, setLikes] = useState<Chirp["likes"]>(
+    post?.likes ? post.likes : []
+  );
 
   const [showPostOptions, setShowPostOptions] = useState<boolean>(false);
 
-  // On user change: check if liked posts contains this user
+  // Check if liked posts contains this user
   useEffect(() => {
     if (!user) {
       setLiked(false);
       return;
     }
 
-    // TODO: this works if array is of strings
-    // if (post?.likes?.includes(user._id)) {
-    //   setLiked(true);
-    // }
+    // Check format of likes array
+    if (!post?.likes) return;
 
-    // TODO: the like increment doesn't work
-
-    // Loop through array, if first item is a string, then do top, if first item is an object, then check if _id matches
-    if (post && post.likes) {
-      for (const item of post.likes) {
-        if (typeof item === "string") {
-          if (item == user._id) {
-          }
-        } else if (typeof item === "object") {
-          const thisUser = item as User;
-          if (thisUser._id == user._id) {
-            setLiked(true);
-            return;
-          }
+    for (const item of post.likes) {
+      if (typeof item === "string") {
+        if (item == user._id) {
+          setLiked(true);
+        }
+      } else if (typeof item === "object") {
+        const thisUser = item as User;
+        if (thisUser._id == user._id) {
+          setLiked(true);
+          return;
         }
       }
     }
-
-    // Initialise to an empty array
-    if (!post?.likes) setLikes([]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [post, user]);
 
   const showRelativeOrNormalDate = () => {
     // If date is less than a day, show time posted relative to now

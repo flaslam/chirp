@@ -38,4 +38,22 @@ Example .env.local file:
 
 ```
 NEXT_PUBLIC_DB_HOST=http://localhost:5000
+NEXT_PUBLIC_FILE_STORAGE_URL=
 ```
+
+## Screenshots
+
+Timeline (home page):
+![](assets/screenshots/00.jpg)
+
+User profile:
+![](assets/screenshots/01.jpg)
+
+Edit profile:
+![](assets/screenshots/02.jpg)
+
+Reply to main post:
+![](assets/screenshots/03.jpg)
+
+Compose new post (mobile view):
+![](assets/screenshots/04.jpg)

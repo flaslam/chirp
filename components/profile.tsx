@@ -65,26 +65,14 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   return (
     <div>
       {/* Header image */}
-      <div className="-z-50 h-48 w-full overflow-hidden">
-        {userData.header ? (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.header}`}
-            width="100"
-            height="100"
-            alt={userData.username}
-            priority
-          />
-        ) : null}
-
-        {/* Temp banner simulation */}
+      <div className="relative -z-50 h-48">
         <Image
-          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
-          width="100"
-          height="100"
+          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${
+            userData.header ? userData.header : userData.photo
+          }`}
           alt={userData.username}
-          objectFit="cover"
-          layout="responsive"
-          className="-translate-y-1/2"
+          fill
+          className="object-cover"
           priority
         />
       </div>

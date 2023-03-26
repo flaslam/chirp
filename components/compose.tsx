@@ -29,9 +29,7 @@ const Compose: React.FC<ComposeProps> = ({
   addPost,
   setOpenDialog,
 }) => {
-  const MAX_CHAR_LIMIT = 140;
-
-  const [postDisabled, setPostDisabled] = useState<boolean>(true);
+  const charLimit = 140;
 
   const { user } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
@@ -130,19 +128,9 @@ const Compose: React.FC<ComposeProps> = ({
     setMediaLocalPath("");
   };
 
-  useEffect(() => {
-    //
-    if (inputText.length > 0) {
-      setPostDisabled(false);
-      return;
-    }
-
-    setPostDisabled(true);
-  }, [inputText]);
-
   return (
     <>
-      {!user ? null : (
+      {user && (
         <div className="flex gap-3 border-b p-4">
           {/* Profile picture */}
           <div className="relative flex h-12 w-12 flex-shrink">
@@ -168,7 +156,7 @@ const Compose: React.FC<ComposeProps> = ({
                   className="w-full"
                   required
                   multiline
-                  inputProps={{ maxLength: MAX_CHAR_LIMIT }}
+                  inputProps={{ maxLength: charLimit }}
                   sx={{ size: 20 }}
                   InputProps={{
                     disableUnderline: true,
@@ -222,12 +210,12 @@ const Compose: React.FC<ComposeProps> = ({
                 <div className="flex items-center px-1">
                   <CircularProgress
                     variant="determinate"
-                    value={(inputText.length / MAX_CHAR_LIMIT) * 100}
+                    value={(inputText.length / charLimit) * 100}
                     size={30}
                   />
                 </div>
 
-                <StandardButton disabled={postDisabled}>
+                <StandardButton disabled={inputText.length <= 0}>
                   {!originalPost ? "Post" : "Reply"}
                 </StandardButton>
               </div>

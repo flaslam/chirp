@@ -128,8 +128,11 @@ const PostActions: React.FC<PostActionsProps> = ({
         )}
       </div>
 
-      <div className="hover:text-brand-red" onClick={handleLike}>
-        {liked ? <LikedIcon className="text-brand-red" /> : <LikeIcon />}
+      <div
+        className={`hover:text-brand-red ${liked && "text-brand-red"}`}
+        onClick={handleLike}
+      >
+        {liked ? <LikedIcon /> : <LikeIcon />}
         {showStats && (
           <div className="w-6 text-center text-sm">
             {likes && likes.length > 0 && likes.length}

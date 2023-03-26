@@ -24,7 +24,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
   const { user, setUser } = useContext(UserContext);
 
   const inputPhotoFile = useRef<HTMLInputElement | null>(null);
-  // const [photo, setPhoto] = useState<null | File>({})
+
   const [selectedPhotoFile, setSelectedPhotoFile] = useState<File>();
 
   const [formInputData, setFormInputData] = useState<{
@@ -82,10 +82,6 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
     try {
       let res = await updateProfile(data, user.username, user.token);
 
-      console.log(user);
-
-      console.log(res);
-
       const userData = res.data.user;
       if (userData) {
         // TODO: update our local user object, refactor functionality
@@ -121,13 +117,10 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
       return;
     }
 
-    // TODO: change the visible photo
     setSelectedPhotoFile(selectedFile);
 
     // Show photo before saving
     setMediaLocalPath(URL.createObjectURL(selectedFile));
-
-    // alert("Filed successfully selected. Save to upload file.");
   };
 
   const handleSelectHeader = () => {

@@ -121,17 +121,24 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                       {/* Name row */}
                       <div className="flex">
                         <div className="flex grow gap-1">
+                          {/* Name */}
                           <div className="truncate font-bold hover:underline">
                             <Link href={`/${post.user.username}`}>
                               {post.user.displayName}
                             </Link>
                           </div>
+
+                          {/* Username */}
                           <div className="truncate text-gray-500">
                             <Link href={`/${post.user.username}`}>
                               @{post.user.username}
                             </Link>
                           </div>
+
+                          {/* Divider */}
                           <div className="text-gray-500">·</div>
+
+                          {/* Date */}
                           <div className="text-gray-500 hover:underline">
                             <Link
                               href={`/${post.user.username}/status/${post.id}`}

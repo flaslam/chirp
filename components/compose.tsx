@@ -133,11 +133,11 @@ const Compose: React.FC<ComposeProps> = ({
       {user && (
         <div className="flex gap-3 border-b p-4">
           {/* Profile picture */}
-          <div className="relative flex h-12 w-12 flex-shrink">
+          <div className="relative flex aspect-square h-12">
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
               alt="pp"
-              layout="fill"
+              fill
               className="rounded-full"
             />
           </div>

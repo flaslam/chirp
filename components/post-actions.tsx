@@ -1,15 +1,17 @@
-import styles from "../styles/Post.module.css";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "./user-context";
 import { likePost } from "../lib/api-calls";
 import { Chirp, User } from "../lib/types";
 
-// Icons
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import IosShareIcon from "@mui/icons-material/IosShare";
+import {
+  HiRefresh as RepostIcon,
+  HiOutlineUpload as ShareIcon,
+} from "react-icons/hi";
+import {
+  HiOutlineChatBubbleLeft as ReplyIcon,
+  HiHeart as LikedIcon,
+  HiOutlineHeart as LikeIcon,
+} from "react-icons/hi2";
 
 interface PostActionsProps {
   post: Chirp;
@@ -17,7 +19,6 @@ interface PostActionsProps {
   setLiked: (likedStatus: boolean) => void;
   likes: Chirp["likes"];
   setLikes: React.Dispatch<React.SetStateAction<Chirp["likes"]>>;
-  shrinkActions?: boolean;
   showStats?: boolean;
 }
 
@@ -27,7 +28,6 @@ const PostActions: React.FC<PostActionsProps> = ({
   setLiked,
   likes,
   setLikes,
-  shrinkActions,
   showStats,
 }) => {
   const { user } = useContext(UserContext);
@@ -109,76 +109,39 @@ const PostActions: React.FC<PostActionsProps> = ({
   };
 
   return (
-    <div
-      className={`${
-        styles.postActions
-      } flex justify-between px-6 pt-4 md:ml-0 md:px-14 ${
-        shrinkActions ? "ml-12" : null
-      }`}
-    >
-      <div className={styles.repliesIconHolder}>
-        <ChatBubbleOutlineIcon className={styles.repliesIcon} />
-        <span>
-          {!showStats ? null : (
-            <>
-              {post.replies ? (
-                <>
-                  {post.replies.length > 0 ? <>{post.replies.length}</> : null}
-                </>
-              ) : null}
-            </>
-          )}
-        </span>
-      </div>
-      <div className={styles.repostsIconHolder} onClick={handleRepost}>
-        <AutorenewIcon className={styles.repostsIcon} />
-        <span>
-          {!showStats ? null : (
-            <>
-              {post.reposts ? (
-                <>
-                  {post.reposts.length > 0 ? <>{post.reposts.length}</> : null}
-                </>
-              ) : null}
-            </>
-          )}
-        </span>
+    <div className="flex justify-between text-xl text-gray-500 [&>*]:flex [&>*]:cursor-pointer [&>*]:items-center [&>*]:gap-1 [&>*]:transition">
+      <div className="hover:text-brand">
+        <ReplyIcon />
+        {showStats && (
+          <div className="w-6 text-center text-sm">
+            {post.replies && post.replies.length > 0 && post.replies.length}
+          </div>
+        )}
       </div>
 
-      {/* TODO: make code less repetitive */}
-      {liked ? (
-        <div className={styles.likesIconHolderFilled} onClick={handleLike}>
-          <FavoriteIcon
-            className={`${styles.likesIconFilled}`}
-            style={{ fill: "red" }}
-          />
-          <span>
-            {!showStats ? null : (
-              <>
-                {likes ? (
-                  <>{likes.length > 0 ? <>{likes.length}</> : null}</>
-                ) : null}
-              </>
-            )}
-          </span>
-        </div>
-      ) : (
-        <div className={styles.likesIconHolder} onClick={handleLike}>
-          <FavoriteBorderOutlinedIcon className={styles.likesIcon} />
-          <span>
-            {!showStats ? null : (
-              <>
-                {likes ? (
-                  <>{likes.length > 0 ? <>{likes.length}</> : null}</>
-                ) : null}
-              </>
-            )}
-          </span>
-        </div>
-      )}
+      <div className="hover:text-brand-green" onClick={handleRepost}>
+        <RepostIcon />
+        {showStats && (
+          <div className="w-6 text-center text-sm">
+            {post.reposts && post.reposts.length > 0 && post.reposts.length}
+          </div>
+        )}
+      </div>
 
-      <div className={styles.sharesIconHolder} onClick={handleShare}>
-        <IosShareIcon className={styles.sharesIcon} />
+      <div
+        className={`hover:text-brand-red ${liked && "text-brand-red"}`}
+        onClick={handleLike}
+      >
+        {liked ? <LikedIcon /> : <LikeIcon />}
+        {showStats && (
+          <div className="w-6 text-center text-sm">
+            {likes && likes.length > 0 && likes.length}
+          </div>
+        )}
+      </div>
+
+      <div className="hover:text-brand" onClick={handleShare}>
+        <ShareIcon />
       </div>
     </div>
   );

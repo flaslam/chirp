@@ -56,8 +56,13 @@ const SidebarLeft = () => {
 
   const [openUserPanel, setOpenUserPanel] = useState<boolean>(false);
 
+  const userBadge = useRef(null);
   const userPanelRef = useRef(null);
-  useClickOutside(userPanelRef, () => setOpenUserPanel(false));
+  useClickOutside(userPanelRef, () => setOpenUserPanel(false), userBadge);
+
+  const handleUserBadgeClick = () => {
+    setOpenUserPanel((prevState) => !prevState);
+  };
 
   return (
     <div className="sticky top-0 z-30 mx-2 flex h-screen flex-col items-center justify-center pt-2 md:w-60 md:items-start xl:w-sb-left">
@@ -83,36 +88,34 @@ const SidebarLeft = () => {
           return link.reqLoggedIn === true && !user ? null : (
             <div key={index}>
               <Link href={targetLink}>
-                <a>
-                  {/* Full view with text */}
-                  <div className="hidden items-center gap-3 rounded-full p-2 text-xl transition hover:bg-gray-200 md:flex">
-                    <span className="text-3xl">
-                      {linkIsActive && link.iconFilled
-                        ? link.iconFilled
-                        : link.icon}
-                    </span>
-                    {!link.name ? null : (
-                      <span
-                        className={`pr-2 ${linkIsActive ? "font-bold" : null}`}
-                      >
-                        {link.name}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Single column view */}
-                  <div className="block rounded-full p-2 text-3xl transition hover:bg-gray-200 md:hidden">
+                {/* Full view with text */}
+                <div className="hidden items-center gap-3 rounded-full p-2 text-xl transition hover:bg-gray-200 md:flex">
+                  <span className="text-3xl">
                     {linkIsActive && link.iconFilled
                       ? link.iconFilled
                       : link.icon}
-                  </div>
-                </a>
+                  </span>
+                  {!link.name ? null : (
+                    <span
+                      className={`pr-2 ${linkIsActive ? "font-bold" : null}`}
+                    >
+                      {link.name}
+                    </span>
+                  )}
+                </div>
+
+                {/* Single column view */}
+                <div className="block rounded-full p-2 text-3xl transition hover:bg-gray-200 md:hidden">
+                  {linkIsActive && link.iconFilled
+                    ? link.iconFilled
+                    : link.icon}
+                </div>
               </Link>
             </div>
           );
         })}
 
-        {!user ? null : (
+        {user && (
           <>
             {/* Post button full width */}
             <div className="hidden w-full py-3 md:block">
@@ -177,17 +180,19 @@ const SidebarLeft = () => {
           </>
         ) : (
           <div
-            className={`flex flex-row  rounded-full`}
-            onClick={() => setOpenUserPanel((prevState) => !prevState)}
+            className={`flex flex-row rounded-full`}
+            onClick={handleUserBadgeClick}
+            ref={userBadge}
           >
             <div className="flex flex-row gap-2 rounded-full py-2 pl-2 pr-2 hover:cursor-pointer hover:bg-gray-200 md:pr-4">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
-                width="48"
-                height="48"
-                alt={user.username}
-                className="rounded-full"
-              />
+              <div className="relative aspect-square w-12">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
+                  fill
+                  alt={user.username}
+                  className="rounded-full"
+                />
+              </div>
               <div className="hidden pr-2 md:block">
                 <div className="font-bold">{user.displayName}</div>
                 <div>@{user.username}</div>
@@ -205,23 +210,21 @@ const SidebarLeft = () => {
                 <div className="flex -translate-y-4 flex-col justify-center divide-y overflow-hidden rounded-xl bg-white drop-shadow-lg">
                   {/* 1st row */}
                   <Link href={`/${user.username}`}>
-                    <a className="hover:cursor-pointer">
-                      <div className="flex flex-row gap-2 py-4 pl-4 pr-12 hover:bg-gray-200">
-                        <Image
-                          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
-                          width="48"
-                          height="48"
-                          alt={user.username}
-                          className="rounded-full"
-                        />
-                        <div>
-                          <div className="truncate font-bold">
-                            {user.displayName}
-                          </div>
-                          <div>@{user.username}</div>
+                    <div className="flex flex-row gap-2 py-4 pl-4 pr-12 hover:bg-gray-200">
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${user.photo}`}
+                        width="48"
+                        height="48"
+                        alt={user.username}
+                        className="rounded-full"
+                      />
+                      <div>
+                        <div className="truncate font-bold">
+                          {user.displayName}
                         </div>
+                        <div>@{user.username}</div>
                       </div>
-                    </a>
+                    </div>
                   </Link>
 
                   {/* 2nd row */}

@@ -8,6 +8,18 @@ import Link from "next/link";
 import Profile from "../components/profile";
 import Banner from "../components/banner";
 
+interface ViewOption {
+  title: string;
+  url: string;
+}
+
+const viewOptions: ViewOption[] = [
+  { title: "Posts", url: "" },
+  { title: "Posts & replies", url: "/with_replies" },
+  { title: "Media", url: "/media" },
+  { title: "Likes", url: "/likes" },
+];
+
 interface UserLayoutProps {
   children: React.ReactNode;
 }
@@ -30,7 +42,7 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
       setUserData(userRes.data.user);
       setLoading(false);
     } catch (err) {
-      console.log("Error loading data.");
+      console.log(err);
     }
   };
 
@@ -51,53 +63,39 @@ const UserLayout: NextPage<UserLayoutProps> = ({ children }) => {
     setPath(router.asPath);
   }, [router]);
 
-  interface ViewOption {
-    title: string;
-    url: string;
-  }
-
-  const viewOptions: ViewOption[] = [
-    { title: "Posts", url: "" },
-    { title: "Posts & replies", url: "/with_replies" },
-    { title: "Media", url: "/media" },
-    { title: "Likes", url: "/likes" },
-  ];
-
   return (
     <>
       {loading ? (
         <>
-          <Banner showBack={true} />
+          <Banner showBack />
           <Loading />
         </>
       ) : (
         <>
           {!userData ? (
-            <Banner showBack={true} />
+            <Banner showBack />
           ) : (
             <div>
-              <Banner showBack={true} headerText={userData.displayName} />
+              <Banner showBack headerText={userData.displayName} />
               <Profile
                 userData={userData}
                 user={user}
                 fetchUserData={fetchData}
               />
 
-              <div className="flex cursor-pointer border-b [&>*]:flex [&>*]:grow [&>*]:items-center [&>*]:justify-center [&>*]:font-medium [&>*]:text-gray-500 [&>*]:transition">
+              <div className="flex cursor-pointer border-b [&>*]:flex [&>*]:grow [&>*]:items-center [&>*]:justify-center [&>*]:text-gray-500 [&>*]:transition">
                 {viewOptions.map((item, index) => {
                   return (
                     <Link href={`/${username}${item.url}`} key={index}>
-                      <a>
-                        <div
-                          className={`flex h-full w-full items-center justify-center py-3 transition hover:bg-gray-100 ${
-                            path == `/${username}${item.url}`
-                              ? "border-b-4 border-sky-400 font-bold text-black"
-                              : ""
-                          }`}
-                        >
-                          {item.title}
-                        </div>
-                      </a>
+                      <div
+                        className={`flex h-full w-full items-center justify-center py-3 font-medium transition hover:bg-gray-100 ${
+                          path == `/${username}${item.url}`
+                            ? "border-b-4 border-sky-400 font-bold text-black"
+                            : ""
+                        }`}
+                      >
+                        {item.title}
+                      </div>
                     </Link>
                   );
                 })}

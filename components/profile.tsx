@@ -65,26 +65,14 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
   return (
     <div>
       {/* Header image */}
-      <div className="-z-50 h-48 w-full overflow-hidden">
-        {userData.header ? (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.header}`}
-            width="100"
-            height="100"
-            alt={userData.username}
-            priority
-          />
-        ) : null}
-
-        {/* Temp banner simulation */}
+      <div className="relative -z-50 h-48">
         <Image
-          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
-          width="100"
-          height="100"
+          src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${
+            userData.header ? userData.header : userData.photo
+          }`}
           alt={userData.username}
-          objectFit="cover"
-          layout="responsive"
-          className="-translate-y-1/2"
+          fill
+          className="object-cover"
           priority
         />
       </div>
@@ -92,15 +80,12 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
       <div className="mx-4">
         <div className="flex">
           {/* Profile photo */}
-          <div className="-mt-20">
+          <div className="relative -mt-20 aspect-square h-36">
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${userData.photo}`}
-              width="144"
-              height="144"
-              // layout="fixed"
-              objectFit="cover"
+              fill
               alt={userData.username}
-              className="z-40 m-auto rounded-full !border-4 !border-solid !border-white"
+              className="z-40 m-auto rounded-full border-4 border-solid border-white object-cover"
               priority
             />
           </div>
@@ -162,9 +147,9 @@ const Profile: React.FC<ProfileProps> = ({ userData, user, fetchUserData }) => {
               {!userData.url ? null : (
                 <div className="flex items-center justify-center gap-x-1 hover:cursor-pointer hover:underline">
                   <LinkIcon fontSize="small" />
-                  <span className="text-blue-link">
-                    <Link href={`http://${userData.url}`}>
-                      <a target="_blank">{userData.url}</a>
+                  <span className="text-brand-link">
+                    <Link href={`http://${userData.url}`} target="_blank">
+                      {userData.url}
                     </Link>
                   </span>
                 </div>

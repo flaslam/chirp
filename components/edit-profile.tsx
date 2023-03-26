@@ -24,7 +24,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
   const { user, setUser } = useContext(UserContext);
 
   const inputPhotoFile = useRef<HTMLInputElement | null>(null);
-  // const [photo, setPhoto] = useState<null | File>({})
+
   const [selectedPhotoFile, setSelectedPhotoFile] = useState<File>();
 
   const [formInputData, setFormInputData] = useState<{
@@ -82,10 +82,6 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
     try {
       let res = await updateProfile(data, user.username, user.token);
 
-      console.log(user);
-
-      console.log(res);
-
       const userData = res.data.user;
       if (userData) {
         // TODO: update our local user object, refactor functionality
@@ -121,13 +117,10 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
       return;
     }
 
-    // TODO: change the visible photo
     setSelectedPhotoFile(selectedFile);
 
     // Show photo before saving
     setMediaLocalPath(URL.createObjectURL(selectedFile));
-
-    // alert("Filed successfully selected. Save to upload file.");
   };
 
   const handleSelectHeader = () => {
@@ -229,20 +222,18 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
                       />
                     </div>
                   </div>
-                  <Image
-                    src={
-                      mediaLocalPath
-                        ? mediaLocalPath
-                        : `${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`
-                    }
-                    // src={`${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`}
-                    width="144"
-                    height="144"
-                    // layout="fixed"
-                    alt={props.userData.username}
-                    className="z-0 m-auto rounded-full !border-4 !border-solid !border-white"
-                    objectFit="cover"
-                  />
+                  <div className="relative aspect-square h-36">
+                    <Image
+                      src={
+                        mediaLocalPath
+                          ? mediaLocalPath
+                          : `${process.env.NEXT_PUBLIC_FILE_STORAGE_URL}/${props.userData.photo}`
+                      }
+                      fill
+                      alt={props.userData.username}
+                      className="z-0 m-auto rounded-full !border-4 !border-solid !border-white object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -282,7 +273,7 @@ const EditProfile: React.FC<EditProfileProps> = (props) => {
             defaultValue={props.userData.url}
           />
           {/* <div className="flex flex-col gap-2">
-          <span className="font-medium">Birth date:</span>
+          <span className="font-bold">Birth date:</span>
           <TextField
             id="birthDate"
             // label="Birth date"

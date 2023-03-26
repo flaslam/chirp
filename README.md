@@ -8,8 +8,9 @@ Go to the [backend repository](https://github.com/flaslam/chirp-backend)
 
 ## Technologies used on the frontend
 
-- TypeScript
-- Next.js (React)
+- TypeScript / JavaScript
+- React
+- Next.js
 - Tailwind CSS
 
 ## Technologies used on the backend
@@ -19,7 +20,7 @@ Go to the [backend repository](https://github.com/flaslam/chirp-backend)
 - Express.js
 - MongoDB
 - Passport.js
-- Amazon AWS S3
+- Amazon S3 (AWS)
 
 ## Running the application locally
 

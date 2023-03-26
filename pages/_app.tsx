@@ -5,6 +5,12 @@ import { UserContext } from "../components/user-context";
 import { ReactElement, ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,11 +27,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const checkTokenValidity = (expires: string, iat: number): boolean => {
       let timeLimit = 86400000; // 1d
-
-      if (Date.now() - iat < timeLimit) {
-        return true;
-      }
-
+      if (Date.now() - iat < timeLimit) return true;
       return false;
     };
 
@@ -38,7 +40,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const userObj = JSON.parse(userData);
 
     if (!checkTokenValidity(userObj.expires, userObj.iat)) {
-      // Use logout function which is stored in one place for this
+      // TODO: Use logout function which is stored in one place for this
       localStorage.removeItem("user");
       setUser(null);
       return;
@@ -57,9 +59,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <UserContext.Provider value={value}>
-      <IndexLayout>
-        {getLayout(<Component {...pageProps} key={router.asPath} />)}
-      </IndexLayout>
+      <main className={roboto.className}>
+        <IndexLayout>
+          {getLayout(<Component {...pageProps} key={router.asPath} />)}
+        </IndexLayout>
+      </main>
     </UserContext.Provider>
   );
 }

@@ -1,11 +1,7 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 
-interface BackProps {
-  profileName?: string;
-}
-
-const Back: React.FC<BackProps> = (props) => {
+const Back: React.FC = () => {
   const router = useRouter();
 
   const handleBack = () => {

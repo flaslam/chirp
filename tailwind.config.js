@@ -8,18 +8,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "blue-link": "#1d9bf0",
+        brand: {
+          DEFAULT: "#1d9bf0",
+          link: "#1d9bf0",
+          green: "#38c798",
+          red: "#f91880",
+        },
       },
       spacing: {
         timeline: "600px",
         "sb-left": "275px",
         "sb-right": "350px",
       },
-    },
-  },
-  variants: {
-    extend: {
-      //
     },
   },
 

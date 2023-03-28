@@ -1,7 +1,7 @@
 import { Chirp, User } from "./types";
 
 export const populateData = (postData: any): Chirp => {
-  console.log(postData);
+  // console.log(postData);
   const newPost: Chirp = postData as Chirp;
 
   newPost.parent = postData.parent as Chirp;

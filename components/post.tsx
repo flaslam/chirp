@@ -67,7 +67,7 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
     return dateToDisplay;
   };
 
-  const parentPost = post?.parent && (
+  const parentPost = post?.parent && post.parent.user && (
     <div className="text-slate-600">
       Replying to{" "}
       <Link href={`/${post.parent.user.username}`}>
@@ -212,7 +212,9 @@ const Post: React.FC<PostProps> = ({ post, postType }) => {
                 <div className="flex">
                   <div className="grow">
                     <Link href={`/${post.user.username}`}>
-                      <div className="font-bold">{post.user.displayName}</div>
+                      <div className="font-bold hover:underline">
+                        {post.user.displayName}
+                      </div>
                       <div className="text-gray-500">@{post.user.username}</div>
                     </Link>
                   </div>
